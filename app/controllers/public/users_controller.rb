@@ -2,10 +2,12 @@ class Public::UsersController < ApplicationController
 
   # マイページ
   def mypage
+    @user = current_user
   end
 
   # マイページ編集
   def edit
+    
   end
 
   # ユーザ詳細ページ
