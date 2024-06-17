@@ -23,6 +23,7 @@ class Public::UsersController < ApplicationController
   def withdraw
     @user = current_user
     @user.destroy
+    redirect_to root_path 
   end
 
 end
