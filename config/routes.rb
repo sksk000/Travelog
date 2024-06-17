@@ -8,11 +8,14 @@ Rails.application.routes.draw do
     get 'homes/about' => 'homes#about'
 
     # users
-    get 'users/mypage' => 'users#mypage', as: :mypage
+    get 'mypage' => 'users#mypage', as: :mypage
     get 'users/myprofile/edit' => 'users#edit', as: :edit
-    get 'users/infomation' => 'users#show', as: :infomation
-    patch 'users/infomation' => 'users#update', as: :update
-    delete 'users/withdraw' => 'users#withdraw', as: :withdraw
+
+    resource :users do
+      get :infomation, on: :collection
+      patch :infomation, on: :collection
+      delete :withdraw, on: :collection
+    end
 
 
 

@@ -11,7 +11,8 @@ class Public::UsersController < ApplicationController
   end
 
   # ユーザ詳細ページ
-  def show
+  def infomation
+    @user = current_user
   end
 
   # ユーザ情報編集
@@ -23,7 +24,7 @@ class Public::UsersController < ApplicationController
   def withdraw
     @user = current_user
     @user.destroy
-    redirect_to root_path 
+    redirect_to root_path
   end
 
 end
