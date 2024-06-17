@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
     # users
     get 'mypage' => 'users#mypage', as: :mypage
-    get 'users/myprofile/edit' => 'users#edit', as: :edit
+    post 'users/myprofile/edit' => 'users#edit', as: :edit
 
     resource :users do
       get :infomation, on: :collection

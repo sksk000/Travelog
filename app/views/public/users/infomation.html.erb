@@ -1,6 +1,14 @@
 <h1>ユーザ詳細画面</h1>
 
+<%= form_with url: edit_path do |f| %>
+    <h3>ユーザID</h3>
+    <%= current_user.name %>
 
+    <h3>パスワード</h3>
+    <%= f.password_field :password, autocomplete: "new-password" %>
+
+    <%= f.submit "編集" %>
+<% end %>
 
 
 <%= link_to '退会', withdraw_users_path, method: :delete %>
