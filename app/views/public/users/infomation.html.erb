@@ -7,6 +7,9 @@
     <h3>パスワード</h3>
     <%= f.password_field :password, autocomplete: "new-password" %>
 
+    <h3>表示か非表示</h3>
+    <%= f.select :is_showprofile, [['非公開',0],['公開',1]], { include_blank: true, selected: 0 } %>
+
     <%= f.submit "編集" %>
 <% end %>
 
