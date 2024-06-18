@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     # homes
     root to: 'homes#top'
     get 'homes/about', to: 'homes#about', as: :about
-    get 'homes/about' => 'homes#about'
 
     # users
     get 'mypage' => 'users#mypage', as: :mypage
