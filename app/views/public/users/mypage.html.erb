@@ -1,5 +1,7 @@
 <h1>マイページ</h1>
 
 <h3>投稿一覧</h3>
-<p>一覧<p>
+<% current_user.posts.each do | post | %>
+    <%= link_to post.title , post_path( post.id ) %>
+<% end %>
 <%= link_to 'ユーザ編集', infomation_users_path %>

@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       delete :withdraw, on: :collection
     end
 
+    resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy]
+
 
 
   end
