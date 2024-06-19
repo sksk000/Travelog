@@ -1,6 +1,6 @@
 <h2>投稿編集ページ</h2>
 
-<%= form_with url: posts_path ,model: @post do |f| %>
+<%= form_with model: @post do |f| %>
 
   <h4>タイトル</h4>
   <%= f.text_field :title %>
