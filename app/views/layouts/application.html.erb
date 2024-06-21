@@ -11,31 +11,49 @@
   </head>
 
   <body>
-    <header>
-      <% if user_signed_in? %>
-      <li>
-        <%= link_to "ログアウト",  destroy_user_session_path, method: :delete %>
-      </li>
-      <% else %>
-      <li>
-        <%= link_to "新規登録", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_user_session_path %>
-      </li>
-      <% end %>
-      <li>
-        <%= link_to "投稿一覧", mypage_path %>
-      </li>
-      <li>
-        <%= link_to "新規投稿", new_post_path %>
-      </li>
-      <li>
-        <%= link_to "About", about_path %>
-      </li>
-      <li>
-        <%= link_to "マイページ", mypage_path %>
-      </li>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+      <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to mypage_path, class: "nav-link text-light" do %>
+                mypage
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to mypage_path, class: "nav-link text-light" do %>
+                review
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to new_post_path, class: "nav-link text-light" do %>
+                newpost
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to destroy_user_session_path , method: :delete, class: "nav-link text-light" do %>
+                Log out
+            <% end %>
+          </li>
+        <% else%>
+          <li class="nav-item">
+            <%= link_to about_path, class: "nav-link text-light" do %>
+                About
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to new_user_registration_path, class: "nav-link text-light" do %>
+                Sign up
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to new_user_session_path, class: "nav-link text-light"  do %>
+              Log in
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
     </header>
     <p class="notice"><%= notice %></p>
   　<p class="alert"><%= alert %></p>
