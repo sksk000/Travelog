@@ -1,10 +1,16 @@
-<h1>投稿詳細表示</h1>
+<div class="container">
+  <div class="row">
+    <div class="col">
 
-<%= @post.title %>
+      <h1>投稿詳細表示</h1>
 
-<%= @post.body %>
+        <%= @post.title %>
+        <%= @post.body %>
 
-<% if @post.user == current_user %>
-  <%= link_to "投稿編集", edit_post_path %>
-  <%= link_to "削除", post_path(@post.id), method: :delete, data: {confirm: "削除しますか？"} %>
-<% end %>
+        <% if @post.user == current_user %>
+          <%= link_to "投稿編集", edit_post_path %>
+          <%= link_to "削除", post_path(@post.id), method: :delete, data: {confirm: "削除しますか？"} %>
+        <% end %>
+    </div>
+  </div>
+</div>
