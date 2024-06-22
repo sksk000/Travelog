@@ -1,21 +1,25 @@
-<h2>ユーザ詳細画面</h2>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>ユーザ詳細画面</h2>
 
-<%= form_with url: users_update_infomation_path, model:@user, method: :patch do |f| %>
-    <label for="username">Username</label>
-    <%= current_user.name %>
+      <%= form_with url: users_update_infomation_path, model:@user, method: :patch do |f| %>
+        <label for="username">Username</label>
+        <%= current_user.name %>
 
-    <div class="form-group">
-        <label for="email">Email</label>
-        <%= f.email_field :email %>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <%= f.email_field :email %>
+        </div>
+
+        <div class="form-group">
+          <label for="is_showfile">show or notshow</label>
+          <%= f.select :is_showprofile, [['show', 'true'], ['notshow', 'false']], { include_blank: "Select", selected: 'true' } %>
+        </div>
+
+        <%= f.submit "Update" , class: "btn btn-success"%>
+      <% end %>
+      <%= link_to '退会', withdraw_users_path, method: :delete, class: "btn btn-danger"%>
     </div>
-
-   <div class="form-group">
-        <label for="is_showfile">show or notshow</label>
-        <%= f.select :is_showprofile, [['show', 'true'], ['notshow', 'false']], { include_blank: "Select", selected: 'true' } %>
-   </div>
-
-    <%= f.submit "Update" , class: "btn btn-success"%>
-<% end %>
-
-
-<%= link_to '退会', withdraw_users_path, method: :delete, class: "btn btn-danger"%>
+  </div>
+</div>
