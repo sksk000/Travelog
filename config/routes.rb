@@ -14,13 +14,10 @@ Rails.application.routes.draw do
     resource :users, only:[] do
       get :infomation, on: :collection
       delete :withdraw, on: :collection
-
     end
 
+    # post
     resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy]
-
-
-
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
