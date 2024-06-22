@@ -9,11 +9,12 @@ Rails.application.routes.draw do
     # users
     get 'mypage' => 'users#mypage', as: :mypage
     post 'users/myprofile/edit' => 'users#edit', as: :edit
+    patch 'users/infomation' => 'users#update', as: :users_update_infomation
 
-    resource :users do
+    resource :users, only:[] do
       get :infomation, on: :collection
-      patch :infomation, on: :collection
       delete :withdraw, on: :collection
+
     end
 
     resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy]

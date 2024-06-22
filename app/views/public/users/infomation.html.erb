@@ -1,12 +1,12 @@
 <h2>ユーザ詳細画面</h2>
 
-<%= form_with url: infomation_users_path, model:@user, method: :patch do |f| %>
+<%= form_with url: users_update_infomation_path, model:@user, method: :patch do |f| %>
     <label for="username">Username</label>
     <%= current_user.name %>
 
     <div class="form-group">
-        <label for="password">Password</label>
-        <%= f.password_field :password, autocomplete: "new-password" %>
+        <label for="email">Email</label>
+        <%= f.email_field :email %>
     </div>
 
    <div class="form-group">
