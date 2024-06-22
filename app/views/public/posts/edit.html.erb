@@ -1,12 +1,22 @@
-<h2>投稿編集ページ</h2>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>投稿編集ページ</h2>
 
-<%= form_with model: @post do |f| %>
+      <%= form_with model: @post do |f| %>
 
-  <h4>タイトル</h4>
-  <%= f.text_field :title %>
+        <div class="form-group">
+          <%= f.label :title, "タイトル" %><br>
+          <%= f.text_field :title %>
+        </div>
 
-  <h4>内容</h4>
-  <%= f.text_area :body %>
+        <div class="form-group">
+          <%= f.label :body, "投稿内容" %><br>
+          <%= f.text_area :body %>
+        </div>
 
-  <%= f.submit "更新" %>
-<% end %>
+        <%= f.submit "更新" %>
+      <% end %>
+    </div>
+  </div>
+</div>
