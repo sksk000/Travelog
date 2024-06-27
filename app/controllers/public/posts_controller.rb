@@ -1,5 +1,5 @@
 class Public::PostsController < ApplicationController
-  before_action :is_current_user,only:[:edit, :update]
+  before_action :is_current_user,only:[:edit, :update, :new]
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
