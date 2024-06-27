@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-
+  before_action :is_matching_login_user
   # マイページ
   def mypage
     @user = current_user
@@ -39,4 +39,9 @@ class Public::UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :is_showprofile)
   end
 
+  def is_matching_login_user
+    if current_user == nil
+      redirect_to new_user_session_path
+    end
+  end
 end
