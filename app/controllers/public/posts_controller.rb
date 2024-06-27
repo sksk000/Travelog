@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+  before_action :is_current_user,only:[:edit, :update]
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
@@ -19,6 +20,9 @@ class Public::PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+
+    is_post_user(@post)
+
     if @post.update(post_params)
       redirect_to mypage_path
     else
@@ -30,6 +34,7 @@ class Public::PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    is_post_user(@post)
   end
 
   def destroy
@@ -45,5 +50,17 @@ class Public::PostsController < ApplicationController
   private
   def post_params
     params.require(:post).permit(:title, :body, :user_id)
+  end
+
+  def is_current_user
+    if current_user == nil
+      redirect_to new_user_session_path
+    end
+  end
+
+  def is_post_user(post_data)
+    if current_user != post_data.user
+      redirect_to mypage_path
+    end
   end
 end
