@@ -1,0 +1,11 @@
+<% if @user != nil %>
+  <% @user.posts.each do | postdata | %>
+    <%= link_to postdata.title , post_path( @user.id ) %>
+  <% end %>
+<% end %>
+
+<% if @post != nil %>
+  <% @post.each do | postdata | %>
+    <%= link_to postdata.title , post_path( postdata.id ) %>
+  <% end %>
+<% end %>

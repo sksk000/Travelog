@@ -18,6 +18,9 @@ Rails.application.routes.draw do
 
     # post
     resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy]
+
+    # search
+    get 'search/result' => 'searches#search'
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
