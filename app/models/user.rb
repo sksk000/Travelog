@@ -8,4 +8,13 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true
+
+  def self.looks(searchdata,condition)
+    # 部分一致
+    if condition == "PartialMatch"
+      @user = User.where("name LIKE?", "%#{searchdata}%")
+    elsif condition == "PerfectMatch"
+      @user = User.where(name: searchdata)
+    end
+  end
 end
