@@ -3,9 +3,9 @@ class Public::SearchesController < ApplicationController
     @category = params[:is_search_category]
 
     if @category == "User"
-      @user =  User.find_by(name: params[:seachdata])
+      @user =  User.looks(params[:seachdata], params[:is_search_condition])
     else
-      @post = Post.where(title: params[:seachdata])
+      @post = Post.looks(params[:seachdata], params[:is_search_condition])
     end
 
     render 'result'
