@@ -4,13 +4,21 @@
 
       <h1>投稿詳細表示</h1>
 
-        <%= @post.title %>
-        <%= @post.body %>
+      <%= @post.title %>
+      <%= @post.body %>
 
-        <% if @post.user == current_user %>
-          <%= link_to "投稿編集", edit_post_path %>
-          <%= link_to "削除", post_path(@post.id), method: :delete, data: {confirm: "削除しますか？"} %>
+      <% if @post.user == current_user %>
+        <%= link_to "投稿編集", edit_post_path %>
+        <%= link_to "削除", post_path(@post.id), method: :delete, data: {confirm: "削除しますか？"} %>
+      <% end %>
+
+      <% @post.comments.each do |comment| %>
+        <%= comment.user.name %>
+        <%= comment.comment %>
+        <% if current_user == comment.user %>
+          <%= link_to "削除", comment_path(comment.id), method: :delete, data: {confirm: "削除しますか？"} %>
         <% end %>
+      <% end %>
     </div>
   </div>
 </div>
