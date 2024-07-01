@@ -17,13 +17,15 @@ Rails.application.routes.draw do
     end
 
     # post
-    resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy]
+    resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy] do
+      # comment
+      resources :comments, only:[:create,:destroy]
+    end
 
     # search
     get 'search/result' => 'searches#search'
 
-    # comment
-    resources :comments, only:[:new,:create,:destroy]
+
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
