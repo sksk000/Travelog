@@ -16,7 +16,7 @@
         <%= comment.user.name %>
         <%= comment.comment %>
         <% if current_user == comment.user %>
-          <%= link_to "削除", post_comment_path(comment.id), method: :delete, data: {confirm: "削除しますか？"} %>
+          <%= link_to "削除", post_comment_path(@post.id,comment.id), method: :delete, data: {confirm: "削除しますか？"} %>
         <% end %>
       <% end %>
 
