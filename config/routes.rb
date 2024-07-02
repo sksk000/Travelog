@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+   devise_for :admins,controllers: {
+    sessions: 'admin/sessions'
+  }
   scope module: :public do
     devise_for :users
 
@@ -24,6 +27,8 @@ Rails.application.routes.draw do
 
     # search
     get 'search/result' => 'searches#search'
+
+
 
 
   end
