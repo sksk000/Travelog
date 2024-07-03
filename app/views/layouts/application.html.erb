@@ -14,43 +14,49 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
       <ul class="navbar-nav ml-auto">
-        <% if user_signed_in? %>
+        <% if admin_signed_in? %>
+          <li class="nav-item">
+              <%= link_to mypage_path, class: "nav-link text-light" do %>
+                UserAll
+              <% end %>
+          </li>
+        <% elsif user_signed_in? %>
           <li class="nav-item">
             <%= link_to mypage_path, class: "nav-link text-light" do %>
-                mypage
+              mypage
             <% end %>
           </li>
           <li class="nav-item">
             <%= link_to mypage_path, class: "nav-link text-light" do %>
-                review
+              review
             <% end %>
           </li>
           <li class="nav-item">
             <%= link_to new_post_path, class: "nav-link text-light" do %>
-                newpost
+              newpost
             <% end %>
           </li>
           <li class="nav-item">
             <%= link_to destroy_user_session_path , method: :delete, class: "nav-link text-light" do %>
-                Log out
+              Log out
             <% end %>
           </li>
-        <% else%>
-          <li class="nav-item">
-            <%= link_to about_path, class: "nav-link text-light" do %>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to about_path, class: "nav-link text-light" do %>
                 About
-            <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to new_user_registration_path, class: "nav-link text-light" do %>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_user_registration_path, class: "nav-link text-light" do %>
                 Sign up
-            <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to new_user_session_path, class: "nav-link text-light"  do %>
-              Log in
-            <% end %>
-          </li>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_user_session_path, class: "nav-link text-light"  do %>
+                Log in
+              <% end %>
+            </li>
         <% end %>
       </ul>
     </nav>
