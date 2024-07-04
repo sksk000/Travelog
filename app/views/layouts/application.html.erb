@@ -16,7 +16,7 @@
       <ul class="navbar-nav ml-auto">
         <% if admin_signed_in? %>
           <li class="nav-item">
-              <%= link_to mypage_path, class: "nav-link text-light" do %>
+              <%= link_to admin_users_path, class: "nav-link text-light" do %>
                 UserAll
               <% end %>
           </li>

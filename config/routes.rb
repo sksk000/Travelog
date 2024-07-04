@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-   devise_for :admins,controllers: {
+   devise_for :admin,controllers: {
     sessions: 'admin/sessions'
   }
+  namespace :admin do
+    resources :users, only:[:index,:show,:destroy]
+  end
   scope module: :public do
     devise_for :users
 
