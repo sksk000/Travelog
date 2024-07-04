@@ -20,6 +20,11 @@
                 UserAll
               <% end %>
           </li>
+          <li class="nav-item">
+              <%= link_to destroy_admin_session_path, method: :delete,class: "nav-link text-light" do %>
+                Logout
+              <% end %>
+          </li>
         <% elsif user_signed_in? %>
           <li class="nav-item">
             <%= link_to mypage_path, class: "nav-link text-light" do %>
