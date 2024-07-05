@@ -1,3 +1,9 @@
-<% @userall.each do | user |%>
-  <%= link_to user.name, admin_user_path(user.id) %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <% @userall.each do | user |%>
+        <%= link_to user.name, admin_user_path(user.id) %>
+      <% end %>
+    </div>
+  </div>
+</div>
