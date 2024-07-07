@@ -7,7 +7,7 @@
         <% end %>
       <% elsif @category == "Post" %>
         <% @post.each do | postdata | %>
-          <%= link_to postdata.title , mypage_path %>
+          <%= link_to postdata.title , post_path(postdata.id) %>
         <% end %>
       <% end %>
     </div>
