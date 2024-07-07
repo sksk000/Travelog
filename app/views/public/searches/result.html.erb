@@ -1,15 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <% if @user != nil %>
+      <% if @category == "User" %>
         <% @user.each do | userdata | %>
           <%= link_to userdata.name, mypage_path %>
         <% end %>
-      <% end %>
-
-      <% if @post != nil %>
+      <% elsif @category == "Post" %>
         <% @post.each do | postdata | %>
-          <%= link_to postdata.title , post_path( postdata.id ) %>
+          <%= link_to postdata.title , mypage_path %>
         <% end %>
       <% end %>
     </div>
