@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   def self.looks(searchdata,condition)
     # 部分一致
     if condition == "PartialMatch"
-      @post = Post.where("name LIKE?", searchdata)
+      @post = Post.where("title LIKE?","%#{searchdata}%")
     elsif condition == "PerfectMatch"
       @post = Post.where(title: searchdata)
     end

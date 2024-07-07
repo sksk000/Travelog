@@ -4,7 +4,7 @@ class Public::SearchesController < ApplicationController
 
     if @category == "User"
       @user =  User.looks(params[:seachdata], params[:is_search_condition])
-    else
+    elsif @category == "Post"
       @post = Post.looks(params[:seachdata], params[:is_search_condition])
     end
 
