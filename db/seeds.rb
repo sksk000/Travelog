@@ -40,3 +40,7 @@ Comment.find_or_create_by!(post_id: lucas_post.id) do |comment_data|
   comment_data.user_id = olivia.id
 end
 
+Admin.find_or_create_by!(email: "example@example.com") do |admin|
+  admin.password = "password"
+end
+
