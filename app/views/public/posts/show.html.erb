@@ -10,12 +10,12 @@
       <% if @post.user == current_user %>
         <div id="star"></div>
         <script>
-          let elem = document.querySelector('#star');
-          let option = {
+          var elem = document.querySelector('#star');
+          var option = {
             starOn: "<%= asset_path('star-on.png') %>",
             starOff: "<%= asset_path('star-off.png') %>",
             readOnly: true,
-            score: <%= 2 %>
+            score: <%= @post.good %>
           };
           raty(elem, option);
         </script>
