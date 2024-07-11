@@ -14,6 +14,18 @@
           <%= f.text_area :body %>
         </div>
 
+        <div id="star">
+        </div>
+        <script>
+          let elem = document.querySelector('#star');
+          let option = {
+            starOn: "<%= asset_path('star-on.png') %>",
+            starOff: "<%= asset_path('star-off.png') %>",
+            scoreName: "post[good]"
+          };
+          raty(elem, option);
+        </script>
+
         <%= f.submit "投稿" ,class: "btn btn-primary"%>
       <% end %>
     </div>
