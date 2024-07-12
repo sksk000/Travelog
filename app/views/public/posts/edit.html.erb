@@ -14,18 +14,7 @@
           <%= f.label :body, "投稿内容" %><br>
           <%= f.text_area :body %>
         </div>
-        <div id="star">
-        </div>
-        <script>
-          let elem = document.querySelector('#star');
-          let option = {
-            starOn: "<%= asset_path('star-on.png') %>",
-            starOff: "<%= asset_path('star-off.png') %>",
-            scoreName: "post[good]"
-          };
-          raty(elem, option);
-        </script>
-
+        <%= render 'public/posts/good.html.erb', is_good_edit: true %>
         <%= f.submit "更新" ,class: "btn btn-primary"%>
       <% end %>
     </div>

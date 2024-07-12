@@ -8,24 +8,16 @@
       <%= @post.body %>
 
       <% if @post.user == current_user %>
-        <div id="star"></div>
-        <script>
-          var elem = document.querySelector('#star');
-          var option = {
-            starOn: "<%= asset_path('star-on.png') %>",
-            starOff: "<%= asset_path('star-off.png') %>",
-            readOnly: true,
-            score: <%= @post.good %>
-          };
-          raty(elem, option);
-        </script>
         <%= link_to "投稿編集", edit_post_path %>
         <%= link_to "削除", post_path(@post.id), method: :delete, data: {confirm: "削除しますか？"} %>
       <% end %>
 
+      <%= render 'public/posts/good.html.erb', is_good_edit: false %>
+
       <% @post.comments.each do |comment| %>
         <%= comment.user.name %>
         <%= comment.comment %>
+        <%= render 'public/comments/good.html.erb', is_good_edit: false, commentdata: comment  %>
         <% if current_user == comment.user %>
           <%= link_to "削除", post_comment_path(@post.id,comment.id), method: :delete, data: {confirm: "削除しますか？"} %>
         <% end %>
@@ -35,8 +27,10 @@
         <div class="form-group">
           <%= f.text_field :comment %>
         </div>
+        <%= render 'public/comments/good.html.erb', is_good_edit: true, commentdata: nil  %>
         <%= f.submit "投稿" ,class: "btn btn-primary"%>
       <% end %>
+
 
     </div>
   </div>
