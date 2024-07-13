@@ -17,7 +17,7 @@
       <% @post.comments.each do |comment| %>
         <%= comment.user.name %>
         <%= comment.comment %>
-        <%= render 'public/comments/good.html.erb', is_good_edit: false, commentdata: comment  %>
+        <%= render 'public/comments/good.html.erb', status: "show", commentdata: comment  %>
         <% if current_user == comment.user %>
           <%= link_to "削除", post_comment_path(@post.id,comment.id), method: :delete, data: {confirm: "削除しますか？"} %>
         <% end %>
@@ -27,7 +27,7 @@
         <div class="form-group">
           <%= f.text_field :comment %>
         </div>
-        <%= render 'public/comments/good.html.erb', is_good_edit: true, commentdata: nil  %>
+        <%= render 'public/comments/good.html.erb', status: "new", commentdata: nil , id: f.object.id %>
         <%= f.submit "投稿" ,class: "btn btn-primary"%>
       <% end %>
 
