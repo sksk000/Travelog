@@ -1,37 +1,32 @@
 <% if status == "new" %>
-  <div id="star_comment_<%= id %>"></div>
+  <% random_id = "star_comment_" + SecureRandom.hex(5)  %>
+  <div id="star_comment_<%= random_id %>"></div>
     <script>
-      var elem = document.querySelector('#star_comment_<%= id %>');
+      var elem = document.querySelector('#star_comment_<%= random_id %>');
       elem.innerHTML = ""
       var option = {
         starOn: "<%= asset_path('star-on.png') %>",
         starOff: "<%= asset_path('star-off.png') %>",
-        scoreName: "comment[good]"
+        scoreName: "comment[good]",
+        score: <%= 0 %>
       };
       raty(elem, option);
     </script>
-
-<% elsif status == "edit" %>
-  <script>
-    var elem = document.querySelector('#star_comment_edit');
-    //elem.innerHTML = ""
-    var option = {
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      scoreName: "comment[good]"
-    };
-    raty(elem, option);
-    </script>
 <% elsif status == "show" %>
+<div id="star_comment_show_<%= commentdata.id %>"></div>
   <script>
-    var elem = document.querySelector('#star_comment_show');
-    //elem.innerHTML = ""
+    var elem = document.querySelector("#star_comment_show_<%= commentdata.id %>");
+    elem.innerHTML = ""
     var option = {
       starOn: "<%= asset_path('star-on.png') %>",
       starOff: "<%= asset_path('star-off.png') %>",
       readOnly: true,
-      score: <%= commentdata.good %>
+      <% if commentdata.good.present? %>
+          score: <%= commentdata.good %>
+        <% else %>
+          score: 0
+      <% end %>
     };
   raty(elem, option);
-</script>
+  </script>
 <% end %>
