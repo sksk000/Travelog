@@ -1,8 +1,7 @@
 <% if status == "new" %>
-  <% random_id = "star_comment_" + SecureRandom.hex(5)  %>
-  <div id="star_comment_<%= random_id %>"></div>
+  <div id="star_comment_new"></div>
     <script>
-      var elem = document.querySelector('#star_comment_<%= random_id %>');
+      var elem = document.querySelector('#star_comment_new');
       elem.innerHTML = ""
       var option = {
         starOn: "<%= asset_path('star-on.png') %>",
