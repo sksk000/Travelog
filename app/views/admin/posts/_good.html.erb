@@ -1,0 +1,16 @@
+<div id="star_comment_<%= category %>_<%= data.id %>"></div>
+<script>
+  var elem = document.querySelector("#star_<%= category %>_show_<%= data.id %>");
+  elem.innerHTML = ""
+  var option = {
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    readOnly: true,
+    <% if data.good.present? %>
+        score: <%= data.good %>
+      <% else %>
+        score: 0
+    <% end %>
+  };
+  raty(elem, option);
+</script>

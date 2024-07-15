@@ -1,0 +1,15 @@
+<h4>タイトル</h4>
+<%= @post.title %><br />
+<h4>内容</h4>
+<%= @post.body %><br />
+<% render "admin/posts/good.html.erb", category: "post" , data: @post %>
+<br />
+<div class="comment">
+<% @post.comments.each do |comment|%>
+  <%= comment.comment %><br />
+  <% render "admin/posts/good.html.erb", category: "comment" , data: comment %>
+  <%= comment.user.name %>
+  <%= link_to "Comment削除", admin_comment_path(comment.id), method: :delete, data: {confirm: "削除しますか？"} %><br />
+<% end %>
+</div>
+<%= link_to "Post削除", admin_post_path(@post.id), method: :delete, data: {confirm: "削除しますか？"} %><br />
