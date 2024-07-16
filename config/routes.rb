@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :public do
+    get 'maps/show'
+  end
    devise_for :admin,controllers: {
     sessions: 'admin/sessions'
   }
