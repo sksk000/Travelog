@@ -45,11 +45,20 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+
+    respond_to do |format|
+      format.html do
+        @Mapdata = Post.page(params[:page])
+      end
+      format.json do
+        @Mapdata = Post.all
+      end
+    end
   end
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :user_id, :good)
+    params.require(:post).permit(:title, :body, :user_id, :good, :caption, :address)
   end
 
   def is_current_user

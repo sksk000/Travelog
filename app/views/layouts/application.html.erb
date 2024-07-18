@@ -42,7 +42,7 @@
             <% end %>
           </li>
           <li class="nav-item">
-            <%= link_to new_post_path, class: "nav-link text-light" do %>
+            <%= link_to new_post_path, class: "nav-link text-light" , data: {turbolinks: "false"} do %>
               newpost
             <% end %>
           </li>
@@ -73,6 +73,7 @@
     </header>
     <p class="notice"><%= notice %></p>
   　<p class="alert"><%= alert %></p>
+  　  <script src="https://cdn.jsdelivr.net/npm/jquery-jpostal-ja@2.14.45/jquery.jpostal.min.js"></script>
     <%= yield %>
   </body>
 </html>
