@@ -3,7 +3,6 @@
   key: process.env.Maps_API_Key
 });
 
-
 async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   const {AdvancedMarkerElement} = await google.maps.importLibrary("marker") // 追記
@@ -15,7 +14,7 @@ async function initMap() {
 
   // 追記
   try {
-    const response = await fetch("/post_images.json");
+    const response = await fetch("/post.json");
     if (!response.ok) throw new Error('Network response was not ok');
 
     const { data: { items } } = await response.json();
@@ -24,7 +23,7 @@ async function initMap() {
     items.forEach( item => {
       const latitude = item.latitude;
       const longitude = item.longitude;
-      const shopName = item.shop_name;
+      const shopName = "aaa";
 
       const marker = new google.maps.marker.AdvancedMarkerElement ({
         position: { lat: latitude, lng: longitude },
@@ -34,7 +33,7 @@ async function initMap() {
       });
     });
   } catch (error) {
-    console.error('Error fetching or processing post images:', error);
+    console.error('Error fetching or processing post:', error);
   }}
 
-initMap()
+initMap();

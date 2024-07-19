@@ -45,15 +45,6 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-
-    respond_to do |format|
-      format.html do
-        @Mapdata = Post.page(params[:page])
-      end
-      format.json do
-        @Mapdata = Post.all
-      end
-    end
   end
 
   private

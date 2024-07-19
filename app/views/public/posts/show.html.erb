@@ -9,11 +9,9 @@
 
       <% if @post.user == current_user %>
         <%= link_to "投稿編集", edit_post_path %>
-        <div id="map"></div>
+        <div id="map" data-address="<%= @post.address %>"></div>
         <%= link_to "削除", post_path(@post.id), method: :delete, data: {confirm: "削除しますか？"} %>
       <% end %>
-
-      <%= javascript_pack_tag 'map', 'data-turbolinks-track': 'reload' %>
 
       <%= render 'public/posts/good.html.erb', is_good_edit: false %>
 
@@ -34,7 +32,7 @@
         <%= f.submit "投稿" ,class: "btn btn-primary"%>
       <% end %>
 
-
+      <%= javascript_pack_tag 'map', 'data-turbolinks-track': 'reload' %>
     </div>
   </div>
 </div>

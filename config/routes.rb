@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     end
 
     # post
-    resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy], defaults: { format: 'json' } do
+    resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy] do
       # comment
       resources :comments, only:[:create,:destroy]
     end
