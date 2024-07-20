@@ -6,34 +6,32 @@
 async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   const {AdvancedMarkerElement} = await google.maps.importLibrary("marker") // 追記
+
+
+  // 追記
+  let element = document.getElementById('map');
+  console.log(element.dataset.id);
+  const response = await fetch(`/posts/${element.dataset.id}.json`);
+  if (!response.ok) throw new Error('Network response was not ok');
+
+  const { data: { items } } = await response.json();
+
+  const latitude = items.latitude;
+  const longitude = items.longitude;
+  const title  = items.title;
+
   map = new Map(document.getElementById("map"), {
-    center: { lat: 35.681236, lng: 139.767125 },
+    center: { lat: latitude, lng: longitude },
     zoom: 15,
     mapId: "DEMO_MAP_ID", // 追記    mapTypeControl: false
   });
 
-  // 追記
-  try {
-    const response = await fetch("/post.json");
-    if (!response.ok) throw new Error('Network response was not ok');
-
-    const { data: { items } } = await response.json();
-    if (!Array.isArray(items)) throw new Error("Items is not an array");
-
-    items.forEach( item => {
-      const latitude = item.latitude;
-      const longitude = item.longitude;
-      const shopName = "aaa";
-
-      const marker = new google.maps.marker.AdvancedMarkerElement ({
-        position: { lat: latitude, lng: longitude },
-        map,
-        title: shopName,
-        // 他の任意のオプションもここに追加可能
-      });
-    });
-  } catch (error) {
-    console.error('Error fetching or processing post:', error);
-  }}
+  const marker = new google.maps.marker.AdvancedMarkerElement ({
+    position: { lat: latitude, lng: longitude },
+    map,
+    title,
+    // 他の任意のオプションもここに追加可能
+  });
+}
 
 initMap();

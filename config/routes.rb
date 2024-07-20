@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :posts, only:[:index,:show,:destroy]
     resources :comments, only:[:destroy]
   end
+
   scope module: :public do
     devise_for :users
 
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
     end
 
     # post
+    # resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy] ,defaults: { format: 'json' } do
     resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy] do
       # comment
       resources :comments, only:[:create,:destroy]
@@ -36,8 +38,7 @@ Rails.application.routes.draw do
     # search
     get 'search/result' => 'searches#search'
 
-
-
+    resources :maps, only: [:show]
 
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
