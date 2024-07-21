@@ -44,12 +44,19 @@ class Public::PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    respond_to do |format|
+      format.html do
+        @post = Post.find(params[:id])
+      end
+      format.json do
+        @post = Post.find(params[:id])
+      end
+    end
   end
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :user_id, :good)
+    params.require(:post).permit(:title, :body, :user_id, :good, :caption, :address)
   end
 
   def is_current_user
