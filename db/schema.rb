@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_17_133555) do
+ActiveRecord::Schema.define(version: 2024_07_21_061842) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -48,6 +48,10 @@ ActiveRecord::Schema.define(version: 2024_07_17_133555) do
     t.string "address"
     t.float "latitude"
     t.float "longitude"
+    t.integer "season"
+    t.integer "place"
+    t.integer "night"
+    t.integer "people"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
