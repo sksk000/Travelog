@@ -6,10 +6,10 @@
           <%= f.text_field :seachdata %>
           <%= f.select :is_search_category, options_for_select([['User'], ['Post']]) %>
           <%= f.select :is_search_condition, options_for_select([['PartialMatch'], ['PerfectMatch']]) %>
-          <%= f.select :is_search_season, options_for_select([['全季節'], ['春'], ['夏'], ['秋'], ['冬']]) %>
-          <%= f.select :is_search_place, options_for_select([['国内旅行'], ['海外旅行']]) %>
-          <%= f.select :is_search_night, options_for_select([['1泊'], ['2泊'], ['3泊'], ['4泊'], ['5泊~']]) %>
-          <%= f.select :is_search_people, options_for_select([['1人'], ['2人'], ['3人'], ['4人'], ['5人~']]) %>
+          <%= f.select :is_search_season, [['全季節', 'all_seasons']] + Post.seasons.keys.map { |key| [key.humanize, key] } %>
+          <%= f.select :is_search_place, [['全旅行先', 'all_places']] + Post.places.keys.map { |key| [key.humanize, key] } %>
+          <%= f.select :is_search_night, Post.nights.keys.map { |key| [key.humanize, key] } %>
+          <%= f.select :is_search_people, Post.people.keys.map { |key| [key.humanize, key] } %>
           <%= f.submit "検索" ,class: "btn btn-primary"%>
         </div>
       <% end %>
