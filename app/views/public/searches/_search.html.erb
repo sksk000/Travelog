@@ -6,6 +6,10 @@
           <%= f.text_field :seachdata %>
           <%= f.select :is_search_category, options_for_select([['User'], ['Post']]) %>
           <%= f.select :is_search_condition, options_for_select([['PartialMatch'], ['PerfectMatch']]) %>
+          <%= f.select :is_search_season, [['全季節', 'all_seasons']] + Post.seasons.keys.map { |key| [key.humanize, key] } %>
+          <%= f.select :is_search_place, [['全旅行先', 'all_places']] + Post.places.keys.map { |key| [key.humanize, key] } %>
+          <%= f.select :is_search_night, Post.nights.keys.map { |key| [key.humanize, key] } %>
+          <%= f.select :is_search_people, Post.people.keys.map { |key| [key.humanize, key] } %>
           <%= f.submit "検索" ,class: "btn btn-primary"%>
         </div>
       <% end %>
