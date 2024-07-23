@@ -23,8 +23,27 @@ class Post < ApplicationRecord
       @post = Post.where(title: searchdata)
     end
 
-    if season != "all_seasons"
-      
+    # 季節フィルター
+    unless season == 'all_seasons'
+      @post = @post.where(season: season)
     end
+
+    # 場所フィルター
+    unless place == "all_places"
+      @post = @post.where(place: place)
+    end
+
+    # 宿泊日数フィルター
+    if night.present?
+      @post = @post.where(night: night)
+    end
+
+    # 人数フィルター
+    if people.present?
+      @post = @post.where(people: people)
+    end
+
+    return @post
+
   end
 end
