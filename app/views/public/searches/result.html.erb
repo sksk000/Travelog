@@ -3,7 +3,9 @@
     <div class="col">
       <% if @category == "User" %>
         <% @user.each do | userdata | %>
-          <%= link_to userdata.name, mypage_path %>
+          <% unless userdata.name == "guestuser" && userdata.email == "guest@example.com"%>
+            <%= link_to userdata.name, mypage_path %>
+          <% end %>
         <% end %>
       <% elsif @category == "Post" %>
         <% @post.each do | postdata | %>

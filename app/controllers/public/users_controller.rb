@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :is_matching_login_user
+  before_action :ensure_guest_user, only: [:edit]
   # マイページ
   def mypage
     @user = current_user
