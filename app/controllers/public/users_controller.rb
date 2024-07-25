@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit]
   # マイページ
   def mypage
-    @user = current_user
+    @user = User.find(params[:id])
   end
 
   # マイページ編集

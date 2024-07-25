@@ -32,13 +32,8 @@
           </li>
         <% elsif user_signed_in? %>
           <li class="nav-item">
-            <%= link_to mypage_path, class: "nav-link text-light" do %>
+            <%= link_to mypage_path(current_user.id), class: "nav-link text-light" do %>
               mypage
-            <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to mypage_path, class: "nav-link text-light" do %>
-              review
             <% end %>
           </li>
           <li class="nav-item">

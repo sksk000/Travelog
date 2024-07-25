@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     get 'homes/about', to: 'homes#about', as: :about
 
     # users
-    get 'mypage' => 'users#mypage', as: :mypage
+    get 'mypage/:id' => 'users#mypage', as: :mypage
     post 'users/myprofile/edit' => 'users#edit', as: :edit
     patch 'users/infomation' => 'users#update', as: :users_update_infomation
 

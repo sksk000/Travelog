@@ -14,6 +14,12 @@
           <%= f.text_area :body %>
           <%= f.text_field :address, class: "form-control", placeholder: "住所" %>
         </div>
+
+        <div class="form-group">
+          <%= f.check_box :is_release %>
+          <p>公開する</p>
+        </div>
+
         <%= render 'public/posts/good.html.erb', is_good_edit: true %>
         <%= f.submit "投稿" ,class: "btn btn-primary"%>
       <% end %>
