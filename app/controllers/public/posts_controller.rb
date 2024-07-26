@@ -68,7 +68,7 @@ class Public::PostsController < ApplicationController
 
   def is_post_user(post_data)
     if current_user != post_data.user
-      redirect_to mypage_path
+      redirect_to mypage_path(current_user.id)
     end
   end
 
