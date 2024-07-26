@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit]
   # マイページ
   def mypage
-    @user = current_user
+    @user = User.find(params[:id])
   end
 
   # マイページ編集
@@ -20,7 +20,7 @@ class Public::UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
-      redirect_to mypage_path
+      redirect_to mypage_path(@user.id)
     else
       flash.now[:alert] = @user.errors.full_messages.join(', ')
       render :infomation

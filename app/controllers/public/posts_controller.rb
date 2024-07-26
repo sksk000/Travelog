@@ -1,5 +1,6 @@
 class Public::PostsController < ApplicationController
   before_action :is_current_user,only:[:edit, :update, :new]
+  before_action :is_visility, only:[:show]
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
@@ -67,7 +68,14 @@ class Public::PostsController < ApplicationController
 
   def is_post_user(post_data)
     if current_user != post_data.user
-      redirect_to mypage_path
+      redirect_to mypage_path(current_user.id)
+    end
+  end
+
+  def is_visility
+    post = Post.find(params[:id])
+    if post.is_release == false and current_user != post.user_id
+      redirect_to mypage_path(post.user_id)
     end
   end
 end

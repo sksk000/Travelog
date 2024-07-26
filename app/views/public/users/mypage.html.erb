@@ -5,8 +5,10 @@
         <%= render 'public/searches/search.html.erb' %>
         <%= link_to 'ユーザ編集', infomation_users_path, class: "btn btn-primary" %>
         <h3>投稿一覧</h3>
-          <% current_user.posts.each do | post | %>
-            <%= link_to post.title , post_path( post.id ) %> 
+          <% @user.posts.each do | post | %>
+            <% if post.is_release == true or (post.is_release == false and post.user_id == current_user.id )%>
+              <%= link_to post.title , post_path( post.id ) %>
+            <% end %>
           <% end %>
     </div>
   </div>
