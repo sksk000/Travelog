@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_25_115416) do
+ActiveRecord::Schema.define(version: 2024_07_27_061705) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 2024_07_25_115416) do
     t.integer "good"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.integer "post_id"
+    t.string "place_name"
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_places_on_post_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -72,5 +83,6 @@ ActiveRecord::Schema.define(version: 2024_07_25_115416) do
 
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "places", "posts"
   add_foreign_key "posts", "users"
 end
