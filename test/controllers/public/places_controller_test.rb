@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Public::PlaceControllerTest < ActionDispatch::IntegrationTest
+class Public::PlacesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
