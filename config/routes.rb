@@ -35,7 +35,7 @@ Rails.application.routes.draw do
       resources :comments, only:[:create,:destroy]
     end
 
-    resource :places, only:[:new]
+    resource :places, only:[:new, :create]
 
     # search
     get 'search/result' => 'searches#search'

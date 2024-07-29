@@ -4,20 +4,12 @@ class Public::PlacesController < ApplicationController
 
 
   def create
-    @place = Place.new(place_params)
-
-    if @place.save
-      @post = Post.new
-      @post.places << @place
-
-      redirect_to new_post_path
-    end
-
-
+    session[:address_params] = address_params
+    redirect_to new_post_path
   end
 
   private
   def place_params
-    params.require(:place).permit(:address, :name)
+    params.require(:place).permit(:address, :place_name)
   end
 end

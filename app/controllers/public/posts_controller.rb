@@ -4,12 +4,19 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
+
     if @post.save
-      redirect_to post_path(@post.id)
+      @place = Place.new(session[:address_params])
     else
       flash.now[:alert] = @post.errors.full_messages.join(', ')
       render :new
     end
+
+    @place.post_id = @post.id
+    if @place.save
+       redirect_to post_path(@post.id)
+    end
+
   end
 
   def index
