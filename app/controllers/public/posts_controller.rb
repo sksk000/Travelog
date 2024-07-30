@@ -6,7 +6,7 @@ class Public::PostsController < ApplicationController
     @post.user_id = current_user.id
 
     if @post.save
-      @place = Place.new(session[:address_params])
+      @place = Place.new(session[:place_data])
     else
       flash.now[:alert] = @post.errors.full_messages.join(', ')
       render :new

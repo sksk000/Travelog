@@ -4,7 +4,7 @@ class Public::PlacesController < ApplicationController
 
 
   def create
-    session[:address_params] = address_params
+    session[:place_data] = place_params()
     redirect_to new_post_path
   end
 
