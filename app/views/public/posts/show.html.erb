@@ -11,7 +11,7 @@
         <%= link_to "投稿編集", edit_post_path %>
         <%= link_to "削除", post_path(@post.id), method: :delete, data: {confirm: "削除しますか？"} %>
       <% end %>
-      <div id="map" data-address="<%= @post.address %>" data-id="<%= @post.id %>"></div>
+      <div id="map" data-address="<%= @place[0].address %>" data-id="<%= @post.id %>"></div>
 
       <%= render 'public/posts/good.html.erb', is_good_edit: false %>
 

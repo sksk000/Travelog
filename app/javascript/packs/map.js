@@ -16,9 +16,12 @@ async function initMap() {
 
   const { data: { items } } = await response.json();
 
-  const latitude = items.latitude;
-  const longitude = items.longitude;
+  const latitude = items.places[0].latitude;
+  const longitude = items.places[0].longitude;
   const title  = items.title;
+
+  console.log('Latitude:', latitude);
+  console.log('Longitude:', longitude);
 
   map = new Map(document.getElementById("map"), {
     center: { lat: latitude, lng: longitude },
@@ -26,12 +29,15 @@ async function initMap() {
     mapId: "DEMO_MAP_ID", // 追記    mapTypeControl: false
   });
 
+
+
   const marker = new google.maps.marker.AdvancedMarkerElement ({
     position: { lat: latitude, lng: longitude },
     map,
     title,
     // 他の任意のオプションもここに追加可能
   });
+
 }
 
 initMap();

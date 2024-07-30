@@ -3,9 +3,14 @@ json.data do
     json.user do
       json.name @post.user.name
     end
-    json.address @post.address
-    json.latitude @post.latitude
-    json.longitude @post.longitude
+
+    json.places do
+      json.array! @post.places do |place|
+        json.address place.address
+        json.latitude place.latitude
+        json.longitude place.longitude
+      end
+    end
     json.title @post.title
     json.body @post.body
     json.is_release @post.is_release
