@@ -6,15 +6,10 @@ class Public::PostsController < ApplicationController
     @post.user_id = current_user.id
 
     if @post.save
-      @place = Place.new(session[:place_data])
+      redirect_to new_places
     else
       flash.now[:alert] = @post.errors.full_messages.join(', ')
       render :new
-    end
-
-    @place.post_id = @post.id
-    if @place.save
-       redirect_to post_path(@post.id)
     end
 
   end
