@@ -1,11 +1,19 @@
 class Public::PlacesController < ApplicationController
   def new
+     @place = Place.new
+    @post_path = params[:post_id]
   end
 
 
   def create
-    session[:place_data] = place_params()
-    redirect_to new_post_path
+    @place = Place.new(place_params)
+    @place.post_id = params[:post_id]
+
+     if @place.save
+      redirect_to post_path(@place.post_id)
+    else
+      render :new
+    end
   end
 
   private

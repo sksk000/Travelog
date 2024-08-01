@@ -6,7 +6,7 @@ class Public::PostsController < ApplicationController
     @post.user_id = current_user.id
 
     if @post.save
-      redirect_to new_places
+      redirect_to new_post_place_path(@post.id)
     else
       flash.now[:alert] = @post.errors.full_messages.join(', ')
       render :new
@@ -27,7 +27,7 @@ class Public::PostsController < ApplicationController
     is_post_user(@post)
 
     if @post.update(post_params)
-      redirect_to mypage_path
+      redirect_to mypage_path(@post.user_id)
     else
       flash.now[:alert] = @post.errors.full_messages.join(', ')
       render :edit
@@ -43,7 +43,7 @@ class Public::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to mypage_path
+    redirect_to mypage_path(@post.user_id)
   end
 
   def show
@@ -54,13 +54,14 @@ class Public::PostsController < ApplicationController
       end
       format.json do
         @post = Post.find(params[:id])
+        @place = @post.places
       end
     end
   end
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :user_id, :good, :caption, :address)
+    params.require(:post).permit(:title, :body, :user_id, :good)
   end
 
   def is_current_user
