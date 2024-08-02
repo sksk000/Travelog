@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_27_061705) do
+ActiveRecord::Schema.define(version: 2024_08_02_144031) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -49,20 +49,18 @@ ActiveRecord::Schema.define(version: 2024_07_27_061705) do
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.string "body"
-    t.boolean "is_release", default: true
+    t.boolean "is_release", default: false
     t.boolean "is_stoprelease"
     t.integer "user_id"
     t.integer "spot"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "good"
-    t.string "address"
-    t.float "latitude"
-    t.float "longitude"
     t.integer "season"
     t.integer "place"
     t.integer "night"
     t.integer "people"
+    t.string "comment"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
