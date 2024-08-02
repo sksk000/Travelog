@@ -59,6 +59,13 @@ class Public::PostsController < ApplicationController
     end
   end
 
+  def publish
+    @post = Post.find(params[:id])
+    @post.update(is_release: true)
+
+    redirect_to post_path(@post.id)
+  end
+
   private
   def post_params
     params.require(:post).permit(:title, :body, :user_id, :good)
@@ -71,14 +78,14 @@ class Public::PostsController < ApplicationController
   end
 
   def is_post_user(post_data)
-    if current_user != post_data.user
+    if current_user.id != post_data.user.id
       redirect_to mypage_path(current_user.id)
     end
   end
 
   def is_visility
     post = Post.find(params[:id])
-    if post.is_release == false and current_user != post.user_id
+    if post.is_release == false and current_user.id != post.user_id
       redirect_to mypage_path(post.user_id)
     end
   end

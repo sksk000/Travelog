@@ -7,9 +7,6 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
 
-  geocoded_by :address
-  after_validation :geocode
-
   enum season: { 春: 0, 夏: 1, 秋: 2, 冬: 3 }
   enum place: { 海外旅行: 0, 国内旅行: 1 }
   enum night: { 一泊: 0, 二泊: 1, 三泊: 2, 四泊: 3, 五泊: 4 }

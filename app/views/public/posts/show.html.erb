@@ -10,6 +10,9 @@
       <% if @post.user == current_user %>
         <%= link_to "投稿編集", edit_post_path %>
         <%= link_to "削除", post_path(@post.id), method: :delete, data: {confirm: "削除しますか？"} %>
+        <% if @post.is_release == false %>
+          <%= link_to '公開', publish_post_path(@post), method: :patch, class: 'btn btn-primary' %>
+        <% end %>
       <% end %>
       <div id="map" data-address="<%= @place[0].address %>" data-id="<%= @post.id %>"></div>
 
@@ -32,9 +35,12 @@
         <%= f.submit "投稿" ,class: "btn btn-primary"%>
       <% end %>
 
-      <%= link_to '場所指定', new_post_place_path(@post.id) %>
+      <% if current_user.id == @post.user_id %>
+        <%= link_to '場所指定', new_post_place_path(@post.id) %>
+      <% end %>
 
       <%= javascript_pack_tag 'map', 'data-turbolinks-track': 'reload' %>
+
     </div>
   </div>
 </div>

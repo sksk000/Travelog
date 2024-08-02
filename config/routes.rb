@@ -34,8 +34,11 @@ Rails.application.routes.draw do
       # comment
       resources :comments, only:[:create,:destroy]
       resources :places, only:[:new, :create]
-    end
 
+      member do
+        patch :publish
+      end
+    end
 
 
     # search
