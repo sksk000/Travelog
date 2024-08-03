@@ -40,7 +40,32 @@ async function initMap() {
       map,
       title: comment,
     });
-  })
+
+    console.log(place.place_name);
+    console.log(comment);
+    // 追記
+      const contentString = `
+        <div class="information container p-0">
+          <div>
+            <h1 class="h4 font-weight-bold">${place.place_name}</h1>
+            <p class="text-muted">${place.address}</p>
+            <p class="lead">${comment}</p>
+          </div>
+        </div>
+      `;
+
+      const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+        ariaLabel: "aaaa",
+      });
+
+      marker.addListener("click", () => {
+          infowindow.open({
+          anchor: marker,
+          map,
+        })
+      });
+  });
 
 }
 

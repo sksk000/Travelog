@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_02_144031) do
+ActiveRecord::Schema.define(version: 2024_08_03_091132) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2024_08_02_144031) do
     t.float "longitude"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "comment"
     t.index ["post_id"], name: "index_places_on_post_id"
   end
 
@@ -60,7 +61,6 @@ ActiveRecord::Schema.define(version: 2024_08_02_144031) do
     t.integer "place"
     t.integer "night"
     t.integer "people"
-    t.string "comment"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
