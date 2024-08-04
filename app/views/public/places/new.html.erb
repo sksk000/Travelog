@@ -1,4 +1,4 @@
-<%= form_with model: @place, url: post_places_path(@post_path), method: :post do |f| %>
+<%= form_with model: @place, url: post_places_path(@post_id), method: :post do |f| %>
   <div class="form-group">
     <%= f.label :place_name, "訪れた場所" %><br>
     <%= f.text_field :place_name %>
@@ -9,7 +9,7 @@
   </div>
 
   <div class="form-group">
-    何箇所目か？
+    <%= f.select :place_num, @place_num + ["新規追加"] %>
   </div>
 
  <div class="form-group">

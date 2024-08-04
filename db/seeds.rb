@@ -15,7 +15,6 @@ olivia_post = Post.find_or_create_by!(user: olivia) do |post_data|
   post_data.user = olivia
   post_data.title = "沖縄に来てみた"
   post_data.body = "素敵な海を見れた！"
-  post_data.address = "沖縄県国頭郡本部町石川４２４"
   post_data.good = 2
   post_data.season = 1
   post_data.place = 1
@@ -23,6 +22,7 @@ olivia_post = Post.find_or_create_by!(user: olivia) do |post_data|
   post_data.people = 3
 
 end
+
 
 lucas = User.find_or_create_by!(email: "lucas@example.com") do |user|
   user.name = "Lucas"
@@ -33,7 +33,6 @@ lucas_post = Post.find_or_create_by!(user: lucas) do |post_data|
   post_data.user = lucas
   post_data.title = "北海道に来てみた"
   post_data.body = "海鮮が美味しかった"
-  post_data.address = "北海道札幌市北区北６条西４丁目２−１８"
   post_data.good = 4
   post_data.season = 3
   post_data.place = 1
