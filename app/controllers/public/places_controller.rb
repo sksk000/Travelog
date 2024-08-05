@@ -11,6 +11,8 @@ class Public::PlacesController < ApplicationController
     @place.post_id = params[:post_id]
     @place.place_num = Place.maximum(:place_num).to_i + 1
 
+    save_place_num()
+
      if @place.save
       redirect_to post_path(@place.post_id)
     else
@@ -23,16 +25,17 @@ class Public::PlacesController < ApplicationController
     params.require(:place).permit(:address, :place_name)
   end
 
-  def set_place_num(place_num)
-    if place_num == "新規追加"
+  def save_place_num
+    target_num = params[:place][:place_num]
+    if target_num == "新規追加"
       @place.place_num = Place.maximum(:place_num).to_i + 1
     else
-      #既存のPlace_numを更新する必要がある
-      old_place_num = Place.where(post_id: @post_id).where(place_num)
-      old_place_num.place_num = old_place_num.place_num + 1
+      data = Place.where(post_id: params[:post_id]).where('place_num >= ?', target_num)
+      byebug
 
-      old_place_num.update()
-
+      Place.transaction do
+        #Place.where(post_id: params[:post_id]).where('place_num >= ?', target_num).update_all('place_num = place_num + 1')
+      end
     end
 
   end
