@@ -50,11 +50,11 @@ class Public::PostsController < ApplicationController
     respond_to do |format|
       format.html do
         @post = Post.find(params[:id])
-        @place = @post.places
+        @place = @post.places.order(:place_num)
       end
       format.json do
         @post = Post.find(params[:id])
-        @place = @post.places
+        @place = @post.places.order(:place_num)
       end
     end
   end
