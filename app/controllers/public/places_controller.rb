@@ -9,8 +9,6 @@ class Public::PlacesController < ApplicationController
   def create
     @place = Place.new(place_params)
     @place.post_id = params[:post_id]
-    @place.place_num = Place.maximum(:place_num).to_i + 1
-
     save_place_num()
 
      if @place.save
@@ -30,12 +28,15 @@ class Public::PlacesController < ApplicationController
     if target_num == "新規追加"
       @place.place_num = Place.maximum(:place_num).to_i + 1
     else
-      data = Place.where(post_id: params[:post_id]).where('place_num >= ?', target_num)
-      byebug
+      @place.place_num = params[:place][:place_num]
 
+      datas= Place.where(post_id: params[:post_id]).where('place_num >= ?', target_num)
       Place.transaction do
-        #Place.where(post_id: params[:post_id]).where('place_num >= ?', target_num).update_all('place_num = place_num + 1')
+      datas.find_each do | data |
+        data.update!(place_num: data.place_num + 1)
       end
+    end
+
     end
 
   end
