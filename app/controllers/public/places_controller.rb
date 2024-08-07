@@ -11,11 +11,16 @@ class Public::PlacesController < ApplicationController
     @place.post_id = params[:post_id]
     save_place_num()
 
-     if @place.save
+    if @place.save
       redirect_to post_path(@place.post_id)
     else
       render :new
     end
+  end
+
+  def edit
+    @place = Place.where(post_id: params[:post_id]).order(:place_num)
+    @post_id = params[:post_id]
   end
 
   private
