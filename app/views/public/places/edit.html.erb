@@ -3,16 +3,23 @@
     <div class="col">
       <h3>観光場所編集</h3>
       <%= form_with url: post_place_path(@post_id), method: :patch do |f| %>
-          <%= f.fields_for :places, @places do |place_fields| %>
-            <%= place_fields.label :place_name, "観光場所名" %>
-            <%= place_fields.text_field :place_name %>
-
-            <%= place_fields.label :address, "住所" %>
-            <%= place_fields.text_field :address %>
-
-            <%= place_fields.label :comment, "コメント" %>
-            <%= place_fields.text_area :comment %>
+        <% @place.each do |place| %>
+          <%= fields_for "place[]", place do |f| %>
+            <div class="placename">
+              <%= f.label "観光地名" %>
+              <%= f.text_field :place_name %>
+            </div>
+            <div class="address">
+              <%= f.label "住所" %>
+              <%= f.text_field :address , size: 80%>
+            </div>
+            <div class="comment">
+              <%= f.label "コメント" %>
+              <%= f.text_field :comment %>
+            </div>
           <% end %>
+        <% end %>
+        <%= f.submit "更新" ,class: "btn btn-primary"%>
       <% end %>
     </div>
   </div>

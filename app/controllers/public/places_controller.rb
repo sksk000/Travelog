@@ -23,9 +23,20 @@ class Public::PlacesController < ApplicationController
     @post_id = params[:post_id]
   end
 
+  def update
+    data = places_params
+    byebug
+  end
+
   private
   def place_params
-    params.require(:place).permit(:address, :place_name)
+    params.require(:place).permit(:address, :place_name, :comment)
+  end
+
+  def places_params
+    params.require(:place).map do | param |
+      ActionController::Parameters.new(param.to_hash).permit(:place_num, :address, :comment )
+    end
   end
 
   def save_place_num
@@ -37,13 +48,11 @@ class Public::PlacesController < ApplicationController
 
       datas= Place.where(post_id: params[:post_id]).where('place_num >= ?', target_num)
       Place.transaction do
-      datas.find_each do | data |
-        data.update!(place_num: data.place_num + 1)
+        datas.find_each do | data |
+          data.update!(place_num: data.place_num + 1)
+        end
       end
-    end
 
     end
-
   end
-
 end
