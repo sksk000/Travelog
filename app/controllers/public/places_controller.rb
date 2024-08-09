@@ -24,8 +24,13 @@ class Public::PlacesController < ApplicationController
   end
 
   def update
-    data = places_params
+    datas = params[:place]
     byebug
+    datas.each do | id, attrs |
+      data = Place.find(id)
+      data.update(attrs)
+    end
+    redirect_to post_path(params[:post_id])
   end
 
   private
@@ -34,9 +39,7 @@ class Public::PlacesController < ApplicationController
   end
 
   def places_params
-    params.require(:place).map do | param |
-      ActionController::Parameters.new(param.to_hash).permit(:place_num, :address, :comment )
-    end
+    params.require(:place).permit(attributes:{place_name: })
   end
 
   def save_place_num

@@ -27,7 +27,7 @@ class Public::PostsController < ApplicationController
     is_post_user(@post)
 
     if @post.update(post_params)
-      redirect_to edit_post_place_path(@post.id)
+      redirect_to edit_post_places_path(@post.id)
     else
       flash.now[:alert] = @post.errors.full_messages.join(', ')
       render :edit

@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy] do
       # comment
       resources :comments, only:[:create,:destroy]
-      resources :places, only:[:new, :create, :update, :edit ]
+      resource :places, only:[:new, :create, :update, :edit ]
 
       member do
         patch :publish

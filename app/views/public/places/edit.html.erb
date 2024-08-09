@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col">
       <h3>観光場所編集</h3>
-      <%= form_with url: post_place_path(@post_id), method: :patch do |f| %>
+      <%= form_with url: post_places_path(@post_id), method: :patch do |f| %>
         <% @place.each do |place| %>
           <%= fields_for "place[]", place do |f| %>
             <div class="placename">

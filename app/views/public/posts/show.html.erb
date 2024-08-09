@@ -55,7 +55,7 @@
 
     <%= javascript_pack_tag 'map', 'data-turbolinks-track': 'reload' %>
     <% if current_user.id == @post.user_id %>
-      <%= link_to '場所指定', new_post_place_path(@post.id) %>
+      <%= link_to '場所指定', new_post_places_path(@post.id) %>
     <% end %>
   </div>
 </div>
