@@ -25,7 +25,6 @@ class Public::PlacesController < ApplicationController
 
   def update
     datas = params[:place]
-    byebug
     datas.each do | id, attrs |
       data = Place.find(id)
       data.update(attrs)
@@ -38,8 +37,8 @@ class Public::PlacesController < ApplicationController
     params.require(:place).permit(:address, :place_name, :comment)
   end
 
-  def places_params
-    params.require(:place).permit(attributes:{place_name: })
+  def update_params(attrs)
+    attrs.permit(:place_name, :address, :comment)
   end
 
   def save_place_num
