@@ -27,7 +27,7 @@ class Public::PlacesController < ApplicationController
     datas = params[:place]
     datas.each do | id, attrs |
       data = Place.find(id)
-      data.update(attrs)
+      data.update(update_params(attrs))
     end
     redirect_to post_path(params[:post_id])
   end

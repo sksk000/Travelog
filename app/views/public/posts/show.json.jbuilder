@@ -9,6 +9,8 @@ json.data do
         json.address place.address
         json.latitude place.latitude
         json.longitude place.longitude
+        json.place_name place.place_name
+        json.comment place.comment
       end
     end
     json.title @post.title

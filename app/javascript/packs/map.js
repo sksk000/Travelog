@@ -41,7 +41,7 @@ async function initMap() {
       title: comment,
     });
 
-    console.log(place.place_name);
+    console.log(place);
     console.log(comment);
     // 追記
       const contentString = `
