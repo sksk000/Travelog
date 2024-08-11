@@ -33,7 +33,13 @@ Rails.application.routes.draw do
     resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy] do
       # comment
       resources :comments, only:[:create,:destroy]
+      resource :places, only:[:new, :create, :update, :edit ]
+
+      member do
+        patch :publish
+      end
     end
+
 
     # search
     get 'search/result' => 'searches#search'

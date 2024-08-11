@@ -4,12 +4,14 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
+
     if @post.save
-      redirect_to post_path(@post.id)
+      redirect_to new_post_places_path(@post.id)
     else
       flash.now[:alert] = @post.errors.full_messages.join(', ')
       render :new
     end
+
   end
 
   def index
@@ -25,7 +27,7 @@ class Public::PostsController < ApplicationController
     is_post_user(@post)
 
     if @post.update(post_params)
-      redirect_to mypage_path
+      redirect_to edit_post_places_path(@post.id)
     else
       flash.now[:alert] = @post.errors.full_messages.join(', ')
       render :edit
@@ -41,23 +43,32 @@ class Public::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to mypage_path
+    redirect_to mypage_path(@post.user_id)
   end
 
   def show
     respond_to do |format|
       format.html do
         @post = Post.find(params[:id])
+        @place = @post.places.order(:place_num)
       end
       format.json do
         @post = Post.find(params[:id])
+        @place = @post.places.order(:place_num)
       end
     end
   end
 
+  def publish
+    @post = Post.find(params[:id])
+    @post.update(is_release: true)
+
+    redirect_to post_path(@post.id)
+  end
+
   private
   def post_params
-    params.require(:post).permit(:title, :body, :user_id, :good, :caption, :address)
+    params.require(:post).permit(:title, :body, :user_id, :good)
   end
 
   def is_current_user
@@ -67,14 +78,14 @@ class Public::PostsController < ApplicationController
   end
 
   def is_post_user(post_data)
-    if current_user != post_data.user
+    if current_user.id != post_data.user.id
       redirect_to mypage_path(current_user.id)
     end
   end
 
   def is_visility
     post = Post.find(params[:id])
-    if post.is_release == false and current_user != post.user_id
+    if post.is_release == false and current_user.id != post.user_id
       redirect_to mypage_path(post.user_id)
     end
   end

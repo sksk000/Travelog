@@ -16,22 +16,57 @@ async function initMap() {
 
   const { data: { items } } = await response.json();
 
-  const latitude = items.latitude;
-  const longitude = items.longitude;
-  const title  = items.title;
+  const first_latitude = items.places[0].latitude;
+  const first_longitude = items.places[0].longitude;
+
+  console.log('Latitude:', first_latitude);
+  console.log('Longitude:', first_longitude);
 
   map = new Map(document.getElementById("map"), {
-    center: { lat: latitude, lng: longitude },
+    center: { lat: first_latitude, lng: first_longitude },
     zoom: 15,
     mapId: "DEMO_MAP_ID", // 追記    mapTypeControl: false
   });
 
-  const marker = new google.maps.marker.AdvancedMarkerElement ({
-    position: { lat: latitude, lng: longitude },
-    map,
-    title,
-    // 他の任意のオプションもここに追加可能
+  console.log(items.places);
+
+  items.places.forEach( place =>{
+    const latitude = place.latitude;
+    const longitude = place.longitude;
+    const comment  = place.comment;
+
+    const marker = new google.maps.marker.AdvancedMarkerElement ({
+      position: { lat: latitude, lng: longitude },
+      map,
+      title: comment,
+    });
+
+    console.log(place);
+    console.log(comment);
+    // 追記
+      const contentString = `
+        <div class="information container p-0">
+          <div>
+            <h1 class="h4 font-weight-bold">${place.place_name}</h1>
+            <p class="text-muted">${place.address}</p>
+            <p class="lead">${comment}</p>
+          </div>
+        </div>
+      `;
+
+      const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+        ariaLabel: "aaaa",
+      });
+
+      marker.addListener("click", () => {
+          infowindow.open({
+          anchor: marker,
+          map,
+        })
+      });
   });
+
 }
 
 initMap();

@@ -2,12 +2,10 @@ class Post < ApplicationRecord
 
   belongs_to :user
   has_many :comments, dependent: :destroy
+  has_many :places, dependent: :destroy
 
   validates :title, presence: true
   validates :body, presence: true
-
-  geocoded_by :address
-  after_validation :geocode
 
   enum season: { 春: 0, 夏: 1, 秋: 2, 冬: 3 }
   enum place: { 海外旅行: 0, 国内旅行: 1 }
