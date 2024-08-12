@@ -5,6 +5,7 @@
       <%= form_with url: post_places_path(@post_id), method: :patch do |f| %>
         <% @place.each do |place| %>
           <%= fields_for "place[]", place do |f| %>
+              <%= place.place_num %>
             <div class="placename">
               <%= f.label "観光地名" %>
               <%= f.text_field :place_name %>

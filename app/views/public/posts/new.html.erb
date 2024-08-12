@@ -12,9 +12,9 @@
         <div class="form-group">
           <%= f.label :body, "投稿内容" %><br>
           <%= f.text_area :body %>
+          <%= render 'public/posts/good.html.erb', is_good_edit: true %>
         </div>
 
-        <%= render 'public/posts/good.html.erb', is_good_edit: true %>
         <%= f.submit "下書きとして観光場所指定へ進む" ,class: "btn btn-primary"%>
       <% end %>
     </div>
