@@ -62,10 +62,11 @@
                 Log in
               <% end %>
             </li>
-        <% end %>
-
-        <%= link_to users_guest_sign_in_path, method: :post, class: "nav-link text-light"  do %>
-          Gest login
+            <li class="nav-item">
+              <%= link_to users_guest_sign_in_path, method: :post, class: "nav-link text-light"  do %>
+                Gest login
+              <% end %>
+            </li>
         <% end %>
 
       </ul>
