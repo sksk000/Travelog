@@ -19,5 +19,7 @@ json.data do
     json.is_stoprelease @post.is_stoprelease
     json.spot @post.spot
     json.good @post.good
+    json.latitude @target_place_latitude
+    json.longitude @target_place_longitude
   end
 end

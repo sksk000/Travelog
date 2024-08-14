@@ -10,20 +10,24 @@ async function initMap() {
 
   // 追記
   let element = document.getElementById('map');
-  console.log(element.dataset.id);
-  const response = await fetch(`/posts/${element.dataset.id}.json`);
+  console.log('dataset', element.dataset.id);
+  let place_id = location.search;
+  console.log('url', place_id)
+  
+  const response = await fetch(`/posts/${element.dataset.id}.json${place_id}`);
   if (!response.ok) throw new Error('Network response was not ok');
 
   const { data: { items } } = await response.json();
 
-  const first_latitude = items.places[0].latitude;
-  const first_longitude = items.places[0].longitude;
+  const target_latitude = items.latitude;
+  const target_longitude = items.longitude;
 
-  console.log('Latitude:', first_latitude);
-  console.log('Longitude:', first_longitude);
+  console.log('Latitude:', target_latitude);
+  console.log('Longitude:', target_longitude);
+
 
   map = new Map(document.getElementById("map"), {
-    center: { lat: first_latitude, lng: first_longitude },
+    center: { lat: target_latitude, lng: target_longitude },
     zoom: 15,
     mapId: "DEMO_MAP_ID", // 追記    mapTypeControl: false
   });

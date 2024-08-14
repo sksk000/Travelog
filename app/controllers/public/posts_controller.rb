@@ -47,6 +47,16 @@ class Public::PostsController < ApplicationController
   end
 
   def show
+
+   target_place_id = params[:place_id]
+
+   @post = Post.find(params[:id])
+   if target_place_id
+    @target_place = @post.places.find(target_place_id)
+   else
+    @target_place = @post.places.first
+   end
+
     respond_to do |format|
       format.html do
         @post = Post.find(params[:id])
@@ -55,6 +65,8 @@ class Public::PostsController < ApplicationController
       format.json do
         @post = Post.find(params[:id])
         @place = @post.places.order(:place_num)
+        @target_place_latitude = @target_place.latitude
+        @target_place_longitude = @target_place.longitude
       end
     end
   end
