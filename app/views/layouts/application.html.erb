@@ -46,6 +46,12 @@
               Log out
             <% end %>
           </li>
+          <li class="nav-item">
+            <%= link_to posts_path, class: "nav-link text-light" do %>
+              all post
+            <% end %>
+          </li>
+
           <% else %>
             <li class="nav-item">
               <%= link_to about_path, class: "nav-link text-light" do %>

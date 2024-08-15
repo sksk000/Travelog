@@ -15,6 +15,7 @@ class Public::PostsController < ApplicationController
   end
 
   def index
+    @postall = Post.all
   end
 
   def new

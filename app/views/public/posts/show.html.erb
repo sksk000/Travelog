@@ -16,7 +16,7 @@
       <% end %>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="col">
       <% @place.each do |place| %>
@@ -32,11 +32,11 @@
       <div id="map" data-address="<%= @place[0].address %>" data-id="<%= @post.id %>"></div>
     </div>
   </div>
-  
-  <div class="row">
-    <%= render 'public/posts/good.html.erb', is_good_edit: false %>
 
-    
+  <div class="row">
+    <%= render 'public/posts/good.html.erb', is_good_edit: false, post: @post %>
+
+
     コメント一覧
     <% @post.comments.each do |comment| %>
       <%= comment.user.name %>
