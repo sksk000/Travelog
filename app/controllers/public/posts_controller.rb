@@ -81,7 +81,7 @@ class Public::PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :user_id, :good)
+    params.require(:post).permit(:title, :body, :user_id, :good, images: [])
   end
 
   def is_current_user

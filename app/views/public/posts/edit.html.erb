@@ -17,6 +17,12 @@
           <%= f.check_box :is_release %>
           <p>公開する</p>
         </div>
+
+        <div class="form-group">
+        サムネイル
+        <%= f.file_field :images, multiple: true %>
+        </div>
+
         <%= render 'public/posts/good.html.erb', is_good_edit: true %>
         <%= f.submit "観光場所変更へ移動" ,class: "btn btn-primary"%>
       <% end %>

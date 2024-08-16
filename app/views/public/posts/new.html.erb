@@ -15,6 +15,9 @@
           <%= render 'public/posts/good.html.erb', is_good_edit: true %>
         </div>
 
+        サムネイル
+        <%= f.file_field :image, accept: "image/*" %>
+
         <%= f.submit "下書きとして観光場所指定へ進む" ,class: "btn btn-primary"%>
       <% end %>
     </div>

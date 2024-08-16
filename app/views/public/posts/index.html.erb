@@ -1,14 +1,19 @@
 <div class="container">
   <div class=row>
-    <% @postall.each do | post |%>
-      <div class="col">
-        <div class="card m-3" style="width: 18rem;">
-          <div class="card-body">
+    <%= render 'public/searches/search.html.erb' %>
+    <% @postall.each do | post | %>
+      <div class="col mb-3">
+        <%= link_to post_path(post.id), class: "card", :style=>"width: 250px; height: 300px;" do %>
+          <% if post.images[0] != nil  %>
+            <%= image_tag post.images[0], size: "200x180", class:"card-img-top" %>
+          <% else %>
+            <%= image_tag 'no_image', size: "200x180", class:"card-img-top" %>
+          <% end %>
+          <div class="card-body text-dark">
             <h5 class="card-title"><%= post.title %></h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             <%= render 'public/posts/good.html.erb', is_good_edit: false, post: post %>
           </div>
-        </div>
+        <% end %>
       </div>
     <% end %>
   </div>
