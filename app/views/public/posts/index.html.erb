@@ -1,57 +1,6 @@
 <div class="container">
   <div class=row>
     <%= render 'public/searches/search.html.erb' %>
-    <% @postall.each do | post | %>
-      <div class="col mb-3">
-        <div class="card" style="width: 250px; height: 320px;">
-          <% if post.images[0] != nil  %>
-            <%= image_tag post.images[0], size: "200x180", class:"card-img-top" %>
-          <% else %>
-            <%= image_tag 'no_image', size: "200x180", class:"card-img-top" %>
-          <% end %>
-          <div class="card-body text-dark">
-            <h5 class="card-title"><%= link_to post.title, post_path(post.id) %></h5>
-            <%= render 'public/posts/good.html.erb', is_good_edit: false, post: post %>
-              <% if post.season != nil %>
-              <%= link_to '季節:' + post.season, search_result_path(
-                is_search_category: "Post",
-                is_search_condition: "PartialMatch",
-                is_search_season: post.season,
-                is_search_place: "all_places",
-                is_search_night: "all_nights",
-                is_search_people: "all_people"),class: "btn btn-primary btn-sm"%>
-              <% end %>
-            <% if post.place != nil%>
-            <%= link_to '旅行先:' + post.place, search_result_path(
-                is_search_category: "Post",
-                is_search_condition: "PartialMatch",
-                is_search_season: "all_seasons",
-                is_search_place: post.place,
-                is_search_night: "all_nights",
-                is_search_people: "all_people"),class: "btn btn-primary btn-sm"%>
-            <% end %>
-            <% if post.night != nil%>
-              <%= link_to '宿泊数:' + post.night, search_result_path(
-                is_search_category: "Post",
-                is_search_condition: "PartialMatch",
-                is_search_season: "all_seasons",
-                is_search_place: "all_places",
-                is_search_night: post.night,
-                is_search_people: "all_people"),class: "btn btn-primary btn-sm"%>
-            <% end %>
-            <% if post.people != nil%>
-              <%= link_to '人数:' + post.people, search_result_path(
-                is_search_category: "Post",
-                is_search_condition: "PartialMatch",
-                is_search_season: "all_seasons",
-                is_search_place: "all_places",
-                is_search_night: "all_nights",
-                is_search_people: post.people),class: "btn btn-primary btn-sm"%>
-            <% end %>
-            <%= link_to post.user.name, mypage_path(post.user_id) %>
-          </div>
-        </div>
-      </div>
-    <% end %>
+    <%= render 'public/posts/index.html.erb', targetpost: @postall %>
   </div>
 </div>
