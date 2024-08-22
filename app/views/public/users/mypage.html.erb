@@ -1,24 +1,27 @@
 <div class="container">
-  <h1>マイページ</h1>
   <div class="row">
+    <div class="user_image mx-auto">
       <% if @user.image.attached == nil  %>
         <%= image_tag 'no_image', size: "200x180"%>
       <% else %>
-        <%= image_tag @user.image, size: "200x180" %>
+        <%= image_tag @user.image,size: "200x180"%>
       <% end %>
-
-    <div class="user_name mx-auto">
-      <%= @user.name %>
-    </div>
-
-    <div class="introduction mx-auto">
-      <%= @user.introduction %>
     </div>
     <div class="col">
-      <%= link_to 'ユーザ編集', infomation_users_path, class: "btn btn-primary" %>
+      <div class="user_name">
+        <%= @user.name %>
+      </div>
+      <div class="user_introduction">
+        aaaaaaaaaaaaaaaaaaaaaa
+      </div>
+    </div>
+    <div class="col">
+     <%= link_to infomation_users_path, class: "btn btn-outline-dark" do %>
+       <i class="fa-solid fa-gear"></i>
+     <% end %>
     </div>
   </div>
-  <div class="row">
+  <div class="row mt-5">
     <%= render 'public/posts/index.html.erb', targetpost: @user.posts %>
   </div>
 </div>
