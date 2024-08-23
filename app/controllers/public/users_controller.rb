@@ -8,7 +8,7 @@ class Public::UsersController < ApplicationController
 
   # マイページ編集
   def edit
-
+    @user = User.find(params[:id])
   end
 
   # ユーザ詳細ページ
@@ -37,12 +37,19 @@ class Public::UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :email, :is_showprofile)
+    params.require(:user).permit(:name, :email, :is_showprofile,:introduction, :profile_image)
   end
 
   def is_matching_login_user
     if current_user == nil
       redirect_to new_user_session_path
+    end
+  end
+
+   def ensure_guest_user
+    @user = User.find(params[:id])
+    if @user.email == "guest@example.com"
+      redirect_to user_path(current_user) , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
     end
   end
 end

@@ -1,25 +1,33 @@
 <div class="container">
   <div class="row">
     <div class="user_image mx-auto">
-      <% if @user.image.attached == nil  %>
+      <% if @user.profile_image.attached? == nil  %>
         <%= image_tag 'no_image', size: "200x180"%>
       <% else %>
-        <%= image_tag @user.image,size: "200x180"%>
+        <%= image_tag @user.profile_image,size: "200x180"%>
       <% end %>
     </div>
     <div class="col">
       <div class="user_name">
         <%= @user.name %>
       </div>
-      <div class="user_introduction">
-        aaaaaaaaaaaaaaaaaaaaaa
+      <div class="user_introduction mt-3">
+        <%= @user.introduction %>
       </div>
     </div>
-    <div class="col">
-     <%= link_to infomation_users_path, class: "btn btn-outline-dark" do %>
-       <i class="fa-solid fa-gear"></i>
-     <% end %>
-    </div>
+    <% if current_user.id == @user.id %>
+      <div class="col">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa-solid fa-gear"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <%= link_to "ユーザ情報編集", infomation_users_path, class:"dropdown-item" %>
+            <%= link_to "プロフィール編集", edit_path(@user.id), class:"dropdown-item"%>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
   <div class="row mt-5">
     <%= render 'public/posts/index.html.erb', targetpost: @user.posts %>
