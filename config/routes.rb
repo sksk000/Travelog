@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     # users
     get 'mypage/:id' => 'users#mypage', as: :mypage
     get 'mypage/:id/edit' => 'users#edit', as: :edit
+    get 'mypage/:id/place' => 'users#mypage_place', as: :mypage_place
     patch 'users/infomation' => 'users#update', as: :users_update_infomation
 
     resource :users, only:[] do

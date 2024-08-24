@@ -35,6 +35,10 @@ class Public::UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def mypage_place
+    @user = User.find(params[:id])
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :email, :is_showprofile,:introduction, :profile_image)

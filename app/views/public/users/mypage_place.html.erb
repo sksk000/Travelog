@@ -1,0 +1,11 @@
+<div class="container">
+  <%= render 'public/users/mypage.html.erb', user: @user %>
+
+  <div class="row mt-5">
+    <% @user.posts.each do | posts |%>
+      <% posts.places.each do | place |%>
+        <%= place.address %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
