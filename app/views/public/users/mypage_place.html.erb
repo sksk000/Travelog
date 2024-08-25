@@ -1,11 +1,27 @@
 <div class="container">
   <%= render 'public/users/mypage.html.erb', user: @user %>
-
-  <div class="row mt-5">
     <% @user.posts.each do | posts |%>
       <% posts.places.each do | place |%>
-        <%= place.address %>
+        <div class="row border rounded mt-5">
+          <div class="user_image">
+            <% if place.image.attached == nil  %>
+              <%= image_tag 'no_image', size: "200x180"%>
+            <% else %>
+              <%= image_tag place.image,size: "200x180"%>
+            <% end %>
+          </div>
+          <div class="col">
+            <div class="place_name">
+              <%= place.place_name %>
+            </div>
+            <div class="address mt-2">
+              <%= place.address %>
+            </div>
+            <div class="comment">
+              <%= place.comment %>
+            </div>
+          </div>
+        </div>
       <% end %>
     <% end %>
-  </div>
 </div>
