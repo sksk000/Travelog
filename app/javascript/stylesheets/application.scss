@@ -1,4 +1,5 @@
 @use '~bootstrap/scss/bootstrap';
+@import 'swiper/swiper-bundle';
 
 #map {
   width: 100%;
@@ -7,4 +8,14 @@
 
 #dropdown_content{
   display: none;
+}
+
+.swiper {
+  width: 600px;
+  height: 300px;
+}
+
+:root {
+  --swiper-navigation-color: #ffffff;
+  --swiper-pagination-color: #ffffff;
 }
