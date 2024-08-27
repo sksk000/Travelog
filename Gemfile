@@ -69,5 +69,3 @@ gem "net-imap"
 gem 'geocoder'
 
 gem 'activerecord-import'
-
-gem 'jquery-rails'

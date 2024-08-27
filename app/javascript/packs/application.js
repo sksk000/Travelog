@@ -12,9 +12,6 @@ import "jquery";
 import "popper.js";
 import "bootstrap";
 import "../stylesheets/application";
-import Swiper from "swiper";
-import 'swiper/swiper-bundle.css';
-import "script.js"
 
 Rails.start()
 Turbolinks.start()
@@ -26,3 +23,17 @@ window.raty = function(elem,opt) {
  raty.init();
  return raty;
 }
+
+document.addEventListener('turbolinks:load', function() {
+  const swiper = new Swiper('.swiper-container', {
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+});

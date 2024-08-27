@@ -2,24 +2,22 @@
   <div class="row">
     <div class="col">
 
-      <h1>投稿詳細表示</h1>
-
       <%= @post.title %>
       <%= @post.body %>
 
-      <div class="swiper">
+      <div class="swiper-container">
         <div class="swiper-wrapper">
           <% @post.images.each do | image |%>
           <div class="swiper-slide">
-             <%= image_tag image %>
+             <%= image_tag image, size: "500x500" %>
           </div>
           <% end %>
         </div>
-        <!-- ページネーションの要素 -->
-        <div class="swiper-pagination"></div>
         <!-- ナビゲーションボタン （前、次） -->
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
+
+        <div class="swiper-pagination"></div>
       </div>
       <% if @post.user == current_user %>
         <%= link_to "投稿編集", edit_post_path %>

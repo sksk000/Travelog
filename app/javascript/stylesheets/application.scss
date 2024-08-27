@@ -1,5 +1,4 @@
 @use '~bootstrap/scss/bootstrap';
-@import 'swiper/swiper-bundle';
 
 #map {
   width: 100%;
@@ -10,12 +9,8 @@
   display: none;
 }
 
-.swiper {
-  width: 600px;
-  height: 300px;
+.swiper-container {
+  width: 500px;
+  height: 500px;
 }
 
-:root {
-  --swiper-navigation-color: #ffffff;
-  --swiper-pagination-color: #ffffff;
-}
