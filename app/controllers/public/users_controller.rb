@@ -37,6 +37,15 @@ class Public::UsersController < ApplicationController
 
   def mypage_place
     @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html do
+        @user = User.find(params[:id])
+      end
+      format.json do
+        @user = User.find(params[:id])
+      end
+    end
   end
 
   private

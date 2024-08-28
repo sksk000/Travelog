@@ -9,7 +9,7 @@
         <div class="swiper-wrapper">
           <% @post.images.each do | image |%>
           <div class="swiper-slide">
-             <%= image_tag image, size: "500x500" %>
+             <%= image_tag image %>
           </div>
           <% end %>
         </div>
@@ -67,7 +67,7 @@
       <%= f.submit "投稿" ,class: "btn btn-primary"%>
     <% end %>
 
-    <%= javascript_pack_tag 'map', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'post_map', 'data-turbolinks-track': 'reload' %>
     <% if current_user.id == @post.user_id %>
       <%= link_to '新規場所指定', new_post_places_path(@post.id) %>
     <% end %>

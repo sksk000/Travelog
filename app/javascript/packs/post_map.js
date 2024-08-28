@@ -13,7 +13,7 @@ async function initMap() {
   console.log('dataset', element.dataset.id);
   let place_id = location.search;
   console.log('url', place_id)
-  
+
   const response = await fetch(`/posts/${element.dataset.id}.json${place_id}`);
   if (!response.ok) throw new Error('Network response was not ok');
 

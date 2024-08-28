@@ -35,5 +35,6 @@ document.addEventListener('turbolinks:load', function() {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
+    sliedesPreview: 1
   });
 });
