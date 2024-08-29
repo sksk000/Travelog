@@ -17,8 +17,19 @@ async function initMap() {
 
   const { data: { items } } = await response.json();
 
-  const target_latitude = items.places[0].latitude;
-  const target_longitude = items.places[0].longitude;
+  var target_latitude;
+  var target_longitude;
+
+  for(var data of items.places){
+    for(var place of data){
+      if(place.latitude && place.longitude ){
+        target_latitude = place.latitude;
+        target_longitude = place.longitude;
+        break;
+      }
+    }
+  }
+
 
   console.log('Latitude:', target_latitude);
   console.log('Longitude:', target_longitude);
@@ -30,21 +41,38 @@ async function initMap() {
     mapId: "DEMO_MAP_ID", // 追記    mapTypeControl: false
   });
 
-  console.log(items.places);
 
-  items.places.forEach( place =>{
-    const latitude = place.latitude;
-    const longitude = place.longitude;
-    const comment  = place.comment;
+ if(items.places[2].length > 0){
+   console.log("入ってる");
+ }
+ else
+ {
+   console.log("入ってない");
+ }
 
-    const marker = new google.maps.marker.AdvancedMarkerElement ({
-      position: { lat: latitude, lng: longitude },
-      map,
-      title: comment,
-    });
 
-    console.log(place);
-    console.log(comment);
+
+
+
+ for(var data of items.places){
+    for(var place of data){
+
+      const latitude = place.latitude;
+      const longitude = place.longitude;
+      const comment  = place.comment;
+
+      if(latitude == null && longitude == null) continue;
+
+      console.log(place.latitude);
+      console.log(place.longitude);
+
+
+      const marker = new google.maps.marker.AdvancedMarkerElement ({
+        position: { lat: latitude, lng: longitude },
+        map,
+        title: comment,
+      });
+
     // 追記
       const contentString = `
         <div class="information container p-0">
@@ -67,8 +95,8 @@ async function initMap() {
           map,
         })
       });
-  });
-
+    }
+  }
 }
 
 initMap();
