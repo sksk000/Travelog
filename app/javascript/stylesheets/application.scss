@@ -1,8 +1,11 @@
 @use '~bootstrap/scss/bootstrap';
 
 #map {
-  width: 100%;
-  height: calc(100vh - 88px - 179px);
+  /*width: 100%;*/
+  width: 800px;
+  /*height: calc(100vh - 88px - 179px);*/
+  height: 1000px;
+
 }
 
 #dropdown_content{
@@ -10,7 +13,6 @@
 }
 
 .swiper-container {
-
   height: 500px;
   overflow: hidden;
 }
@@ -28,4 +30,11 @@
   width: 500px;
   height: 500px;
   object-fit: contain;
+}
+
+.line{
+  border-radius: 0.06rem;
+  background-color: gray;
+  height: 100px;
+  width: 5px;
 }
