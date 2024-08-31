@@ -11,6 +11,9 @@
           <%= link_to '公開', publish_post_path(@post), method: :patch, class: 'btn btn-primary' %>
         <% end %>
       <% end %>
+      <% if current_user.id == @post.user_id %>
+        <%= link_to '新規場所指定', new_post_places_path(@post.id) %>
+      <% end %>
     </div>
   </div>
   <div class="row mt-3">
@@ -31,23 +34,25 @@
         <% end %>
       </div>
       <!-- ナビゲーションボタン （前、次） -->
-      <div class="swiper-button-prev" style="height:900px;"></div>
-      <div class="swiper-button-next" style="height:900px;"></div>
+      <div class="swiper-button-prev" style="height:300px; top:900px; left: 250px;"></div>
+      <div class="swiper-button-next" style="height:300px; top:900px; right: 250px;"></div>
 
       <div class="swiper-pagination"></div>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row mt-5">
     <div class="col">
-      <% @place.each do |place| %>
+      <% @place.each_with_index do |place, i| %>
         <div class="place_num">
           <%= place.place_num %>
         </div>
         <div class="place_name">
           <%= link_to place.place_name, post_path(place_id: place.id) %>
         </div>
-        <div class="line"></div>
+        <% if i != @place.length - 1 %>
+          <div class="line"></div>
+        <% end %>
       <% end %>
     </div>
     <div class="col">
@@ -56,7 +61,6 @@
   </div>
 
   <div class="row mt-5">
-    コメント一覧
     <% @post.comments.each do |comment| %>
       <%= comment.user.name %>
       <%= comment.comment %>
@@ -65,18 +69,21 @@
         <%= link_to "削除", post_comment_path(@post.id,comment.id), method: :delete, data: {confirm: "削除しますか？"} %>
       <% end %>
     <% end %>
+    <%= javascript_pack_tag 'post_map', 'data-turbolinks-track': 'reload' %>
+  </div>
 
+  <div class="row mt-5">
+    <div class="h5">
+      新規コメント投稿
+    </div>
+  </div>
+  <div class="row mt-3">
     <%= form_with model: Comment.new,url: post_comments_path(@post), method: :post do |f| %>
       <div class="form-group">
-        <%= f.text_field :comment %>
+        <%= f.text_field :comment, size: " 100 x 50 " %>
       </div>
       <%= render 'public/comments/good.html.erb', status: "new", commentdata: nil %>
       <%= f.submit "投稿" ,class: "btn btn-primary"%>
-    <% end %>
-
-    <%= javascript_pack_tag 'post_map', 'data-turbolinks-track': 'reload' %>
-    <% if current_user.id == @post.user_id %>
-      <%= link_to '新規場所指定', new_post_places_path(@post.id) %>
     <% end %>
   </div>
 </div>
