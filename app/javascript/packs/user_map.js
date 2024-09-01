@@ -9,7 +9,7 @@ async function initMap() {
 
 
   // 追記
-  let element = document.getElementById('map');
+  let element = document.getElementById('user_map');
   console.log(`/mypage/${element.dataset.id}/place.json`)
 
   const response = await fetch(`/mypage/${element.dataset.id}/place.json`);
@@ -35,24 +35,11 @@ async function initMap() {
   console.log('Longitude:', target_longitude);
 
 
-  map = new Map(document.getElementById("map"), {
+  map = new Map(document.getElementById("user_map"), {
     center: { lat: target_latitude, lng: target_longitude },
     zoom: 15,
     mapId: "DEMO_MAP_ID", // 追記    mapTypeControl: false
   });
-
-
- if(items.places[2].length > 0){
-   console.log("入ってる");
- }
- else
- {
-   console.log("入ってない");
- }
-
-
-
-
 
  for(var data of items.places){
     for(var place of data){

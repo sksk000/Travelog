@@ -9,7 +9,7 @@ async function initMap() {
 
 
   // 追記
-  let element = document.getElementById('map');
+  let element = document.getElementById('post_map');
   console.log('dataset', element.dataset.id);
   let place_id = location.search;
   console.log('url', place_id)
@@ -26,7 +26,7 @@ async function initMap() {
   console.log('Longitude:', target_longitude);
 
 
-  map = new Map(document.getElementById("map"), {
+  map = new Map(document.getElementById("post_map"), {
     center: { lat: target_latitude, lng: target_longitude },
     zoom: 15,
     mapId: "DEMO_MAP_ID", // 追記    mapTypeControl: false
