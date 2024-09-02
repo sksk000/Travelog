@@ -1,6 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :is_matching_login_user
-  before_action :ensure_guest_user, only: [:edit]
+  before_action :ensure_guest_user, only: [:edit,:infomation]
   # マイページ
   def mypage
     @user = User.find(params[:id])
@@ -60,9 +60,9 @@ class Public::UsersController < ApplicationController
   end
 
    def ensure_guest_user
-    @user = User.find(params[:id])
+    @user = current_user
     if @user.email == "guest@example.com"
-      redirect_to user_path(current_user) , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+      redirect_to mypage_path(current_user) , notice: "ゲストユーザーは遷移できません。"
     end
   end
 end

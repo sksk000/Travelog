@@ -1,6 +1,6 @@
  <div class="row">
     <div class="user_image mx-auto">
-      <% if user.profile_image.attached? == nil  %>
+      <% if user.profile_image.persisted == nil  %>
         <%= image_tag 'no_image', size: "200x180"%>
       <% else %>
         <%= image_tag user.profile_image,size: "200x180"%>

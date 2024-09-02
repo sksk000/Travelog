@@ -22,11 +22,13 @@
 .swiper-container {
   height: 500px;
   overflow: hidden;
+  width: 500px;
+  margin: auto;
 }
 
 
 .swiper-wrapper {
-
+  width: 400px;
 }
 
 .swiper-slide {

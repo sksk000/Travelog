@@ -1,4 +1,4 @@
-<div class="container" style="background-color: #cccccc;">
+<div class="container">
   <div class="row">
     <div class="col">
       <div class="font-weight-bold h5">
@@ -34,8 +34,8 @@
         <% end %>
       </div>
       <!-- ナビゲーションボタン （前、次） -->
-      <div class="swiper-button-prev" style="height:300px; top:900px; left: 250px;"></div>
-      <div class="swiper-button-next" style="height:300px; top:900px; right: 250px;"></div>
+      <div class="swiper-button-prev" style="height:300px; top:930px; left: 700px;"></div>
+      <div class="swiper-button-next" style="height:300px; top:930px; right: 700px;"></div>
 
       <div class="swiper-pagination"></div>
     </div>
@@ -44,10 +44,8 @@
   <div class="row mt-5">
     <div class="col">
       <% @place.each_with_index do |place, i| %>
-        <div class="place_num">
-          <%= place.place_num %>
-        </div>
-        <div class="place_name">
+        <div class="mx-auto">
+          <%= place.place_num.to_s + "." %>
           <%= link_to place.place_name, post_path(place_id: place.id) %>
         </div>
         <% if i != @place.length - 1 %>

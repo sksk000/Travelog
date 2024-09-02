@@ -3,14 +3,18 @@
     <div class="col">
       <table class="table">
         <tr>
+          <th score="col">ID</th>
           <th scope="col">ユーザ名</th>
           <th scope="col">作成日時</th>
+          <th scope="col">退会</th>
         </tr>
         <tbody>
           <% @userall.each do | user |%>
             <tr>
+            <td><%= user.id %></td>
             <td><%= link_to user.name, admin_user_path(user.id) %></td>
             <td><%= user.created_at %></td>
+            <td><%= link_to "退会" , admin_user_path(user.id),method: :delete %></td>
             </tr>
           <% end %>
         </tbody>
