@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="h4">会員詳細</div>
+  </div>
+  <div class="row mt-3">
+    会員ID
+    <%= @user.id %>
+  </div>
+  <div class="row mt-3">
+    氏名
+    <%= @user.name %>
+  </div>
+  <div class="row mt-3">
+    メールアドレス
+    <%= @user.email %>
+  </div>
+  <div class="row mt-5">
+    <%= link_to "退会" , admin_user_path(@user.id),method: :delete, class: "btn btn-danger", data: {confirm: "削除しますか？"}%>
+  </div>
+</div>
