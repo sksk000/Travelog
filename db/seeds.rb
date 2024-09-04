@@ -44,8 +44,8 @@ olivia_post = Post.find_or_create_by!(user: olivia) do |post_data|
   post_data.people = 3
 end
 
-Place.create(post: judy_post, place_name: "赤城南面千本桜", address: "群馬県前橋市苗ヶ島町２５１１−２", comment:"美しかった", place_num: 1)
-Place.create(post: judy_post, place_name: "鳥取城跡", address: "群馬県前橋市鳥取町３０９−２", comment:"素敵", place_num: 2)
+Place.create(post: olivia_post, place_name: "赤城南面千本桜", address: "群馬県前橋市苗ヶ島町２５１１−２", comment:"美しかった", place_num: 1)
+Place.create(post: olivia_post, place_name: "鳥取城跡", address: "群馬県前橋市鳥取町３０９−２", comment:"素敵", place_num: 2)
 
 
 
