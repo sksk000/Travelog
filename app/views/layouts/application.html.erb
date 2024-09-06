@@ -12,8 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-      <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <ul class="navbar-nav w-50 nav-justified mx-auto">
         <% if admin_signed_in? %>
           <li class="nav-item">
@@ -76,11 +75,14 @@
             </li>
         <% end %>
       </ul>
-    </div>
     </nav>
     </header>
-    <p class="notice"><%= notice %></p>
-  　<p class="alert"><%= alert %></p>
+    <% if flash[:notice] %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if flash[:alert]%>
+  　  <p class="alert"><%= alert %></p>
+  　<% end %>
   　  <script src="https://cdn.jsdelivr.net/npm/jquery-jpostal-ja@2.14.45/jquery.jpostal.min.js"></script>
     <%= yield %>
   </body>
