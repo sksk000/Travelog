@@ -1,4 +1,5 @@
 @use '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
 
 #post_map {
   /*width: 100%;*/
@@ -68,3 +69,8 @@
   background-color: black;
   opacity: 0.5;
 }
+
+body{
+  font-family: 'Noto Sans Japanese', sans-serif;
+}
+
