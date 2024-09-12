@@ -1,0 +1,5 @@
+<div class="container">
+  <%= render 'public/users/mypage.html.erb', user: @user %>
+  <div id="user_map" data-id="<%= @user.id %>"></div>
+  <%= javascript_pack_tag 'user_map', 'data-turbolinks-track': 'reload' %>
+</div>

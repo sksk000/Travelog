@@ -23,3 +23,14 @@ window.raty = function(elem,opt) {
  raty.init();
  return raty;
 }
+
+document.addEventListener('turbolinks:load', function() {
+  const swiper = new Swiper('.swiper-container', {
+    loop: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    sliedesPreview: 1
+  });
+});

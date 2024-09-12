@@ -1,1 +1,18 @@
-<h1>プロフィール編集</h1>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>プロフィール編集</h2>
+      <%= form_with url: users_update_infomation_path ,model: @user do |f| %>
+        <div class="form-group">
+          <%= f.label :image, "プロフィール画像アップロード" %>
+          <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :introduction, "自己紹介文" %><br>
+          <%= f.text_area :introduction, size: " 70 x 10 " %>
+        </div>
+        <%= f.submit "変更を保存" %>
+      <% end %>
+    </div>
+  </div>
+</div>

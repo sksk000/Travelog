@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :places, dependent: :destroy
+  has_many_attached :images, dependent: :destroy
 
   validates :title, presence: true
   validates :body, presence: true
@@ -32,12 +33,12 @@ class Post < ApplicationRecord
     end
 
     # 宿泊日数フィルター
-    if night.present?
+    unless night == "all_nights"
       @post = @post.where(night: night)
     end
 
     # 人数フィルター
-    if people.present?
+    unless people == "all_people"
       @post = @post.where(people: people)
     end
 

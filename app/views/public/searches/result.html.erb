@@ -1,17 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col">
-      <% if @category == "User" %>
-        <% @user.each do | userdata | %>
-          <% unless userdata.name == "guestuser" && userdata.email == "guest@example.com"%>
-            <%= link_to userdata.name, mypage_path(userdata.id) %>
-          <% end %>
-        <% end %>
-      <% elsif @category == "Post" %>
-        <% @post.each do | postdata | %>
-          <%= link_to postdata.title , post_path(postdata.id) %>
+    <% if @category == "User" %>
+      <% @user.each do | userdata | %>
+        <% unless userdata.name == "guestuser" && userdata.email == "guest@example.com"%>
+          <%= render 'public/posts/index.html.erb', targetpost: userdata.posts %>
         <% end %>
       <% end %>
-    </div>
+    <% elsif @category == "Post" %>
+      <%= render 'public/posts/index.html.erb', targetpost: @post %>
+    <% end %>
   </div>
 </div>

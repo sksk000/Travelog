@@ -1,7 +1,7 @@
 <% if is_good_edit == true %>
-　<div id="star_post_show"></div>
+　<div id="star_post_edit"></div>
 <script>
-  var elem = document.querySelector('#star_post_show');
+  var elem = document.querySelector('#star_post_edit');
   elem.innerHTML = ""
   var option = {
       starOn: "<%= asset_path('star-on.png') %>",
@@ -12,15 +12,15 @@
 </script>
 
 <% else %>
-　<div id="star_post_edit"></div>
+　<div id="star_post_show_<%= post.id %>"></div>
   <script>
-    var elem = document.querySelector('#star_post_edit');
+    var elem = document.querySelector('#star_post_show_<%= post.id %>');
     elem.innerHTML = ""
     var option = {
       starOn: "<%= asset_path('star-on.png') %>",
       starOff: "<%= asset_path('star-off.png') %>",
       readOnly: true,
-      score: <%= @post.good %>
+      score: <%= post.good %>
     };
     raty(elem, option);
   </script>

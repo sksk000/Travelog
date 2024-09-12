@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <link href="https://use.fontawesome.com/releases/v6.2.0/css/all.css" rel="stylesheet">
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   </head>
-
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-      <ul class="navbar-nav ml-auto">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <ul class="navbar-nav w-50 nav-justified mx-auto">
         <% if admin_signed_in? %>
           <li class="nav-item">
             <%= link_to admin_users_path, class: "nav-link text-light" do %>
@@ -46,6 +46,12 @@
               Log out
             <% end %>
           </li>
+          <li class="nav-item">
+            <%= link_to posts_path, class: "nav-link text-light" do %>
+              all post
+            <% end %>
+          </li>
+
           <% else %>
             <li class="nav-item">
               <%= link_to about_path, class: "nav-link text-light" do %>
@@ -62,17 +68,21 @@
                 Log in
               <% end %>
             </li>
+            <li class="nav-item">
+              <%= link_to users_guest_sign_in_path, method: :post, class: "nav-link text-light"  do %>
+                Gest login
+              <% end %>
+            </li>
         <% end %>
-
-        <%= link_to users_guest_sign_in_path, method: :post, class: "nav-link text-light"  do %>
-          Gest login
-        <% end %>
-
       </ul>
     </nav>
     </header>
-    <p class="notice"><%= notice %></p>
-  　<p class="alert"><%= alert %></p>
+    <% if flash[:notice] %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if flash[:alert]%>
+  　  <p class="alert"><%= alert %></p>
+  　<% end %>
   　  <script src="https://cdn.jsdelivr.net/npm/jquery-jpostal-ja@2.14.45/jquery.jpostal.min.js"></script>
     <%= yield %>
   </body>

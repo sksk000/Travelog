@@ -13,8 +13,8 @@
         </div>
 
         <div class="form-group">
-          <label for="is_showfile">show or notshow</label>
-          <%= f.select :is_showprofile, [['show', 'true'], ['notshow', 'false']], { include_blank: "Select", selected: 'true' } %>
+          <%= f.label :is_showprofile, "プロフィール表示・非表示" %>
+          <%= f.select :is_showprofile, [['表示', 'true'], ['非表示', 'false']] %>
         </div>
 
         <%= f.submit "Update" , class: "btn btn-success"%>

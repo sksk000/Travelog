@@ -1,9 +1,24 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <% @userall.each do | user |%>
-        <%= link_to user.name, admin_user_path(user.id) %>
-      <% end %>
+      <table class="table">
+        <tr>
+          <th score="col">ID</th>
+          <th scope="col">ユーザ名</th>
+          <th scope="col">メールアドレス</th>
+          <th scope="col">作成日時</th>
+        </tr>
+        <tbody>
+          <% @userall.each do | user |%>
+            <tr>
+            <td><%= user.id %></td>
+            <td><%= link_to user.name, admin_user_path(user.id) %></td>
+            <td><%= user.email %></td>
+            <td><%= user.created_at %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

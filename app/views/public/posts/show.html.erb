@@ -1,12 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col">
-
-      <h1>投稿詳細表示</h1>
-
-      <%= @post.title %>
-      <%= @post.body %>
-
+      <div class="font-weight-bold h5">
+        <%= @post.title %>
+      </div>
       <% if @post.user == current_user %>
         <%= link_to "投稿編集", edit_post_path %>
         <%= link_to "削除", post_path(@post.id), method: :delete, data: {confirm: "削除しますか？"} %>
@@ -14,48 +11,82 @@
           <%= link_to '公開', publish_post_path(@post), method: :patch, class: 'btn btn-primary' %>
         <% end %>
       <% end %>
-
-
+      <% if current_user.id == @post.user_id %>
+        <%= link_to '新規場所指定', new_post_places_path(@post.id) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <%= render 'public/posts/good.html.erb', is_good_edit: false, post: @post %>
+  </div>
+  <div class="row mt-5" style="height: 500px; ">
+    <div class="col">
+      <%= @post.body %>
     </div>
   </div>
   <div class="row">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <% @post.images.each do | image |%>
+        <div class="swiper-slide">
+           <%= image_tag image %>
+        </div>
+        <% end %>
+      </div>
+      <!-- ナビゲーションボタン （前、次） -->
+      <div class="swiper-button-prev" style="height:300px; top:930px; left: 700px;"></div>
+      <div class="swiper-button-next" style="height:300px; top:930px; right: 700px;"></div>
+
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
     <div class="col">
-      <% @place.each do |place| %>
-        <div class="place_num">
-          <%= place.place_num %>
+      <% @place.each_with_index do |place, i| %>
+        <div class="mx-auto">
+          <%= place.place_num.to_s + "." %>
+          <%= link_to place.place_name, post_path(place_id: place.id) %>
         </div>
-        <div class="place_name">
-          <%= place.place_name %>
-        </div>
+        <% if i != @place.length - 1 %>
+          <div class="line"></div>
+        <% end %>
       <% end %>
     </div>
     <div class="col">
-      <div id="map" data-address="<%= @place[0].address %>" data-id="<%= @post.id %>"></div>
+      <div id="post_map" data-address="<%= @place[0].address %>" data-id="<%= @post.id %>"></div>
     </div>
   </div>
-  <div class="row">
-    <%= render 'public/posts/good.html.erb', is_good_edit: false %>
+
 
     <% @post.comments.each do |comment| %>
-      <%= comment.user.name %>
-      <%= comment.comment %>
-      <%= render 'public/comments/good.html.erb', status: "show", commentdata: comment  %>
+      <div class="row mt-5">
+        <%= comment.user.name %>
+      </div>
+      <div class="row mt-3">
+        <%= comment.comment %>
+      </div>
+      <div class="row mt-3">
+        <%= render 'public/comments/good.html.erb', status: "show", commentdata: comment  %>
+      </div>
       <% if current_user == comment.user %>
         <%= link_to "削除", post_comment_path(@post.id,comment.id), method: :delete, data: {confirm: "削除しますか？"} %>
       <% end %>
     <% end %>
+    <%= javascript_pack_tag 'post_map', 'data-turbolinks-track': 'reload' %>
 
+  <div class="row mt-5">
+    <div class="h5">
+      新規コメント投稿
+    </div>
+  </div>
+  <div class="row mt-3">
     <%= form_with model: Comment.new,url: post_comments_path(@post), method: :post do |f| %>
       <div class="form-group">
-        <%= f.text_field :comment %>
+        <%= f.text_field :comment, size: " 100 x 50 " %>
       </div>
       <%= render 'public/comments/good.html.erb', status: "new", commentdata: nil %>
       <%= f.submit "投稿" ,class: "btn btn-primary"%>
-    <% end %>
-
-    <%= javascript_pack_tag 'map', 'data-turbolinks-track': 'reload' %>
-    <% if current_user.id == @post.user_id %>
-      <%= link_to '場所指定', new_post_places_path(@post.id) %>
     <% end %>
   </div>
 </div>
