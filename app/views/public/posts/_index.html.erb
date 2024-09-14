@@ -2,9 +2,9 @@
   <div class="col mb-3" style="max-width: 280px;">
     <div class="card" style="width: 250px; height: 380px;">
       <% if post.images[0] != nil  %>
-        <%= image_tag post.images[0], size: "200x180", class:"card-img-top" %>
+        <%= image_tag asset_path(post.images[0]), size: "200x180", class:"card-img-top" %>
       <% else %>
-        <%= image_tag 'no_image', size: "200x180", class:"card-img-top" %>
+        <%= image_tag asset_path('no_image.jpg'), size: "200x180", class:"card-img-top" %>
       <% end %>
       <div class="card-body text-dark">
         <h5 class="card-title"><%= link_to post.title, post_path(post.id) %></h5>
