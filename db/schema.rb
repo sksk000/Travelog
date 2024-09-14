@@ -69,10 +69,10 @@ ActiveRecord::Schema.define(version: 2024_08_21_125352) do
     t.string "address"
     t.float "latitude"
     t.float "longitude"
+    t.integer "place_num"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "comment"
-    t.integer "place_num"
     t.index ["post_id"], name: "index_places_on_post_id"
   end
 
