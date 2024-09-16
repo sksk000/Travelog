@@ -4,6 +4,7 @@
 });
 
 async function initMap() {
+  console.log(process.env.DB_DATABASE)
   const { Map } = await google.maps.importLibrary("maps");
   const {AdvancedMarkerElement} = await google.maps.importLibrary("marker") // 追記
 
