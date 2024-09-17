@@ -10,7 +10,6 @@ async function initMap() {
 
   // 追記
   let element = document.getElementById('user_map');
-  console.log(`/mypage/${element.dataset.id}/place.json`)
 
   const response = await fetch(`/mypage/${element.dataset.id}/place.json`);
   if (!response.ok) throw new Error('Network response was not ok');
@@ -30,11 +29,6 @@ async function initMap() {
     }
   }
 
-
-  console.log('Latitude:', target_latitude);
-  console.log('Longitude:', target_longitude);
-
-
   map = new Map(document.getElementById("user_map"), {
     center: { lat: target_latitude, lng: target_longitude },
     zoom: 15,
@@ -49,10 +43,6 @@ async function initMap() {
       const comment  = place.comment;
 
       if(latitude == null && longitude == null) continue;
-
-      console.log(place.latitude);
-      console.log(place.longitude);
-
 
       const marker = new google.maps.marker.AdvancedMarkerElement ({
         position: { lat: latitude, lng: longitude },
