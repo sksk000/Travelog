@@ -38,7 +38,7 @@ async function initMap() {
   map = new Map(document.getElementById("user_map"), {
     center: { lat: target_latitude, lng: target_longitude },
     zoom: 15,
-    mapId: "DEMO_MAP_ID", // 追記    mapTypeControl: false
+    mapId: process.env.Maps_API_Key, // 追記    mapTypeControl: false
   });
 
  for(var data of items.places){
