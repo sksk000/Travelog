@@ -2,7 +2,15 @@ class Public::PlacesController < ApplicationController
   def new
     @place = Place.new
     @post_id = params[:post_id]
-    @place_num = Place.where(post_id: @post_id).pluck(:place_num).uniq.sort
+    @place_num = Place.where(post_id: @post_id).maximum(:place_num)
+
+    # 検索して存在しない場合は0を代入する
+    if @place_num == nil
+      @place_num = 0
+    else
+      @place_num = @place_num + 1
+    end
+
   end
 
 
@@ -44,7 +52,12 @@ class Public::PlacesController < ApplicationController
   def save_place_num
     target_num = params[:place][:place_num]
     if target_num == "新規追加"
-      @place.place_num = Place.maximum(:place_num).to_i + 1
+      max_num = Place.where(post_id: @post_id).maximum(:place_num)
+      if max_num == nil
+        @place.place_num = 0
+      else
+        @place.place_num = max_num + 1
+      end
     else
       @place.place_num = params[:place][:place_num]
 

@@ -12,7 +12,12 @@
         </div>
 
         <div class="form-group">
-          <%= f.select :place_num, @place_num + ["新規追加"] %>
+          <% if @place_num == 0 %>
+            <%= f.select :place_num, ["新規追加"] %>
+          <% else %>
+            <%= f.select :place_num, [@place_num,"新規追加"] %>
+          <% end %>
+
         </div>
 
         <div class="form-group">
