@@ -4,16 +4,13 @@
 });
 
 async function initMap() {
-  console.log(process.env.DB_DATABASE)
   const { Map } = await google.maps.importLibrary("maps");
   const {AdvancedMarkerElement} = await google.maps.importLibrary("marker") // 追記
 
 
   // 追記
   let element = document.getElementById('post_map');
-  console.log('dataset', element.dataset.id);
   let place_id = location.search;
-  console.log('url', place_id)
 
   const response = await fetch(`/posts/${element.dataset.id}.json${place_id}`);
   if (!response.ok) throw new Error('Network response was not ok');
@@ -23,17 +20,11 @@ async function initMap() {
   const target_latitude = items.latitude;
   const target_longitude = items.longitude;
 
-  console.log('Latitude:', target_latitude);
-  console.log('Longitude:', target_longitude);
-
-
   map = new Map(document.getElementById("post_map"), {
     center: { lat: target_latitude, lng: target_longitude },
     zoom: 15,
     mapId: process.env.Maps_API_Key, // 追記    mapTypeControl: false
   });
-
-  console.log(items.places);
 
   items.places.forEach( place =>{
     const latitude = place.latitude;
@@ -46,8 +37,6 @@ async function initMap() {
       title: comment,
     });
 
-    console.log(place);
-    console.log(comment);
     // 追記
       const contentString = `
         <div class="information container p-0">
