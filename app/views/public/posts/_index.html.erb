@@ -1,4 +1,8 @@
 <% targetpost.each do | post | %>
+  <% if post.is_release == false && current_user.id != post.user_id %>
+    <% next %>
+  <% end %>
+
   <div class="col mb-3" style="max-width: 280px;">
     <div class="card" style="width: 250px; height: 380px;">
       <% if post.images[0] != nil  %>
