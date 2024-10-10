@@ -5,19 +5,20 @@ require 'rails_helper'
 describe '投稿のテスト' do
   before do
     @user = FactoryBot.create(:user)
-
+    @post = FactoryBot.build(:post, user_id: @user.id)
   end
-  context '表示の確認'
-   it '「下書きとして観光場所指定へ進む」が表示されているか' do
-     sign_in @user
-     visit new_post_path
-     expect(page).to have_content '下書きとして観光場所指定へ進む'
-   end
+  context '記事投稿のテスト'
+    it '記事投稿後、観光場所指定ページに遷移するか' do
+      sign_in @user
+      visit new_post_path
+      expect(page).to have_button('下書きとして観光場所指定へ進む')
 
-  context '投稿処理のテスト' do
-    it '記事作成後、観光場所指定ページにリダイレクトするか' do
-
-
+      click_button '下書きとして観光場所指定へ進む'
+      #expect(page).to have_current_path root_path
     end
-  end
+
+    context '観光場所指定ページの設定' do
+      #visit new_post_places(@post.id)
+    end
 end
+

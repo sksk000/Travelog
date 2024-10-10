@@ -8,8 +8,7 @@ class Public::PostsController < ApplicationController
     if @post.save
       redirect_to new_post_places_path(@post.id)
     else
-      flash.now[:alert] = @post.errors.full_messages.join(', ')
-      render :new
+      redirect_to new_post_path, flash: { alert: @post.errors.full_messages }
     end
 
   end
