@@ -1,21 +1,24 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-Rspec.describe Public::SearchesController, type: :controlelr do
-  describe '投稿のテスト' do
-    before do
-      user_jack = FactoryBot.create(:user, name: 'jack')
-      user_mic = FactoryBot.create(:user, name: 'mic')
-      post_spring = FactoryBot.build(:post, user_id: user_jack.id, season: 0)
-      post_summer = FactoryBot.build(:post, user_id: user_jack.id, season: 1)
-      post_fall = FactoryBot.build(:post, user_id: user_jack.id, season: 2)
-      post_winter = FactoryBot.build(:post, user_id: user_jack.id, season: 3)
-    end
-
-    it '季節が春の場合' do
-      params = { is_search_category: 'Post', seachdata: 'keyword', is_search_condition: 'condition', is_search_season: 0}
-    end
+Rspec.describe Public::SearchesController
+describe '投稿のテスト' do
+  before do
+   # @user = FactoryBot.create(:user)
+    #@post = FactoryBot.build(:post, user_id: @user.id)
   end
-end
+  context '記事投稿のテスト'
+    it '記事投稿後、観光場所指定ページに遷移するか' do
+      sign_in @user
+      visit new_post_path
+      expect(page).to have_button('下書きとして観光場所指定へ進む')
 
+      click_button '下書きとして観光場所指定へ進む'
+      #expect(page).to have_current_path new_post_places_path
+    end
+
+    context '観光場所指定ページの設定' do
+      #visit new_post_places(@post.id)
+    end
+end
 

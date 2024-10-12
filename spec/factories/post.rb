@@ -7,6 +7,6 @@ FactoryBot.define do
     place { Faker::Number.between(from: 0, to: 1)}
     night { Faker::Number.between(from: 0, to: 4)}
     people{ Faker::Number.between(from: 0, to: 4)}
-    user
+    association :user
   end
 end
