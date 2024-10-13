@@ -19,13 +19,13 @@
         </div>
         <div class="form-group">
           <%= f.label "季節" %>
-          <%= f.select :is_search_season,Post.seasons.keys.map { |key| [key.humanize, key] } %>
+          <%= f.select :season,Post.seasons.keys.map { |key| [key.humanize, key] } %>
           <%= f.label "場所" %>
-          <%= f.select :is_search_place, Post.places.keys.map { |key| [key.humanize, key] } %>
+          <%= f.select :place, Post.places.keys.map { |key| [key.humanize, key] } %>
           <%= f.label "何泊か" %>
-          <%= f.select :is_search_night, Post.nights.keys.map { |key| [key.humanize, key] } %>
+          <%= f.select :night, Post.nights.keys.map { |key| [key.humanize, key] } %>
           <%= f.label "人数" %>
-          <%= f.select :is_search_people,Post.people.keys.map { |key| [key.humanize, key] } %>
+          <%= f.select :people,Post.people.keys.map { |key| [key.humanize, key] } %>
         </div>
 
         <div class="form-group">
