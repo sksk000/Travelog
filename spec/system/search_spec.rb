@@ -2,15 +2,15 @@
 require 'rails_helper'
 
 
-RSpec.describe Public::SearchesController, type: :controller do
+RSpec.describe do
   describe '検索絞り込みテスト' do
     before(:each) do
-      user_jack = FactoryBot.create(:user, name: 'jack')
+      @user_jack = FactoryBot.create(:user, name: 'jack')
       FactoryBot.create(:user, name: 'jacks')
-      FactoryBot.create(:post, user: user_jack, title: 'aaabbb', season: 0, place: 0, night: 0, people: 0)
-      FactoryBot.create(:post, user: user_jack, title: 'aaa', season: 1, place: 1, night: 1, people: 1)
-      FactoryBot.create(:post, user: user_jack, season: 2, place: 0, night: 2, people: 2)
-      FactoryBot.create(:post, user: user_jack, season: 3, place: 1, night: 3, people: 3)
+      FactoryBot.create(:post, user: @user_jack, title: 'aaabbb', season: 0, place: 0, night: 0, people: 0)
+      FactoryBot.create(:post, user: @user_jack, title: 'aaa', season: 1, place: 1, night: 1, people: 1)
+      FactoryBot.create(:post, user: @user_jack, season: 2, place: 0, night: 2, people: 2)
+      FactoryBot.create(:post, user: @user_jack, season: 3, place: 1, night: 3, people: 3)
     end
 
     it 'データ確認' do
@@ -20,115 +20,212 @@ RSpec.describe Public::SearchesController, type: :controller do
     end
 
     it '季節が春の場合' do
-      get :search, params: { seachdata: "", is_search_category: "Post", is_search_condition: "PartialMatch", is_search_season: "春", is_search_place: "all_places", is_search_night: "all_nights", is_search_people: "all_people" }
+      sign_in @user_jack
+      visit posts_path
+      expect(current_path).to eq(posts_path)
 
-      expect(response).to render_template('result')
+      select 'Post', from: 'is_search_category'
+      select '春', from: 'is_search_season'
+      select '全旅行先', from: 'is_search_place'
+      select '指定なし', from: 'is_search_night'
+      select '指定なし', from: 'is_search_people'
 
-      #resultのViewに渡されている@postが、すべてseason=='春'の場合テスト成功となる
-      expect(assigns(:post).count).to eq(1)
-      expect(assigns(:post).pluck(:season)).to all( eq('春') )
+      click_button '検索'
+
+      expect(page.all('a', text: '季節:春').count).to eq 1
+
     end
 
     it '場所が海外の場合' do
-      get :search, params: { seachdata: "", is_search_category: "Post", is_search_condition: "PartialMatch", is_search_season: "all_seasons", is_search_place: "国内旅行", is_search_night: "all_nights", is_search_people: "all_people" }
+      sign_in @user_jack
+      visit posts_path
+      expect(current_path).to eq(posts_path)
 
-      expect(response).to render_template('result')
+      select 'Post', from: 'is_search_category'
+      select '全季節', from: 'is_search_season'
+      select '海外旅行', from: 'is_search_place'
+      select '指定なし', from: 'is_search_night'
+      select '指定なし', from: 'is_search_people'
 
-      #resultのViewに渡されている@postが、すべてseason=='春'の場合テスト成功となる
-      expect(assigns(:post).count).to eq(2)
-      expect(assigns(:post).pluck(:place)).to all( eq('国内旅行') )
+      click_button '検索'
+
+      expect(page.all('a', text: '旅行先:海外旅行').count).to eq 2
     end
 
     it '宿泊日数が二泊の場合' do
-      get :search, params: { seachdata: "", is_search_category: "Post", is_search_condition: "PartialMatch", is_search_season: "all_seasons", is_search_place: "all_places", is_search_night: "二泊", is_search_people: "all_people" }
+      sign_in @user_jack
+      visit posts_path
+      expect(current_path).to eq(posts_path)
 
-      expect(response).to render_template('result')
+      select 'Post', from: 'is_search_category'
+      select '全季節', from: 'is_search_season'
+      select '全旅行先', from: 'is_search_place'
+      select '二泊', from: 'is_search_night'
+      select '指定なし', from: 'is_search_people'
 
-      #resultのViewに渡されている@postが、すべてseason=='春'の場合テスト成功となる
-      expect(assigns(:post).count).to eq(1)
-      expect(assigns(:post).pluck(:night)).to all( eq('二泊') )
+      click_button '検索'
+
+      expect(page.all('a', text: '宿泊数:二泊').count).to eq 1
     end
 
     it '宿泊人数が四人の場合' do
-      get :search, params: { seachdata: "", is_search_category: "Post", is_search_condition: "PartialMatch", is_search_season: "all_seasons", is_search_place: "all_places", is_search_night: "all_nights", is_search_people: "四人" }
+      sign_in @user_jack
+      visit posts_path
+      expect(current_path).to eq(posts_path)
 
-      expect(response).to render_template('result')
+      select 'Post', from: 'is_search_category'
+      select '全季節', from: 'is_search_season'
+      select '全旅行先', from: 'is_search_place'
+      select '指定なし', from: 'is_search_night'
+      select '四人', from: 'is_search_people'
 
-      #resultのViewに渡されている@postが、すべてseason=='春'の場合テスト成功となる
-      expect(assigns(:post).count).to eq(1)
-      expect(assigns(:post).pluck(:people)).to all( eq('四人') )
+      click_button '検索'
+
+      expect(page.all('a', text: '人数:四人').count).to eq 1
     end
 
     it 'Userのキーワード検索にて完全一致検索する場合' do
-      get :search, params: { seachdata: "jacks", is_search_category: "User", is_search_condition: "PerfectMatch", is_search_season: "all_seasons", is_search_place: "all_places", is_search_night: "all_nights", is_search_people: "all_people" }
+      sign_in @user_jack
+      visit posts_path
+      expect(current_path).to eq(posts_path)
 
-      expect(response).to render_template('result')
+      fill_in 'seachdata', with: 'jacks'
+      select 'User', from: 'is_search_category'
+      select 'PerfectMatch', from: 'is_search_condition'
+      select '全季節', from: 'is_search_season'
+      select '全旅行先', from: 'is_search_place'
+      select '指定なし', from: 'is_search_night'
+      select '指定なし', from: 'is_search_people'
 
-      #resultのViewに渡されている@postが、すべてseason=='春'の場合テスト成功となる
-      expect(assigns(:user).count).to eq(1)
-      expect(assigns(:user).pluck(:name)).to all( eq('jacks') )
+      click_button '検索'
+
+      expect(page.all('a', text: 'jacks').count).to eq 0
     end
+
     it 'Userのキーワード検索にて部分一致検索する場合' do
-      get :search, params: { seachdata: "jack", is_search_category: "User", is_search_condition: "PartialMatch", is_search_season: "all_seasons", is_search_place: "all_places", is_search_night: "all_nights", is_search_people: "all_people" }
+      sign_in @user_jack
+      visit posts_path
+      expect(current_path).to eq(posts_path)
 
-      expect(response).to render_template('result')
+      fill_in 'seachdata', with: 'jack'
+      select 'User', from: 'is_search_category'
+      select 'PartialMatch', from: 'is_search_condition'
+      select '全季節', from: 'is_search_season'
+      select '全旅行先', from: 'is_search_place'
+      select '指定なし', from: 'is_search_night'
+      select '指定なし', from: 'is_search_people'
 
-      #resultのViewに渡されている@postが、すべてseason=='春'の場合テスト成功となる
-      expect(assigns(:user).count).to eq(2)
+      click_button '検索'
+
+      expect(page.all('a', text: 'jack').count).to eq 4
     end
 
     it 'Postのキーワード検索にて部分一致検索する場合' do
-      get :search, params: { seachdata: "aaa", is_search_category: "Post", is_search_condition: "PartialMatch", is_search_season: "all_seasons", is_search_place: "all_places", is_search_night: "all_nights", is_search_people: "all_people" }
+      sign_in @user_jack
+      visit posts_path
+      expect(current_path).to eq(posts_path)
 
-      expect(response).to render_template('result')
+      fill_in 'seachdata', with: 'jack'
+      select 'User', from: 'is_search_category'
+      select 'PartialMatch', from: 'is_search_condition'
+      select '全季節', from: 'is_search_season'
+      select '全旅行先', from: 'is_search_place'
+      select '指定なし', from: 'is_search_night'
+      select '指定なし', from: 'is_search_people'
 
-      #resultのViewに渡されている@postが、すべてseason=='春'の場合テスト成功となる
-      expect(assigns(:post).count).to eq(2)
+      click_button '検索'
+
+      expect(page.all('a', text: 'jack').count).to eq 4
     end
 
     it 'Postのキーワード検索にて完全一致検索する場合' do
-      get :search, params: { seachdata: "aaabbb", is_search_category: "Post", is_search_condition: "PartialMatch", is_search_season: "all_seasons", is_search_place: "all_places", is_search_night: "all_nights", is_search_people: "all_people" }
+      sign_in @user_jack
+      visit posts_path
+      expect(current_path).to eq(posts_path)
 
-      expect(response).to render_template('result')
+      fill_in 'seachdata', with: 'aaabbb'
+      select 'Post', from: 'is_search_category'
+      select 'PerfectMatch', from: 'is_search_condition'
+      select '全季節', from: 'is_search_season'
+      select '全旅行先', from: 'is_search_place'
+      select '指定なし', from: 'is_search_night'
+      select '指定なし', from: 'is_search_people'
 
-      #resultのViewに渡されている@postが、すべてseason=='春'の場合テスト成功となる
-      expect(assigns(:post).count).to eq(1)
+      click_button '検索'
+
+      expect(page.all('a', text: 'aaabbb').count).to eq 1
     end
 
     it '検索条件を部分一致、検索カテゴリを投稿にし、キーワード検索に何も入力していない場合' do
-      get :search, params: { seachdata: "", is_search_category: "Post", is_search_condition: "PartialMatch", is_search_season: "all_seasons", is_search_place: "all_places", is_search_night: "all_nights", is_search_people: "all_people" }
+      sign_in @user_jack
+      visit posts_path
+      expect(current_path).to eq(posts_path)
 
-      expect(response).to render_template('result')
+      fill_in 'seachdata', with: ''
+      select 'Post', from: 'is_search_category'
+      select 'PartialMatch', from: 'is_search_condition'
+      select '全季節', from: 'is_search_season'
+      select '全旅行先', from: 'is_search_place'
+      select '指定なし', from: 'is_search_night'
+      select '指定なし', from: 'is_search_people'
 
-      #resultのViewに渡されている@postが、すべてseason=='春'の場合テスト成功となる
-      expect(assigns(:post).count).to eq(4)
+      click_button '検索'
+
+      expect(page.all('a', text: 'jack').count).to eq 4
     end
 
     it '検索条件を完全一致、検索カテゴリを投稿にし、キーワード検索に何も入力していない場合' do
-      get :search, params: { seachdata: "", is_search_category: "Post", is_search_condition: "PerfectMatch", is_search_season: "all_seasons", is_search_place: "all_places", is_search_night: "all_nights", is_search_people: "all_people" }
+      sign_in @user_jack
+      visit posts_path
+      expect(current_path).to eq(posts_path)
 
-      expect(response).to render_template('result')
+      fill_in 'seachdata', with: ''
+      select 'Post', from: 'is_search_category'
+      select 'PerfectMatch', from: 'is_search_condition'
+      select '全季節', from: 'is_search_season'
+      select '全旅行先', from: 'is_search_place'
+      select '指定なし', from: 'is_search_night'
+      select '指定なし', from: 'is_search_people'
 
-      #resultのViewに渡されている@postが、すべてseason=='春'の場合テスト成功となる
-      expect(assigns(:post).count).to eq(0)
+      click_button '検索'
+
+      expect(page.all('a', text: 'jack').count).to eq 0
     end
 
     it '検索条件を部分一致、検索カテゴリをユーザにし、キーワード検索に何も入力していない場合' do
-      get :search, params: { seachdata: "", is_search_category: "User", is_search_condition: "PartialMatch", is_search_season: "all_seasons", is_search_place: "all_places", is_search_night: "all_nights", is_search_people: "all_people" }
+      sign_in @user_jack
+      visit posts_path
+      expect(current_path).to eq(posts_path)
 
-      expect(response).to render_template('result')
+      fill_in 'seachdata', with: ''
+      select 'User', from: 'is_search_category'
+      select 'PartialMatch', from: 'is_search_condition'
+      select '全季節', from: 'is_search_season'
+      select '全旅行先', from: 'is_search_place'
+      select '指定なし', from: 'is_search_night'
+      select '指定なし', from: 'is_search_people'
 
-      #resultのViewに渡されている@postが、すべてseason=='春'の場合テスト成功となる
-      expect(assigns(:user).count).to eq(2)
+      click_button '検索'
+
+      expect(page.all('a', text: 'jack').count).to eq 4
     end
 
     it '検索条件を完全一致、検索カテゴリをユーザにし、キーワード検索に何も入力していない場合' do
-      get :search, params: { seachdata: "", is_search_category: "User", is_search_condition: "PerfectMatch", is_search_season: "all_seasons", is_search_place: "all_places", is_search_night: "all_nights", is_search_people: "all_people" }
+      sign_in @user_jack
+      visit posts_path
+      expect(current_path).to eq(posts_path)
 
-      expect(response).to render_template('result')
+      fill_in 'seachdata', with: ''
+      select 'User', from: 'is_search_category'
+      select 'PerfectMatch', from: 'is_search_condition'
+      select '全季節', from: 'is_search_season'
+      select '全旅行先', from: 'is_search_place'
+      select '指定なし', from: 'is_search_night'
+      select '指定なし', from: 'is_search_people'
 
-      #resultのViewに渡されている@postが、すべてseason=='春'の場合テスト成功となる
-      expect(assigns(:user).count).to eq(0)
+      click_button '検索'
+
+      expect(page.all('a', text: 'jack').count).to eq 0
     end
   end
 end
