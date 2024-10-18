@@ -3,4 +3,7 @@ class Place < ApplicationRecord
   geocoded_by :address
   after_validation :geocode
   has_one_attached :image
+
+  validates :address, presence: true
+  validates :place_name, presence: true
 end

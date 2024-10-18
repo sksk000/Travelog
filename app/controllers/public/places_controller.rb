@@ -15,7 +15,7 @@ class Public::PlacesController < ApplicationController
     if @place.save
       redirect_to post_path(@place.post_id)
     else
-      render :new
+      redirect_to new_post_places_path(params[:post_id]), flash: { alert: @place.errors.full_messages }
     end
   end
 
