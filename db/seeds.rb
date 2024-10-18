@@ -49,6 +49,11 @@ Place.create(post: judy_post_first, place_name: "国際通り", address: "沖縄
 Place.create(post: judy_post_first, place_name: "金閣寺", address: "京都府京都市北区金閣寺町1", comment: "庭園の美しさが印象的でした。", place_num: 3)
 Place.create(post: judy_post_first, place_name: "嵐山竹林の小径", address: "京都府京都市右京区嵐山", comment: "自然の中でリラックスできるスポット。", place_num: 4)
 
+Comment.create(post: judy_post_first, user: olivia, comment: "すごく楽しそう！", good: 3)
+Comment.create(post: judy_post_first, user: lucas, comment: "次に行く時はぜひ一緒に！", good: 2)
+Comment.create(post: judy_post_first, user: judy, comment: "行ってみたい場所です！", good: 5)
+Comment.create(post: judy_post_first, user: olivia, comment: "京都はやっぱり最高ですね。", good: 1)
+
 judy_post_second = Post.find_or_initialize_by(user: judy, title: "京都へ行った") do |post_data|
   post_data.body = "私は久々に京都へ行きました。"
   post_data.good = 2
@@ -68,6 +73,11 @@ Place.create(post: judy_post_second, place_name: "伏見稲荷大社", address: 
 Place.create(post: judy_post_second, place_name: "平安神宮", address: "京都府京都市左京区岡崎最勝寺町", comment: "大きな鳥居が印象的な神社。", place_num: 3)
 Place.create(post: judy_post_second, place_name: "南禅寺", address: "京都府京都市左京区南禅寺福地町", comment: "静かな場所で心が落ち着きました。", place_num: 4)
 
+Comment.create(post: judy_post_second, user: olivia, comment: "京都旅行の定番ですね！", good: 3)
+Comment.create(post: judy_post_second, user: lucas, comment: "次は一緒に行きたい！", good: 4)
+Comment.create(post: judy_post_second, user: judy, comment: "素敵な体験でした。", good: 5)
+Comment.create(post: judy_post_second, user: olivia, comment: "楽しかった！", good: 2)
+
 judy_post_third = Post.find_or_initialize_by(user: judy, title: "秋の紅葉を楽しむ") do |post_data|
   post_data.body = "紅葉が美しい季節に、嵐山へ行きました。特に渡月橋からの景色は最高でした。"
   post_data.good = 4
@@ -86,6 +96,11 @@ Place.create(post: judy_post_third, place_name: "嵐山", address: "京都府京
 Place.create(post: judy_post_third, place_name: "天龍寺", address: "京都府京都市右京区嵐山天龍寺", comment: "歴史を感じる美しい庭園。静かな時間を過ごせました。", place_num: 2)
 Place.create(post: judy_post_third, place_name: "哲学の道", address: "京都府京都市左京区", comment: "穏やかな散策路で心が癒されました。", place_num: 3)
 Place.create(post: judy_post_third, place_name: "北野天満宮", address: "京都府京都市上京区馬喰町", comment: "紅葉が美しい神社でした。", place_num: 4)
+
+Comment.create(post: judy_post_third, user: olivia, comment: "嵐山の紅葉、本当に綺麗ですよね。渡月橋からの景色が特に好きです！", good: 4)
+Comment.create(post: judy_post_third, user: lucas, comment: "紅葉シーズンの京都は最高ですね！私も行きたくなりました。", good: 3)
+Comment.create(post: judy_post_third, user: olivia, comment: "天龍寺も行きましたが、庭園が美しくて感動しました。", good: 5)
+Comment.create(post: judy_post_third, user: judy, comment: "嵐山、また訪れたいです！", good: 2)
 
 
 
@@ -109,6 +124,14 @@ Place.create(post: olivia_post_first, place_name: "浅草寺", address: "東京�
 Place.create(post: olivia_post_first, place_name: "上野恩賜公園", address: "東京都台東区上野公園", comment: "広い公園で、散歩が気持ちよかったです。", place_num: 3)
 Place.create(post: olivia_post_first, place_name: "新宿御苑", address: "東京都新宿区内藤町11", comment: "春の桜が美しかったです。", place_num: 4)
 
+Comment.create(post: olivia_post_first, user: lucas, comment: "東京タワーからの景色、絶景ですね！夜景は特におすすめ。", good: 5)
+Comment.create(post: olivia_post_first, user: judy, comment: "東京観光は本当に楽しいですよね。スカイツリーもいいですよ！", good: 3)
+Comment.create(post: olivia_post_first, user: olivia, comment: "友達と行った東京観光、思い出深いです。次は浅草にも行ってみたいです。", good: 4)
+Comment.create(post: olivia_post_first, user: judy, comment: "東京の名所巡り、楽しそうですね。おすすめのカフェも知りたいです。", good: 2)
+
+
+
+
 olivia_post_second = Post.find_or_initialize_by(user: olivia, title: "秋のハイキング") do |post_data|
   post_data.body = "紅葉を見ながらハイキングを楽しみました。自然の中でリフレッシュできました。"
   post_data.good = 5
@@ -128,6 +151,13 @@ Place.create(post: olivia_post_second, place_name: "奥多摩", address: "東京
 Place.create(post: olivia_post_second, place_name: "秩父", address: "埼玉県秩父市", comment: "紅葉が美しく、見ごたえがありました。", place_num: 3)
 Place.create(post: olivia_post_second, place_name: "富士山", address: "山梨県甲府市", comment: "登山は疲れましたが、最高の景色でした。", place_num: 4)
 
+Comment.create(post: olivia_post_second, user: judy, comment: "紅葉を見ながらのハイキング、素敵ですね！", good: 4)
+Comment.create(post: olivia_post_second, user: lucas, comment: "高尾山はいいですよね、自然の中でリフレッシュできそう。", good: 3)
+Comment.create(post: olivia_post_second, user: olivia, comment: "奥多摩もおすすめですよ！", good: 5)
+Comment.create(post: olivia_post_second, user: judy, comment: "富士山登山、すごい経験ですね！景色が最高そう。", good: 2)
+
+
+
 olivia_post_third = Post.find_or_initialize_by(user: olivia, title: "沖縄旅行の楽しい思い出") do |post_data|
   post_data.body = "美しいビーチでリラックスできました。海の透明度が素晴らしかったです。"
   post_data.good = 4
@@ -146,6 +176,11 @@ Place.create(post: olivia_post_third, place_name: "美ら海水族館", address:
 Place.create(post: olivia_post_third, place_name: "万座毛", address: "沖縄県恩納村", comment: "夕日が綺麗でした。", place_num: 2)
 Place.create(post: olivia_post_third, place_name: "古宇利島", address: "沖縄県名護市", comment: "美しいビーチでのんびり過ごせました。", place_num: 3)
 Place.create(post: olivia_post_third, place_name: "首里城", address: "沖縄県那覇市首里金城町1丁目2", comment: "歴史を感じる場所でした。", place_num: 4)
+
+Comment.create(post: olivia_post_third, user: judy, comment: "沖縄は美しい場所ですよね！ビーチが特に好きです。", good: 4)
+Comment.create(post: olivia_post_third, user: lucas, comment: "万座毛の夕日は素晴らしかったと聞きます。", good: 3)
+Comment.create(post: olivia_post_third, user: olivia, comment: "首里城、また行きたいな！", good: 5)
+Comment.create(post: olivia_post_third, user: judy, comment: "美ら海水族館は一度行ってみたいです。", good: 2)
 
 
 
@@ -169,6 +204,11 @@ Place.create(post: lucas_post_first, place_name: "美瑛の青い池", address: 
 Place.create(post: lucas_post_first, place_name: "富良野", address: "北海道富良野市", comment: "ラベンダー畑が素晴らしかったです。", place_num: 3)
 Place.create(post: lucas_post_first, place_name: "函館山", address: "北海道函館市", comment: "夜景が最高でした。", place_num: 4)
 
+Comment.create(post: lucas_post_first, user: judy, comment: "スキー最高ですね！", good: 3)
+Comment.create(post: lucas_post_first, user: lucas, comment: "また一緒に行こう！", good: 4)
+Comment.create(post: lucas_post_first, user: olivia, comment: "スキー日和でした！", good: 5)
+Comment.create(post: lucas_post_first, user: judy, comment: "行きたくなりました！", good: 2)
+
 lucas_post_second = Post.find_or_initialize_by(user: lucas, title: "沖縄のビーチでリラックス") do |post_data|
   post_data.body = "美しい海で過ごす時間は最高でした。"
   post_data.good = 4
@@ -188,6 +228,11 @@ Place.create(post: lucas_post_second, place_name: "国際通り", address: "沖�
 Place.create(post: lucas_post_second, place_name: "万座毛", address: "沖縄県恩納村", comment: "絶景スポットでした。", place_num: 3)
 Place.create(post: lucas_post_second, place_name: "美ら海水族館", address: "沖縄県国頭郡本部町", comment: "海の生き物たちが見られて楽しかった。", place_num: 4)
 
+Comment.create(post: lucas_post_second, user: olivia, comment: "沖縄、最高！", good: 4)
+Comment.create(post: lucas_post_second, user: judy, comment: "美しい海！", good: 5)
+Comment.create(post: lucas_post_second, user: lucas, comment: "また行きたい！", good: 3)
+Comment.create(post: lucas_post_second, user: judy, comment: "次は一緒に行こう！", good: 2)
+
 lucas_post_third = Post.find_or_initialize_by(user: lucas, title: "東京の新しい体験") do |post_data|
   post_data.body = "新しいカフェやスポットを訪れました。"
   post_data.good = 3
@@ -206,3 +251,8 @@ Place.create(post: lucas_post_third, place_name: "原宿", address: "東京都�
 Place.create(post: lucas_post_third, place_name: "秋葉原", address: "東京都千代田区外神田", comment: "オタク文化を満喫できました。", place_num: 2)
 Place.create(post: lucas_post_third, place_name: "浅草", address: "東京都台東区浅草", comment: "歴史を感じられる場所です。", place_num: 3)
 Place.create(post: lucas_post_third, place_name: "六本木ヒルズ", address: "東京都港区六本木6丁目10-1", comment: "夜景が美しかった。", place_num: 4)
+
+Comment.create(post: lucas_post_third, user: judy, comment: "東京の新しいスポット、楽しそう！", good: 3)
+Comment.create(post: lucas_post_third, user: olivia, comment: "原宿と秋葉原は特に興味があります！", good: 4)
+Comment.create(post: lucas_post_third, user: lucas, comment: "カフェ巡りが特に良かった。", good: 5)
+Comment.create(post: lucas_post_third, user: olivia, comment: "夜景が美しかったって聞いて行きたい！", good: 2)
