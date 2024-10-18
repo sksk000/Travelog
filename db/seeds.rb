@@ -10,14 +10,17 @@
 judy = User.find_or_create_by!(email: "judy@example.com") do |user|
   user.name = "Judy"
   user.password = "password"
+  user.profile_image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'onepiece01_luffy.png')), filename: 'onepiece01_luffy.png')
 end
 lucas = User.find_or_create_by!(email: "lucas@example.com") do |user|
   user.name = "Lucas"
   user.password = "password"
+  user.profile_image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'onepiece02_zoro.png')), filename: 'onepiece02_zoro.png')
 end
 olivia = User.find_or_create_by!(email: "olivia@example.com") do |user|
   user.name = "Olivia"
   user.password = "password"
+  user.profile_image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'onepiece03_nami.png')), filename: 'onepiece03_nami.png')
 end
 
 
@@ -35,6 +38,9 @@ judy_post_first = Post.find_or_initialize_by(user: judy, title: "1日で京都�
   post_data.night = 2
   post_data.people = 3
   post_data.is_release = true
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'ash-edmonds-uztw2giebSc-unsplash.jpg')), filename: 'ash-edmonds-uztw2giebSc-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'david-emrich-EJvGBYjrwEA-unsplash.jpg')), filename: 'david-emrich-EJvGBYjrwEA-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'sorasak-_UIN-pFfJ7c-unsplash.jpg')), filename: 'sorasak-_UIN-pFfJ7c-unsplash.jpg')
 end
 
 # Placeデータ
@@ -51,6 +57,9 @@ judy_post_second = Post.find_or_initialize_by(user: judy, title: "京都へ行�
   post_data.night = 2
   post_data.people = 3
   post_data.is_release = true
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'ash-edmonds-uztw2giebSc-unsplash.jpg')), filename: 'ash-edmonds-uztw2giebSc-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'david-emrich-EJvGBYjrwEA-unsplash.jpg')), filename: 'david-emrich-EJvGBYjrwEA-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'sorasak-_UIN-pFfJ7c-unsplash.jpg')), filename: 'sorasak-_UIN-pFfJ7c-unsplash.jpg')
 end
 
 # Placeデータ
@@ -67,6 +76,9 @@ judy_post_third = Post.find_or_initialize_by(user: judy, title: "秋の紅葉を
   post_data.night = 1
   post_data.people = 2
   post_data.is_release = true
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'jason-rost-LjRiVC6UOLw-unsplash.jpg')), filename: 'jason-rost-LjRiVC6UOLw-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'diana-lisunova-6aUxu7-RgiI-unsplash.jpg')), filename: 'diana-lisunova-6aUxu7-RgiI-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'jason-rost-LjRiVC6UOLw-unsplash.jpg')), filename: 'jason-rost-LjRiVC6UOLw-unsplash.jpg')
 end
 
 # Placeデータ
@@ -86,6 +98,9 @@ olivia_post_first = Post.find_or_initialize_by(user: olivia, title: "東京観�
   post_data.night = 1
   post_data.people = 2
   post_data.is_release = true
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'charles-postiaux-q_xbE7RSvBI-unsplash.jpg')), filename: 'charles-postiaux-q_xbE7RSvBI-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'clay-banks-hwLAI5lRhdM-unsplash.jpg')), filename: 'clay-banks-hwLAI5lRhdM-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'jezael-melgoza-layMbSJ3YOE-unsplash.jpg')), filename: 'jezael-melgoza-layMbSJ3YOE-unsplash.jpg')
 end
 
 # Placeデータ
@@ -102,6 +117,9 @@ olivia_post_second = Post.find_or_initialize_by(user: olivia, title: "秋のハ�
   post_data.night = 1
   post_data.people = 3
   post_data.is_release = true
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'nitish-meena-RbbdzZBKRDY-unsplash.jpg')), filename: 'nitish-meena-RbbdzZBKRDY-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'artem-sapegin-8c6eS43iq1o-unsplash.jpg')), filename: 'artem-sapegin-8c6eS43iq1o-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'mark-basarab-z8ct_Q3oCqM-unsplash.jpg')), filename: 'mark-basarab-z8ct_Q3oCqM-unsplash.jpg')
 end
 
 # Placeデータ
@@ -118,6 +136,9 @@ olivia_post_third = Post.find_or_initialize_by(user: olivia, title: "沖縄旅�
   post_data.night = 3
   post_data.people = 4
   post_data.is_release = true
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'sho-k-et0v7wY9meI-unsplash.jpg')), filename: 'sho-k-et0v7wY9meI-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'krisna-yuda-REX9d0MBzas-unsplash.jpg')), filename: 'krisna-yuda-REX9d0MBzas-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'bigfoot-stngr-vAIQhqzLiFk-unsplash.jpg')), filename: 'bigfoot-stngr-vAIQhqzLiFk-unsplash.jpg')
 end
 
 # Placeデータ
@@ -137,6 +158,9 @@ lucas_post_first = Post.find_or_initialize_by(user: lucas, title: "北海道の�
   post_data.night = 4
   post_data.people = 2
   post_data.is_release = true
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'catriona-palo-z3vZramK67A-unsplash.jpg')), filename: 'catriona-palo-z3vZramK67A-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'nopparuj-lamaikul-xeHZlrNCuy8-unsplash.jpg')), filename: 'nopparuj-lamaikul-xeHZlrNCuy8-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'ian-lai-mNkV0Ni5aJg-unsplash.jpg')), filename: 'ian-lai-mNkV0Ni5aJg-unsplash.jpg')
 end
 
 # Placeデータ
@@ -153,6 +177,9 @@ lucas_post_second = Post.find_or_initialize_by(user: lucas, title: "沖縄のビ
   post_data.night = 2
   post_data.people = 3
   post_data.is_release = true
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'krisna-yuda-REX9d0MBzas-unsplash.jpg')), filename: 'krisna-yuda-REX9d0MBzas-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'sho-k-et0v7wY9meI-unsplash.jpg')), filename: 'sho-k-et0v7wY9meI-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'bigfoot-stngr-vAIQhqzLiFk-unsplash.jpg')), filename: 'bigfoot-stngr-vAIQhqzLiFk-unsplash.jpg')
 end
 
 # Placeデータ
@@ -169,6 +196,9 @@ lucas_post_third = Post.find_or_initialize_by(user: lucas, title: "東京の新�
   post_data.night = 1
   post_data.people = 2
   post_data.is_release = true
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'nathan-dumlao-Y3AqmbmtLQI-unsplash.jpg')), filename: 'knathan-dumlao-Y3AqmbmtLQI-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'petr-sevcovic-qE1jxYXiwOA-unsplash.jpg')), filename: 'petr-sevcovic-qE1jxYXiwOA-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'roman-bozhko-OXXsAafHDeo-unsplash.jpg')), filename: 'roman-bozhko-OXXsAafHDeo-unsplash.jpg')
 end
 
 # Placeデータ
