@@ -8,8 +8,7 @@ class Public::PostsController < ApplicationController
     if @post.save
       redirect_to new_post_places_path(@post.id)
     else
-      flash.now[:alert] = @post.errors.full_messages.join(', ')
-      render :new
+      redirect_to new_post_path, flash: { alert: @post.errors.full_messages }
     end
 
   end
@@ -81,7 +80,7 @@ class Public::PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :user_id, :good, :season, :place, :night, :people, images: [])
+    params.require(:post).permit(:title, :body, :user_id, :good, :season, :place, :night, :people,:is_release, images: [])
   end
 
   def is_current_user

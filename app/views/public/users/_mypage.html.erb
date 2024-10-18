@@ -1,9 +1,9 @@
  <div class="row">
     <div class="user_image mx-auto">
-      <% if user.profile_image.persisted == nil  %>
-        <%= image_tag asset_path('no_image.jpg'), size: "200x180"%>
+      <% if user.profile_image.attached?  %>
+        <%= image_tag rails_blob_path(user.profile_image),size: "200x180"%>
       <% else %>
-        <%= image_tag asset_path(user.profile_image),size: "200x180"%>
+        <%= image_tag asset_path('no_image.jpg'), size: "200x180"%>
       <% end %>
     </div>
     <div class="col">

@@ -3,7 +3,12 @@ class Public::UsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit,:infomation]
   # マイページ
   def mypage
-    @user = User.find(params[:id])
+      @user = User.find(params[:id])
+
+    unless @user.is_showprofile == true || @user.id == current_user.id
+      redirect_to mypage_path(current_user.id)
+    end
+
   end
 
   # マイページ編集
