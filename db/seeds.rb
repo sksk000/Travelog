@@ -56,7 +56,7 @@ Comment.create(post: judy_post_first, user: olivia, comment: "京都はやっぱ
 
 judy_post_second = Post.find_or_initialize_by(user: judy, title: "京都へ行った") do |post_data|
   post_data.body = "私は久々に京都へ行きました。"
-  post_data.good = 2
+  post_data.good = 0
   post_data.season = 1
   post_data.place = 1
   post_data.night = 2
@@ -107,7 +107,7 @@ Comment.create(post: judy_post_third, user: judy, comment: "嵐山、また訪�
 # Oliviaの投稿データ
 olivia_post_first = Post.find_or_initialize_by(user: olivia, title: "東京観光の思い出") do |post_data|
   post_data.body = "友達と一緒に東京観光を楽しみました。東京タワーからの景色は最高でした。"
-  post_data.good = 4
+  post_data.good = 3
   post_data.season = 1
   post_data.place = 1
   post_data.night = 1
@@ -211,7 +211,7 @@ Comment.create(post: lucas_post_first, user: judy, comment: "行きたくなり�
 
 lucas_post_second = Post.find_or_initialize_by(user: lucas, title: "沖縄のビーチでリラックス") do |post_data|
   post_data.body = "美しい海で過ごす時間は最高でした。"
-  post_data.good = 4
+  post_data.good = 2
   post_data.season = 1
   post_data.place = 0
   post_data.night = 2
@@ -256,3 +256,29 @@ Comment.create(post: lucas_post_third, user: judy, comment: "東京の新しい�
 Comment.create(post: lucas_post_third, user: olivia, comment: "原宿と秋葉原は特に興味があります！", good: 4)
 Comment.create(post: lucas_post_third, user: lucas, comment: "カフェ巡りが特に良かった。", good: 5)
 Comment.create(post: lucas_post_third, user: olivia, comment: "夜景が美しかったって聞いて行きたい！", good: 2)
+
+lucas_post_third = Post.find_or_initialize_by(user: lucas, title: "ヨーロッパでの新しい体験") do |post_data|
+  post_data.body = "今回のヨーロッパ旅行は忘れられない思い出になりました。特に、フランスのパリで訪れた美術館や、イタリアのベニスでのゴンドラ体験が印象的です。また、スペインのバルセロナでは美味しい料理を堪能し、サグラダ・ファミリアを見学しました。どの都市もそれぞれの特色があり、歴史や文化に触れることができました。新しい国々での体験を通して、多くのことを学ぶことができました。また行きたいです。"
+  post_data.good = 1
+  post_data.season = 1
+  post_data.place = 0
+  post_data.night = 3
+  post_data.people = 4
+  post_data.is_release = true
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'krisna-yuda-REX9d0MBzas-unsplash.jpg')), filename: 'krisna-yuda-REX9d0MBzas-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'sho-k-et0v7wY9meI-unsplash.jpg')), filename: 'sho-k-et0v7wY9meI-unsplash.jpg')
+  post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'bigfoot-stngr-vAIQhqzLiFk-unsplash.jpg')), filename: 'bigfoot-stngr-vAIQhqzLiFk-unsplash.jpg')
+end
+
+# Placeデータ
+Place.create(post: lucas_post_third, place_name: "パリ", address: "フランス、パリ", comment: "美術館とエッフェル塔が印象的でした。", place_num: 1)
+Place.create(post: lucas_post_third, place_name: "ベニス", address: "イタリア、ベニス", comment: "ゴンドラに乗って、水路を巡りました。", place_num: 2)
+Place.create(post: lucas_post_third, place_name: "バルセロナ", address: "スペイン、バルセロナ", comment: "サグラダ・ファミリアは圧巻でした。", place_num: 3)
+Place.create(post: lucas_post_third, place_name: "ロンドン", address: "イギリス、ロンドン", comment: "歴史的な建物が多く、街を散策しました。", place_num: 4)
+
+# コメントデータ
+Comment.create(post: lucas_post_third, user: judy, comment: "パリとベニス、どちらも素敵な場所だね！", good: 3)
+Comment.create(post: lucas_post_third, user: olivia, comment: "バルセロナのサグラダ・ファミリア、行ってみたい！", good: 4)
+Comment.create(post: lucas_post_third, user: lucas, comment: "どの都市もそれぞれ違った魅力があって楽しかった。", good: 5)
+Comment.create(post: lucas_post_third, user: olivia, comment: "ロンドンも素敵！観光名所が多そう。", good: 2)
+
