@@ -10,17 +10,20 @@
 judy = User.find_or_create_by!(email: "judy@example.com") do |user|
   user.name = "Judy"
   user.password = "password"
+  user.introduction = "こんにちは！私はJudyです。旅行と美味しい食べ物が大好きで、特に日本の文化に魅了されています。最近は京都に行きました。歴史的な場所や美しい自然を楽しみながら、新しい経験をするのが私の喜びです。"
   user.profile_image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'onepiece01_luffy.png')), filename: 'onepiece01_luffy.png')
 end
 lucas = User.find_or_create_by!(email: "lucas@example.com") do |user|
   user.name = "Lucas"
   user.password = "password"
   user.profile_image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'onepiece02_zoro.png')), filename: 'onepiece02_zoro.png')
+  user.introduction = "はじめまして、Lucasです。技術とゲームが好きなエンジニア志望です。プログラミングや新しい技術を学ぶのが楽しく、将来は自分のプロジェクトを持ちたいと思っています。自由な時間には、友達とアウトドアを楽しんでいます。"
 end
 olivia = User.find_or_create_by!(email: "olivia@example.com") do |user|
   user.name = "Olivia"
   user.password = "password"
   user.profile_image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'onepiece03_nami.png')), filename: 'onepiece03_nami.png')
+  user.introduction = "こんにちは、Oliviaです！アートや音楽に興味があり、クリエイティブなことが好きです。最近は自分の絵を描いたり、地元の音楽イベントに参加したりしています。友達と過ごす時間が何よりの宝物です。"
 end
 
 
@@ -31,7 +34,7 @@ end
 
 # Judyの投稿データ
 judy_post_first = Post.find_or_initialize_by(user: judy, title: "1日で京都の名所を巡りました！") do |post_data|
-  post_data.body = "京都の観光地を一日で回りました。清水寺は歴史的な雰囲気が素晴らしく、金閣寺の庭園も見事でした。嵐山竹林の小径は自然の中でリラックスできました。"
+  post_data.body = "京都の観光地を一日で回りました。まず、清水寺を訪れました。歴史的な雰囲気が素晴らしく、その美しい景観は、どこを見ても感動を覚えます。特に、清水の舞台から見下ろす町並みは息を呑むほど美しかったです。その後、金閣寺に向かい、その庭園の見事さに圧倒されました。金閣寺の金色の外観は、周囲の景色と見事に調和しており、特に水面に映る姿は幻想的でした。また、庭園を散策しながら、様々な植物や花の美しさを楽しむことができました。次に、嵐山竹林の小径を歩きました。竹が生い茂る道は、静寂に包まれ、まるで別世界にいるような気分にさせてくれます。風に揺れる竹の音が心地よく、リラックスできる場所でした。その後、嵐山で有名な渡月橋を渡り、美しい景色を楽しみました。ここからは、川の流れや山々の風景が広がり、心が癒されました。さらに、地元の名物である抹茶アイスを食べながら、優雅なひとときを過ごしました。最後に、京都の伝統的な町並みを散策し、古いお店や工芸品を見ながら、地元の人々との交流も楽しみました。京都の魅力を存分に感じる一日でした。"
   post_data.good = 2
   post_data.season = 1
   post_data.place = 1
