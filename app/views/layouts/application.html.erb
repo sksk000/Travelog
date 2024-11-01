@@ -13,11 +13,17 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
-      <ul class="navbar-nav w-50 nav-justified mx-auto">
+      <a class="navbar-brand top-text">Travelog</a>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <%= link_to about_path, class: "btn text-light" do %>
+            Travelogとは
+          <% end %>
+        </li>
         <% if admin_signed_in? %>
           <li class="nav-item">
-            <%= link_to admin_users_path, class: "nav-link text-light" do %>
-              UserAll
+            <%= link_to mypage_path(current_user), class: "nav-link text-light" , data: {turbolinks: "false"} do %>
+              newpost
             <% end %>
           </li>
           <li class="nav-item">
@@ -25,52 +31,26 @@
               Logout
             <% end %>
           </li>
-          <li class="nav-item">
-            <%= link_to admin_posts_path, class: "nav-link text-light" do %>
-              PostAll
-            <% end %>
-          </li>
         <% elsif user_signed_in? %>
           <li class="nav-item">
-            <%= link_to mypage_path(current_user.id), class: "nav-link text-light" do %>
-              mypage
+            <%= link_to mypage_path(current_user.id) , class: "btn btn-info" do %>
+              マイページ
             <% end %>
           </li>
           <li class="nav-item">
-            <%= link_to new_post_path, class: "nav-link text-light" , data: {turbolinks: "false"} do %>
-              newpost
+            <%= link_to destroy_user_session_path , method: :delete, class: "btn btn-danger" do %>
+              ログアウト
             <% end %>
           </li>
-          <li class="nav-item">
-            <%= link_to destroy_user_session_path , method: :delete, class: "nav-link text-light" do %>
-              Log out
-            <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to posts_path, class: "nav-link text-light" do %>
-              all post
-            <% end %>
-          </li>
-
           <% else %>
             <li class="nav-item">
-              <%= link_to about_path, class: "nav-link text-light" do %>
-                About
+              <%= link_to new_user_registration_path, class: "btn btn-success" do %>
+                会員登録
               <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to new_user_registration_path, class: "nav-link text-light" do %>
-                Sign up
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to new_user_session_path, class: "nav-link text-light"  do %>
-                Log in
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to users_guest_sign_in_path, method: :post, class: "nav-link text-light"  do %>
-                Gest login
+              <%= link_to new_user_session_path, class: "btn btn-primary"  do %>
+                ログイン
               <% end %>
             </li>
         <% end %>
