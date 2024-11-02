@@ -1,15 +1,3 @@
-<div>
-  <div class="top-text">
-    Trevelog
-  </div>
-  <div id="slider" style="height: 100vh; top: 0px; position:absolute; ">
-    <%= image_tag asset_path("_50A7795_TP_V.jpg")%>
-    <%= image_tag asset_path("mojiko_turutama_MKT4588_TP_V.jpg") %>
-    <%= image_tag asset_path("yuta7137_TP_V.jpg") %>
-    <%= image_tag asset_path("yuta_240513_032_TP_V.jpg")%>
-  </div>
-</div>
 <div class="container-fluid">
-
 </div>
- <%= javascript_pack_tag 'image_fade', 'data-turbolinks-track': 'reload' %>
+<% breadcrumb :rootcom, @top %>
