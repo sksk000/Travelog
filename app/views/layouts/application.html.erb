@@ -18,6 +18,11 @@
           Travelog
         <% end %>
       </a>
+      <ul class="navbar-nav" style="margin-left: 30%">
+        <div class="nav-item">
+          <%= render 'public/searches/search.html.erb' %>
+        </div>
+      </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <%= link_to about_path, class: "btn text-light" do %>

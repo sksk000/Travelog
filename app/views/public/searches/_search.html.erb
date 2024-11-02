@@ -2,12 +2,10 @@
   <div class="row">
     <div class="col">
       <%= form_with method: :get , url: search_result_path do |f| %>
-        <div class="form-group">
           <%= f.text_field :seachdata, size: 40 %>
           <%= f.select :is_search_category, options_for_select([['User'], ['Post']])%>
           <%= f.select :is_search_condition, options_for_select([['PartialMatch'], ['PerfectMatch']]) %>
           <%= f.submit "検索" ,class: "btn btn-primary"%>
-          <%= button_tag "さらに絞り込む", type: "button", onclick: "downcontent()", class: "btn btn-outline-secondary", :id=>"dropdown_button" %>
           <div id="dropdown_content">
             <%= f.label "季節"%>
             <%= f.select :is_search_season, [['全季節', 'all_seasons']] + Post.seasons.keys.map { |key| [key.humanize, key] },{}, {class:"form-control"} %>
@@ -18,7 +16,6 @@
             <%= f.label "人数"%>
             <%= f.select :is_search_people, [['指定なし', 'all_people']] + Post.people.keys.map { |key| [key.humanize, key] },{}, {class:"form-control"} %>
           </div>
-        </div>
       <% end %>
       <script>
        function downcontent(){
