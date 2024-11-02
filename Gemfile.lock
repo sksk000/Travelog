@@ -109,6 +109,9 @@ GEM
       csv (>= 3.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    gretel (5.0.1)
+      actionview (>= 6.1)
+      railties (>= 6.1)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     jbuilder (2.12.0)
@@ -285,6 +288,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   geocoder
+  gretel
   jbuilder (~> 2.7)
   listen (~> 3.3)
   mysql2
