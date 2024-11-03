@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   </head>
+    <%= render 'public/modal/searchmodal.html.erb'%>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
       <a class="navbar-brand top-text">
@@ -31,13 +32,8 @@
         </li>
         <% if admin_signed_in? %>
           <li class="nav-item">
-            <%= link_to mypage_path(current_user), class: "nav-link text-light" , data: {turbolinks: "false"} do %>
-              newpost
-            <% end %>
-          </li>
-          <li class="nav-item">
             <%= link_to destroy_admin_session_path, method: :delete,class: "nav-link text-light" do %>
-              Logout
+              ログアウト
             <% end %>
           </li>
         <% elsif user_signed_in? %>
