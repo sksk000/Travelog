@@ -12,11 +12,7 @@ class User < ApplicationRecord
 
   def self.looks(searchdata,condition)
     # 部分一致
-    if condition == "PartialMatch"
-      @user = User.where("name LIKE?", "%#{searchdata}%")
-    elsif condition == "PerfectMatch"
-      @user = User.where(name: searchdata)
-    end
+    @user = User.where("name LIKE?", "%#{searchdata}%")
   end
 
   GUEST_USER_EMAIL = "guest@example.com"

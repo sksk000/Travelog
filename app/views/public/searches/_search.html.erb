@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col">
       <%= form_with method: :get , url: search_result_path do |f| %>
+        <%= f.select :search_category_select, [['投稿検索', 'post_search']] + [['ユーザ検索', 'user_search']], {class:"form-control"} %>
         <%= f.text_field :seachdata, size: 40 %>
         <%= f.submit "検索" ,class: "btn btn-primary"%>
         <button type="button" class="btn btn-primary mb-8" data-toggle="modal" data-target="#testModal">絞り込み</button>
