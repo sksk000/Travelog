@@ -34,15 +34,14 @@ class Post < ApplicationRecord
   def self.looks(searchdata, month, prefectures, night, people, postmonth, postgood)
     # 部分一致
     @post = Post.where("title LIKE?","%#{searchdata}%")
-
     # 旅行月
-    unless month.length == 0
+    unless month == nil
       @post = Post.where(month: month)
     end
 
     # 都道府県名
     unless prefectures == "all_prefectures"
-      @post = Post.where(prefectures: prefectures)
+      @post = Post.where(prefecture: prefectures)
     end
 
     # 宿泊日数フィルター
@@ -56,7 +55,7 @@ class Post < ApplicationRecord
     end
 
     # 投稿月
-    unless postmonth.length == 0
+    unless postmonth == nil
       if ActiveRecord::Base.connection.adapter_name == "SQLite"
         # 開発環境用
         @post = @post.where("strftime('%m', created_at) IN (?)", postmonth.map { |m| format('%02d', m) })
@@ -67,7 +66,7 @@ class Post < ApplicationRecord
     end
 
     # 観光点数
-    unless postgood.length == 0
+    unless postgood == nil
       @post = @post.where(good: postgood.map)
     end
 

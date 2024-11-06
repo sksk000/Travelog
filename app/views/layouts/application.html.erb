@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   </head>
-    <%= render 'public/modal/searchmodal.html.erb'%>
+
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
       <a class="navbar-brand top-text">
@@ -76,7 +76,7 @@
     <% if flash[:alert]%>
   　  <p class="alert"><%= alert %></p>
   　<% end %>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-jpostal-ja@2.14.45/jquery.jpostal.min.js"></script>
+
     <%= yield %>
   </body>
 </html>

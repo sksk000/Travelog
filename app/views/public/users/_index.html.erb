@@ -1,0 +1,17 @@
+<% targetuser.each do | user | %>
+  <% unless user.name == "guestuser" && user.email == "guest@example.com"%>
+    <div class="col mb-3" style="max-width: 280px;">
+      <div class="card" style="width: 250px; height: 380px;">
+        <% if user.profile_image != nil  %>
+          <%= image_tag user.profile_image, size: "200x180", class:"card-img-top" %>
+        <% else %>
+          <%= image_tag asset_path('no_image.jpg'), size: "200x180", class:"card-img-top" %>
+        <% end %>
+        <div class="card-body text-dark">
+          <h5 class="card-title"><%= link_to user.name, mypage_path(user.id) %></h5>
+          <%= user.introduction.truncate(40) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

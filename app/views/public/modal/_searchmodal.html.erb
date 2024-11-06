@@ -6,9 +6,15 @@
       </div>
       <div class="modal-body">
         <%= form_with method: :get , url: search_result_path do |f| %>
-          <div class="travelmonth mb-3">
+          <div class="month mb-3">
             <%= f.label "旅行月"%></br>
-            <%= f.select :travelmonth, [['指定なし', 'all_travelmonth']] + (1..12).map { |month| ["#{month}月", month] }, {class:"form-control"}%>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <% (1..12).each do | month | %>
+                <label class="btn btn-outline-primary btn-lg">
+                 <%= check_box_tag "travel_months[]", month, false, autocomplete: "off" %><%= month %>月
+                </label>
+              <% end %>
+            </div>
           </div>
           <div class="prefectures mb-3">
             <%= f.label "都道府県名"%>
@@ -27,7 +33,7 @@
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <% (1..12).each do | month | %>
                 <label class="btn btn-outline-primary btn-lg">
-                 <%= check_box_tag "months[]", month, false, autocomplete: "off" %><%= month %>月
+                 <%= check_box_tag "post_months[]", month, false, autocomplete: "off" %><%= month %>月
                 </label>
               <% end %>
             </div>
@@ -37,7 +43,7 @@
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <% (1..5).each do | i | %>
                 <label class="btn btn-outline-primary btn-lg">
-                  <%= check_box_tag "travelgoods[]", i, false, autocomplete: "off" %>
+                  <%= check_box_tag "travel_goods[]", i, false, autocomplete: "off" %>
                   <% (1..i).each do %>
                     <%= image_tag 'star-on.png' %>
                   <% end %>
@@ -45,10 +51,10 @@
               <% end %>
             </div>
           </div>
+        <div class="modal-footer">
+          <%= f.submit "検索", class:"btn btn-default" %>
+        </div>
         <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
       </div>
     </div>
   </div>

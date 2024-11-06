@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true
 
-  def self.looks(searchdata,condition)
+  def self.looks(searchdata)
     # 部分一致
     @user = User.where("name LIKE?", "%#{searchdata}%")
   end
