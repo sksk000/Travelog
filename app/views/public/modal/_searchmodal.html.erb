@@ -1,0 +1,61 @@
+<div class="modal fade bd-example-modal-xl" id="testModal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>条件検索</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_with method: :get , url: search_result_path do |f| %>
+          <div class="month mb-3">
+            <%= f.label "旅行月"%></br>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <% (1..12).each do | month | %>
+                <label class="btn btn-outline-primary btn-lg">
+                 <%= check_box_tag "travel_months[]", month, false, autocomplete: "off" %><%= month %>月
+                </label>
+              <% end %>
+            </div>
+          </div>
+          <div class="prefectures mb-3">
+            <%= f.label "都道府県名"%>
+            <%= f.select :prefectures, [['指定なし', 'all_prefectures']] + Post.prefectures.keys.map { |key| [key.humanize, key] },{}, {class:"form-control"}%>
+          </div>
+          <div class="nights mb-3">
+            <%= f.label "宿泊数"%>
+            <%= f.select :night, [['指定なし', 'all_nights']] + Post.nights.keys.map { |key| [key.humanize, key] },{}, {class:"form-control"}%>
+          </div>
+          <div class="people mb-3">
+            <%= f.label "人数"%>
+            <%= f.select :people, [['指定なし', 'all_people']] + Post.people.keys.map { |key| [key.humanize, key] },{}, {class:"form-control"} %>
+          </div>
+          <div class="month mb-3">
+            <%= f.label "投稿月"%></br>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <% (1..12).each do | month | %>
+                <label class="btn btn-outline-primary btn-lg">
+                 <%= check_box_tag "post_months[]", month, false, autocomplete: "off" %><%= month %>月
+                </label>
+              <% end %>
+            </div>
+          </div>
+          <div class="good mb-3">
+            <%= f.label "観光点数"%></br>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <% (1..5).each do | i | %>
+                <label class="btn btn-outline-primary btn-lg">
+                  <%= check_box_tag "travel_goods[]", i, false, autocomplete: "off" %>
+                  <% (1..i).each do %>
+                    <%= image_tag 'star-on.png' %>
+                  <% end %>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        <div class="modal-footer">
+          <%= f.submit "検索", class:"btn btn-default" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

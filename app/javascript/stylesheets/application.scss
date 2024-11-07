@@ -52,10 +52,6 @@
   width: 5px;
 }
 
-.navbar{
-  z-index: 1;
-}
-
 #slider img {
   position: absolute;
   opacity: 0;
@@ -87,4 +83,8 @@ body{
 
 .about-text{
   margin-top: 10%;
+}
+
+.modal-backdrop{
+  z-index: 0;
 }

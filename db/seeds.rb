@@ -36,10 +36,10 @@ end
 judy_post_first = Post.find_or_initialize_by(user: judy, title: "1日で京都の名所を巡りました！") do |post_data|
   post_data.body = "京都の観光地を一日で回りました。まず、清水寺を訪れました。歴史的な雰囲気が素晴らしく、その美しい景観は、どこを見ても感動を覚えます。特に、清水の舞台から見下ろす町並みは息を呑むほど美しかったです。その後、金閣寺に向かい、その庭園の見事さに圧倒されました。金閣寺の金色の外観は、周囲の景色と見事に調和しており、特に水面に映る姿は幻想的でした。また、庭園を散策しながら、様々な植物や花の美しさを楽しむことができました。次に、嵐山竹林の小径を歩きました。竹が生い茂る道は、静寂に包まれ、まるで別世界にいるような気分にさせてくれます。風に揺れる竹の音が心地よく、リラックスできる場所でした。その後、嵐山で有名な渡月橋を渡り、美しい景色を楽しみました。ここからは、川の流れや山々の風景が広がり、心が癒されました。さらに、地元の名物である抹茶アイスを食べながら、優雅なひとときを過ごしました。最後に、京都の伝統的な町並みを散策し、古いお店や工芸品を見ながら、地元の人々との交流も楽しみました。京都の魅力を存分に感じる一日でした。"
   post_data.good = 2
-  post_data.season = 1
-  post_data.place = 1
   post_data.night = 2
   post_data.people = 3
+  post_data.prefecture = 3
+  post_data.travelmonth = 4
   post_data.is_release = true
   post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'ash-edmonds-uztw2giebSc-unsplash.jpg')), filename: 'ash-edmonds-uztw2giebSc-unsplash.jpg')
   post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'david-emrich-EJvGBYjrwEA-unsplash.jpg')), filename: 'david-emrich-EJvGBYjrwEA-unsplash.jpg')
@@ -60,10 +60,10 @@ Comment.create(post: judy_post_first, user: olivia, comment: "京都はやっぱ
 judy_post_second = Post.find_or_initialize_by(user: judy, title: "京都へ行った") do |post_data|
   post_data.body = "私は久々に京都へ行きました。"
   post_data.good = 0
-  post_data.season = 1
-  post_data.place = 1
   post_data.night = 2
   post_data.people = 3
+  post_data.prefecture = 20
+  post_data.travelmonth = 1
   post_data.is_release = true
   post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'ash-edmonds-uztw2giebSc-unsplash.jpg')), filename: 'ash-edmonds-uztw2giebSc-unsplash.jpg')
   post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'david-emrich-EJvGBYjrwEA-unsplash.jpg')), filename: 'david-emrich-EJvGBYjrwEA-unsplash.jpg')
@@ -84,10 +84,10 @@ Comment.create(post: judy_post_second, user: olivia, comment: "楽しかった�
 judy_post_third = Post.find_or_initialize_by(user: judy, title: "秋の紅葉を楽しむ") do |post_data|
   post_data.body = "紅葉が美しい季節に、嵐山へ行きました。特に渡月橋からの景色は最高でした。"
   post_data.good = 4
-  post_data.season = 2
-  post_data.place = 1
   post_data.night = 1
   post_data.people = 2
+  post_data.prefecture = 10
+  post_data.travelmonth = 10
   post_data.is_release = true
   post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'jason-rost-LjRiVC6UOLw-unsplash.jpg')), filename: 'jason-rost-LjRiVC6UOLw-unsplash.jpg')
   post_data.images.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'diana-lisunova-6aUxu7-RgiI-unsplash.jpg')), filename: 'diana-lisunova-6aUxu7-RgiI-unsplash.jpg')
@@ -106,7 +106,7 @@ Comment.create(post: judy_post_third, user: olivia, comment: "天龍寺も行き
 Comment.create(post: judy_post_third, user: judy, comment: "嵐山、また訪れたいです！", good: 2)
 
 
-
+=begin
 # Oliviaの投稿データ
 olivia_post_first = Post.find_or_initialize_by(user: olivia, title: "東京観光の思い出") do |post_data|
   post_data.body = "友達と一緒に東京観光を楽しみました。東京タワーからの景色は最高でした。"
@@ -285,3 +285,4 @@ Comment.create(post: lucas_post_third, user: olivia, comment: "バルセロナ�
 Comment.create(post: lucas_post_third, user: lucas, comment: "どの都市もそれぞれ違った魅力があって楽しかった。", good: 5)
 Comment.create(post: lucas_post_third, user: olivia, comment: "ロンドンも素敵！観光名所が多そう。", good: 2)
 
+=end

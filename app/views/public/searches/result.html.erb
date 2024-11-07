@@ -1,12 +1,8 @@
 <div class="container">
   <div class="row">
-    <% if @category == "User" %>
-      <% @user.each do | userdata | %>
-        <% unless userdata.name == "guestuser" && userdata.email == "guest@example.com"%>
-          <%= render 'public/posts/index.html.erb', targetpost: userdata.posts %>
-        <% end %>
-      <% end %>
-    <% elsif @category == "Post" %>
+    <% if @category == "user_search" %>
+      <%= render 'public/users/index.html.erb', targetuser: @user %>
+    <% elsif @category == "post_search" %>
       <%= render 'public/posts/index.html.erb', targetpost: @post %>
     <% end %>
   </div>
