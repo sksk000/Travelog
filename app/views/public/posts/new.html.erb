@@ -1,37 +1,52 @@
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <h2>新規投稿</h2>
-
+  <div class="row justify-content-center">
       <%= form_with model: Post.new, method: :post do |f| %>
-        <div class="form-group">
-          <%= f.label :title, "タイトル" %><br>
-          <%= f.text_field :title, size: " 100 x 20 " %>
+        <div class="col">
+          <h2>新規投稿</h2>
+        </div>
+        <div class="form-group col mt-3">
+          <%= f.label :title, "タイトル" %></br>
+          <%= f.text_field :title, size: " 100 x 20 "%>
         </div>
 
-        <div class="form-group">
-          <%= f.label :body, "投稿内容" %><br>
-          <%= f.text_area :body, size: " 100 x 20 " %>
+        <div class="form-group col">
+          <%= f.label :body, "投稿内容"%></br>
+          <%= f.text_area :body, size: " 100 x 5 " %>
+        </div>
+
+        <div class="form-group col">
+          <%= f.label "旅行点数" %>
           <%= render 'public/posts/good.html.erb', is_good_edit: true %>
         </div>
-
-        <div class="form-group">
-          <%= f.label "季節" %>
-          <%= f.select :season,Post.seasons.keys.map { |key| [key.humanize, key] } %>
-          <%= f.label "場所" %>
-          <%= f.select :place, Post.places.keys.map { |key| [key.humanize, key] } %>
-          <%= f.label "何泊か" %>
+        <div class="form-group col-md-6">
+          <%= f.label "月", class:"form-label" %>
+          <%= f.select :month,[["1月","1"], ["2月","2"], ["3月","3"], ["4月","4"],
+                              ["5月","5"], ["6月","6"], ["7月","7"], ["8月","8"],
+                              ["9月","9"], ["10月","10"], ["11月","11"], ["12月","12"]] %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label "場所", class:"form-label" %>
+          <%= f.select :place, [["日本国内","domestic"],["海外", "abroad"]] %>
+          <%= f.select :prefecture, Post.prefectures.keys.map { |key| [key.humanize, key] } %>
+          <button type="button" class="fa-solid fa-circle-plus" ></button>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label "宿泊数", class:"form-label"%>
           <%= f.select :night, Post.nights.keys.map { |key| [key.humanize, key] } %>
+        </div>
+        <div class="form-group col-md-6">
           <%= f.label "人数" %>
           <%= f.select :people,Post.people.keys.map { |key| [key.humanize, key] } %>
         </div>
+        <div class="imagedrag col-md-6">
+          <i class="fa-solid fa-circle-plus"></i></br>
+          写真追加
+        </div>
 
-        サムネイル
-        <%= f.file_field :images, multiple: true %>
-
-        <%= f.submit "下書きとして観光場所指定へ進む" ,class: "btn btn-primary"%>
+        <div class="text-right">
+          <%= f.submit "次へ" ,class: "btn btn-success rounded-circle p-0 nextbutton"%>
+        </div>
       <% end %>
-    </div>
   </div>
 </div>
 <%= javascript_pack_tag "jpostal",  'data-turbolinks-track': 'reload' %>
