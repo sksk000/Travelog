@@ -75,3 +75,5 @@ gem 'geocoder'
 gem 'activerecord-import'
 
 gem 'gretel'
+
+gem 'stimulus-rails'

@@ -4,7 +4,6 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-
     if @post.save
       redirect_to new_post_places_path(@post.id)
     else
@@ -80,7 +79,7 @@ class Public::PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :user_id, :good, :season, :place, :night, :people,:is_release, images: [])
+    params.require(:post).permit(:title, :body, :user_id, :good, :domestic, :prefecture, :night, :people,:is_release, :image)
   end
 
   def is_current_user
