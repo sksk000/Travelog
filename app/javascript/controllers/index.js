@@ -9,3 +9,6 @@ application.register("hello", HelloController)
 
 import ImagesController from "./images_controller"
 application.register("images", ImagesController)
+
+import TagController from "./tag_controller"
+application.register("tag", TagController)

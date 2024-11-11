@@ -24,7 +24,7 @@
                               ["5月","5"], ["6月","6"], ["7月","7"], ["8月","8"],
                               ["9月","9"], ["10月","10"], ["11月","11"], ["12月","12"]] %>
         </div>
-        
+
         <div class="form-group col-md-6">
           <%= f.label "場所", class:"form-label" %>
           <%= f.select :place, [["日本国内","domestic"],["海外", "abroad"]] %>
@@ -38,11 +38,11 @@
           <i class="fa-solid fa-circle-plus"></i></br>
           写真追加
         </div>
-        
+
         <div data-images-target="preview" class="preview-area mt-3"></div>
-        
+
         <div data-images-target="error" class="error-message mt-2 text-danger"></div>
-        
+
         <div class="form-group col-md-6">
           <%= f.label "宿泊数", class:"form-label"%>
           <%= f.select :night, Post.nights.keys.map { |key| [key.humanize, key] } %>
@@ -51,9 +51,24 @@
           <%= f.label "人数" %>
           <%= f.select :people,Post.people.keys.map { |key| [key.humanize, key] } %>
         </div>
+
+        <div data-controller="tag" class="form-group col-md-6">
+          <div class="input-group">
+            <input type="input" class="form-control inputtag" placeholder="タグを追加" data-tag-target="input" ></input>
+            <button type="button" class="fa-solid fa-circle-plus" data-action="click->tag#addTag" ></button>
+          </div>
+          <div data-tag-target="tags" class="tag-list">
+          </div>
+        </div>
+
         <div class="text-right">
           <%= f.submit "次へ" ,class: "btn btn-success rounded-circle p-0 nextbutton"%>
         </div>
       <% end %>
   </div>
 </div>
+
+<script>
+
+
+</script>

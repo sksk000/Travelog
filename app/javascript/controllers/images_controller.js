@@ -3,8 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="images"
 export default class extends Controller {
 
-  static targets = ["drop", "error", "preview", "select","form"]
-
+  static targets = ["drop", "error", "preview", "select","form", "tags"]
 
   connect() {}
 
@@ -49,29 +48,53 @@ export default class extends Controller {
     e.preventDefault()
     const formData = new FormData(this.formTarget)
 
+
     if(this.file){
       formData.append("post[image]", this.file)
     }
 
+    const tagController = this.application.getControllerForElementAndIdentifier(
+      this.element.querySelector('[data-controller="tag"]'),
+      "tag"
+    );
+
+    if(tagController){
+      console.log("タグコントローラが見つかった")
+      const tags = tagController.getTags()
+      console.log(tags)
+      tags.forEach((tag) => {
+        formData.append(`tag[name][]`, tag)
+      })
+    }
+    else{
+      alert("tagControllerが見つかりません");
+    }
+    //PostモデルのPOSTを行う
     fetch(this.formTarget.action, {
       method: "POST",
       body: formData,
       headers: {
         "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
       }
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Failed to upload image");
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data); // サーバーからのレスポンスを処理
-      })
-      .catch(error => {
-        console.error("Error:", error);
-      })
+      }).then((response) => {
+      if (!response.ok) {
+        // ステータスコードとエラーメッセージをログに出力
+        console.error(`Error: ${response.status} - ${response.statusText}`);
+        return response.text(); // レスポンスのテキストを取得
+      }
+      console.log("投稿成功");
+      return response.json(); // 正常の場合はJSONレスポンスを処理
+    })
+    .then((data) => {
+      if (data && data.error) {
+        alert("投稿に失敗しました: " + data.error);
+      }
+    })
+    .catch((error) => {
+      console.error("Fetchエラー:", error);
+      alert("投稿に失敗しました");
+    });
+
   }
 
   previewImage(file){
@@ -81,11 +104,12 @@ export default class extends Controller {
       const img = document.createElement("img")
       img.src = e.target.result
       img.classList.add("img-thumbnail")
-      this.previewTarget.innerHTML = "" 
+      this.previewTarget.innerHTML = ""
       this.previewTarget.appendChild(img)
     }
     reader.readAsDataURL(file)
   }
+
 
 
 }

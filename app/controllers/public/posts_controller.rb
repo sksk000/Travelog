@@ -4,7 +4,11 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
+
+
     if @post.save
+      createtag(@post, params[:post][:tags]) if params[:post][:tags].present?
+
       redirect_to new_post_places_path(@post.id)
     else
       redirect_to new_post_path, flash: { alert: @post.errors.full_messages }
@@ -99,5 +103,13 @@ class Public::PostsController < ApplicationController
     if post.is_release == false and current_user.id != post.user_id
       redirect_to mypage_path(post.user_id)
     end
+  end
+
+  def createtag(post, tagnames)
+    tagnames.each do |tagname|
+      tag = Tag.find_or_create_by(name: tagname)
+      PostTag.create(post: post, tag: tag) unless post.tags.include?(tag)
+    end
+
   end
 end

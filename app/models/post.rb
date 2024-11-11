@@ -4,6 +4,8 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :places, dependent: :destroy
   has_one_attached :image, dependent: :destroy
+  has_many :posttags
+  has_many :tags, through: :posttags
 
   validates :title, presence: true
   validates :body, presence: true
