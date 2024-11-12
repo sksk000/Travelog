@@ -5,9 +5,9 @@ class Public::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
 
-
     if @post.save
-      createtag(@post, params[:post][:tags]) if params[:post][:tags].present?
+      createtag(@post, params[:tag]) if params[:tag].present?
+      createprefecture(@post, params[:prefecture]) if params[:prefecture].present?
 
       redirect_to new_post_places_path(@post.id)
     else
@@ -83,7 +83,7 @@ class Public::PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :user_id, :good, :domestic, :prefecture, :night, :people,:is_release, :image)
+    params.require(:post).permit(:title, :body, :user_id, :good, :place, :night, :people,:is_release, :image, :month, tags: [:name], prefectures: [:prefecture])
   end
 
   def is_current_user
@@ -106,10 +106,18 @@ class Public::PostsController < ApplicationController
   end
 
   def createtag(post, tagnames)
+    byebug
     tagnames.each do |tagname|
       tag = Tag.find_or_create_by(name: tagname)
       PostTag.create(post: post, tag: tag) unless post.tags.include?(tag)
     end
+  end
 
+  def createprefecture(post, prefectures)
+    byebug
+    prefectures.each do |prefecture|
+      data = PostPrefecture.find_or_create_by(prefecture: prefecture)
+      PostPrefecture.create(post: post, prefecture: data) unless post.prefectures.include?(data)
+    end
   end
 end

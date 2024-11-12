@@ -6,6 +6,9 @@ class Post < ApplicationRecord
   has_one_attached :image, dependent: :destroy
   has_many :posttags
   has_many :tags, through: :posttags
+  has_many :post_prefectures
+  has_many :prefectures, through: :post_prefectures
+  
 
   validates :title, presence: true
   validates :body, presence: true

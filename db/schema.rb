@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_11_11_120132) do
+ActiveRecord::Schema.define(version: 2024_11_12_154038) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(version: 2024_11_11_120132) do
     t.index ["post_id"], name: "index_places_on_post_id"
   end
 
+  create_table "postprefectures", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "prefecture"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_postprefectures_on_post_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -89,8 +97,8 @@ ActiveRecord::Schema.define(version: 2024_11_11_120132) do
     t.integer "place"
     t.integer "night"
     t.integer "people"
-    t.integer "prefecture"
     t.integer "travelmonth"
+    t.integer "month"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -132,6 +140,7 @@ ActiveRecord::Schema.define(version: 2024_11_11_120132) do
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "places", "posts"
+  add_foreign_key "postprefectures", "posts"
   add_foreign_key "posts", "users"
   add_foreign_key "posttags", "posts"
   add_foreign_key "posttags", "tags"

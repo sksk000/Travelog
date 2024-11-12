@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="images"
 export default class extends Controller {
 
-  static targets = ["drop", "error", "preview", "select","form", "tags"]
+  static targets = ["drop", "error", "preview", "select","form", "tags", "selectbox", "selects"]
 
   connect() {}
 
@@ -48,7 +48,6 @@ export default class extends Controller {
     e.preventDefault()
     const formData = new FormData(this.formTarget)
 
-
     if(this.file){
       formData.append("post[image]", this.file)
     }
@@ -69,6 +68,25 @@ export default class extends Controller {
     else{
       alert("tagControllerが見つかりません");
     }
+
+    const selectController = this.application.getControllerForElementAndIdentifier(
+      this.element.querySelector('[data-controller="selectmenu"]'),
+      "selectmenu"
+    );
+
+    if(selectController){
+      console.log("セレクトコントローラが見つかった")
+
+      const selects = selectController.getSelects()
+      console.log(selects)
+
+      selects.forEach((prefecture) => {
+        formData.append(`prefecture[prefecture][]`, prefecture)
+      })
+    }
+
+
+
     //PostモデルのPOSTを行う
     fetch(this.formTarget.action, {
       method: "POST",
@@ -109,7 +127,4 @@ export default class extends Controller {
     }
     reader.readAsDataURL(file)
   }
-
-
-
 }

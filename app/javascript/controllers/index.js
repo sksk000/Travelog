@@ -10,5 +10,8 @@ application.register("hello", HelloController)
 import ImagesController from "./images_controller"
 application.register("images", ImagesController)
 
+import SelectmenuController from "./selectmenu_controller"
+application.register("selectmenu", SelectmenuController)
+
 import TagController from "./tag_controller"
 application.register("tag", TagController)
