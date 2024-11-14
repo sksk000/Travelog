@@ -1,8 +1,8 @@
 <% targetpost.each do | post | %>
   <div class="col">
     <div class="card border-dark" style="width: 260px; height: 380px;">
-      <% if post.images[0] != nil  %>
-        <%= image_tag post.images[0], size: "200x180", class:"card-img-top" %>
+      <% if post.image.present? %>
+        <%= image_tag post.image, size: "200x180", class:"card-img-top" %>
       <% else %>
         <%= image_tag asset_path('no_image.jpg'), size: "200x180", class:"card-img-top" %>
       <% end %>

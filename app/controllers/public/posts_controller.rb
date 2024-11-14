@@ -4,11 +4,12 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-
     if @post.save
-      redirect_to new_post_places_path(@post.id)
+      createtag(@post, params[:tag]) if params[:tag].present?
+      createprefecture(@post, params[:prefecture]) if params[:prefecture].present?
+      render json: { post: @post, message: '投稿が成功しました', redirect_url: new_post_places_path(@post.id) }, status: :created
     else
-      redirect_to new_post_path, flash: { alert: @post.errors.full_messages }
+      render json: { error: '投稿に失敗しました', details: @post.errors.full_messages }, status: :unprocessable_entity
     end
 
   end
@@ -80,7 +81,15 @@ class Public::PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :body, :user_id, :good, :season, :place, :night, :people,:is_release, images: [])
+    params.require(:post).permit(:title, :body, :user_id, :good, :place, :night, :people,:is_release, :image, :travelmonth)
+  end
+
+  def postprefecture_params
+    params.require(:prefecture).permit(prefecture:[])
+  end
+
+  def tag_params
+    params.require(:tag).permit(name:[])
   end
 
   def is_current_user
@@ -99,6 +108,22 @@ class Public::PostsController < ApplicationController
     post = Post.find(params[:id])
     if post.is_release == false and current_user.id != post.user_id
       redirect_to mypage_path(post.user_id)
+    end
+  end
+
+  def createtag(post, tagnames)
+    tagnames = tag_params[:name]
+    tagnames.each do |tagname|
+      tag = Tag.find_or_create_by(name: tagname)
+      PostTag.create(post: post, tag: tag) unless post.tags.include?(tag)
+    end
+  end
+
+  def createprefecture(post, prefectures)
+    prefectures = postprefecture_params[:prefecture]
+    prefectures.each do |prefecture|
+      data = PostPrefecture.find_or_create_by(prefecture: prefecture)
+      PostPrefecture.create(post: post, prefecture: data) unless post.post_prefectures.include?(data)
     end
   end
 end

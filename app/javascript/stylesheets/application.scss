@@ -88,3 +88,34 @@ body{
 .modal-backdrop{
   z-index: 0;
 }
+
+.nextbutton{
+  width: 10rem;
+  height: 10rem;
+}
+
+.imagedrag{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 10rem;
+  height: 10rem;
+  border-style: dotted;
+  border-width: 1px;
+  border-color: black;
+}
+.form-label{
+  text-align: left;
+}
+
+.plusbutton{
+  width: 3rem;
+  height: 3rem;
+}
+
+button.fa-solid {
+  border: none;
+  background-color: white;
+}
