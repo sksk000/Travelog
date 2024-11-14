@@ -1,6 +1,6 @@
-<div data-controller="images" class="container">
+<div data-controller="post" class="container">
   <div class="row justify-content-center">
-      <%= form_with model: Post.new, method: :post, html: { multipart: true },data: { action: "submit->images#submitForm", images_target: "form" } do |f| %>
+      <%= form_with model: Post.new, method: :post, html: { multipart: true },data: { action: "submit->post#submitForm", post_target: "form" } do |f| %>
         <div class="col">
           <h2>新規投稿</h2>
         </div>
@@ -41,16 +41,16 @@
           </div>
         </div>
 
-        <div class="imagedrag col-md-6"
-             data-images-target="drop"
-             data-action="dragover->images#dragOver dragleave->images#dragLeave drop->images#dropImages">
-          <i class="fa-solid fa-circle-plus"></i></br>
-          写真追加
+        <div data-controller="images">
+          <div class="imagedrag col-md-6"
+               data-images-target="drop"
+               data-action="dragover->images#dragOver dragleave->images#dragLeave drop->images#dropImages">
+            <i class="fa-solid fa-circle-plus"></i></br>
+            写真追加
+          </div>
+          <div data-images-target="preview" class="preview-area mt-3"></div>
+          <div data-images-target="error" class="error-message mt-2 text-danger"></div>
         </div>
-
-        <div data-images-target="preview" class="preview-area mt-3"></div>
-
-        <div data-images-target="error" class="error-message mt-2 text-danger"></div>
 
         <div class="form-group col-md-6">
           <%= f.label "宿泊数", class:"form-label"%>
@@ -70,8 +70,8 @@
           </div>
         </div>
 
-        <div class="text-right">
-          <button type="button" class="btn btn-success rounded-circle p-0 nextbutton" data-images-target="submit"  data-action="click->images#submitForm">
+        <div class="text-right" >
+          <button type="button" class="btn btn-success rounded-circle p-0 nextbutton" data-images-target="submit"  data-action="click->post#submitForm">
               次へ
           </button>
         </div>
