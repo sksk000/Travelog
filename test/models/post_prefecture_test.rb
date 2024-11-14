@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PosttagTest < ActiveSupport::TestCase
+class PostPrefectureTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

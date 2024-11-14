@@ -20,7 +20,7 @@
         </div>
         <div class="form-group col-md-6">
           <%= f.label "月", class:"form-label" %>
-          <%= f.select :month,[["1月",1], ["2月",2], ["3月",3], ["4月",4],
+          <%= f.select :travelmonth,[["1月",1], ["2月",2], ["3月",3], ["4月",4],
                               ["5月",5], ["6月",6], ["7月",7], ["8月",8],
                               ["9月",9], ["10月",10], ["11月",11], ["12月",12]], {},{class:"form-control"} %>
         </div>
@@ -71,7 +71,9 @@
         </div>
 
         <div class="text-right">
-          <%= f.submit "次へ" ,class: "btn btn-success rounded-circle p-0 nextbutton"%>
+          <button type="button" class="btn btn-success rounded-circle p-0 nextbutton" data-images-target="submit"  data-action="click->images#submitForm">
+              次へ
+          </button>
         </div>
       <% end %>
   </div>

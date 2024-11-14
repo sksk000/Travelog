@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="images"
 export default class extends Controller {
 
-  static targets = ["drop", "error", "preview", "select","form", "tags", "selectbox", "selects"]
+  static targets = ["drop", "error", "preview", "select","form", "tags", "selectbox", "selects", "submit"]
 
   connect() {}
 
@@ -48,6 +48,11 @@ export default class extends Controller {
     e.preventDefault()
     const formData = new FormData(this.formTarget)
 
+    if(!this.validateForm()){
+      this.submitTarget.blur()
+      return
+    }
+
     if(this.file){
       formData.append("post[image]", this.file)
     }
@@ -57,38 +62,42 @@ export default class extends Controller {
       "tag"
     );
 
+    const selectController = this.application.getControllerForElementAndIdentifier(
+      this.element.querySelector('[data-controller="selectmenu"]'),
+      "selectmenu"
+    );
+
     if(tagController){
-      console.log("タグコントローラが見つかった")
       const tags = tagController.getTags()
-      console.log(tags)
       tags.forEach((tag) => {
         formData.append(`tag[name][]`, tag)
       })
     }
     else{
       alert("tagControllerが見つかりません");
+      this.submitTarget.blur()
     }
 
-    const selectController = this.application.getControllerForElementAndIdentifier(
-      this.element.querySelector('[data-controller="selectmenu"]'),
-      "selectmenu"
-    );
-
     if(selectController){
-      console.log("セレクトコントローラが見つかった")
 
       const selects = selectController.getSelects()
-      console.log(selects)
+
+      if(selects.length < 1){
+        alert("旅行した都道府県を最低1つ選択してください")
+        this.submitTarget.blur()
+        return
+      }
 
       selects.forEach((prefecture) => {
         formData.append(`prefecture[prefecture][]`, prefecture)
       })
+
     }
 
-
+    const actionURL = this.formTarget.action.endsWith('.json') ? this.formTarget.action : this.formTarget.action + '.json';
 
     //PostモデルのPOSTを行う
-    fetch(this.formTarget.action, {
+    fetch(actionURL, {
       method: "POST",
       body: formData,
       headers: {
@@ -96,8 +105,7 @@ export default class extends Controller {
       }
       }).then((response) => {
       if (!response.ok) {
-        // ステータスコードとエラーメッセージをログに出力
-        console.error(`Error: ${response.status} - ${response.statusText}`);
+        this.submitTarget.blur()
         return response.text(); // レスポンスのテキストを取得
       }
       console.log("投稿成功");
@@ -106,11 +114,22 @@ export default class extends Controller {
     .then((data) => {
       if (data && data.error) {
         alert("投稿に失敗しました: " + data.error);
+        this.submitTarget.blur()
+        return
+      }
+
+      if(data.redirect_url){
+        window.location.href = data.redirect_url;
+      }else{
+        alert("リダイレクトURLが含まれていません");
+        this.submitTarget.blur()
+        return
       }
     })
     .catch((error) => {
-      console.error("Fetchエラー:", error);
       alert("投稿に失敗しました");
+      this.submitTarget.blur()
+      return
     });
 
   }
@@ -126,5 +145,35 @@ export default class extends Controller {
       this.previewTarget.appendChild(img)
     }
     reader.readAsDataURL(file)
+  }
+
+
+  validateForm(){
+
+    let errormsg = ""
+    let isSuccess = true
+
+    const title = this.formTarget.querySelector('[name="post[title]"]');
+    const body = this.formTarget.querySelector('[name="post[body]"]');
+
+
+    // タイトルと投稿内容が空でないかチェック
+    if(!title.value.trim()){
+      errormsg = errormsg + "タイトルが空欄です\n"
+      isSuccess = isSuccess && false
+    }
+
+    if (!body.value.trim()) {
+      errormsg = errormsg + "投稿内容が空欄です\n"
+      isSuccess = isSuccess && false
+    }
+
+    if(isSuccess){
+      return true
+    } else {
+      alert(errormsg)
+    }
+
+
   }
 }
