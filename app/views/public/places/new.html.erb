@@ -1,19 +1,24 @@
-<div class="container-fluid">
+<div class="container-fluid" style="overflow: hidden;">
   <div class="row">
-    <div class="col">
+    <div class="col-md-3" style = "background-color: #f0f8ff; height: 100vh;">
       <%= form_with model: @place, url: post_places_path(@post_id), method: :post do |f| %>
-        <div class="form-group">
+        <div class="form-group col mt-3">
           <%= f.label :place_name, "訪問地をキーワードで検索" %><br>
           <%= f.text_field :place_name, placeholder:'キーワードを入力' %>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col">
           <%= f.label :comment, "感想やメモ" %><br>
-          <%= f.text_field :comment, placeholder:'初めて勾当台公園へ行った結構広く参加したイベントも楽しかった', size: " 50 x 40 "  %>
+          <%= f.text_area :comment,placeholder:'初めて勾当台公園へ行った結構広く参加したイベントも楽しかった', size: " 100 x 5 ", class:"form-control" %>
         </div>
 
+        <div class="form-group col">
+          <%= f.label :good, "この場所のおすすめ度" %>
+          <%= render 'public/posts/good.html.erb', is_good_edit: true, modelname: "place" %>
+        </div>
 
-         <div class="imagedrag col-md-6"
+        <div class="form-group col">
+         <div class="imagedrag
              data-images-target="drop"
              data-action="dragover->images#dragOver dragleave->images#dragLeave drop->images#dropImages">
           <i class="fa-solid fa-circle-plus"></i></br>
@@ -27,5 +32,8 @@
 
       <% end %>
     </div>
+  </div>
+  <div class="col">
+      aaaaaaaaaaaaa
   </div>
 </div>
