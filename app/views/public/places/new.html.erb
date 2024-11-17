@@ -1,6 +1,6 @@
-<div class="container-fluid" style="overflow: hidden;">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-md-3" style = "background-color: #f0f8ff; height: 100vh;">
+    <div class="col-md-3" style = "background-color: #f0f8ff; height: 100vh; overflow: hidden;">
       <%= form_with model: @place, url: post_places_path(@post_id), method: :post do |f| %>
         <div class="form-group col mt-3">
           <%= f.label :place_name, "訪問地をキーワードで検索" %><br>
@@ -33,7 +33,16 @@
       <% end %>
     </div>
   </div>
-  <div class="col">
-      aaaaaaaaaaaaa
+  <div class="col p-0">
+    <ul class="nav flex-column" style="position:absolute; z-index:1; background-color:white;">
+      <li class="nav-item m-0">
+        <a class="nav-link border" href="#section1">1</a>
+      </li>
+      <li class="nav-item m-0">
+        <a class="nav-link border" href="#section2">+</a>
+      </li>
+    </ul>
+    <div id="place_map" data-id="<%= @post_id %>" style="height: 100vh;"></div>
   </div>
 </div>
+<%= javascript_pack_tag 'place_map', 'data-turbolinks-track': 'reload' %>
