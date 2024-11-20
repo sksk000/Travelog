@@ -13,10 +13,12 @@ import "popper.js";
 import "bootstrap";
 import "../stylesheets/application";
 import "controllers"
+import $ from 'jquery';
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+window.$ = window.jQuery = $;
 
 import Raty from "./raty.js"
 window.raty = function(elem,opt) {

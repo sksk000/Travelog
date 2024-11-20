@@ -3,7 +3,6 @@ class Public::PlacesController < ApplicationController
     @place = Place.new
     @post_id = params[:post_id]
     @place_num = Place.where(post_id: @post_id).maximum(:place_num)
-
   end
 
 

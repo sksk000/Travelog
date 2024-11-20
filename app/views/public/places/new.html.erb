@@ -7,6 +7,10 @@
           <%= f.text_field :place_name, placeholder:'キーワードを入力' %>
         </div>
 
+        <div class="form-group col" id="resultplacename">
+          aaaaaa
+        </div>
+
         <div class="form-group col">
           <%= f.label :comment, "感想やメモ" %><br>
           <%= f.text_area :comment,placeholder:'初めて勾当台公園へ行った結構広く参加したイベントも楽しかった', size: " 100 x 5 ", class:"form-control" %>
@@ -43,6 +47,28 @@
       </li>
     </ul>
     <div id="place_map" data-id="<%= @post_id %>" style="height: 100vh;"></div>
+  </div>
+</div>
+
+
+<div id="mapModal" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >訪問地選択</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="list-group list-group-flush" id="lists">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
   </div>
 </div>
 <%= javascript_pack_tag 'place_map', 'data-turbolinks-track': 'reload' %>
