@@ -8,6 +8,7 @@ async function initMap() {
   const {AdvancedMarkerElement} = await google.maps.importLibrary("marker") // 追記
   const { PlacesService } = await google.maps.importLibrary("places");
   const lists = document.getElementById('lists');
+  const placename = document.getElementById('resultplacename');
 
 const travelSiteTypes = [
   "amusement_park",      // 遊園地
@@ -59,7 +60,7 @@ const travelSiteTypes = [
 
     const request = {
       location: e.latLng,
-      radius: 50,
+      radius: 100,
     };
 
     service.nearbySearch(request, (results, status) => {
@@ -72,9 +73,12 @@ const travelSiteTypes = [
           const placeDetailsRequest = { placeId: place.place_id };
           service.getDetails(placeDetailsRequest, (details, status) => {
           const dynamicContent = `
-            <a href="#" class="list-group-item list-group-item-action" id="placename">` + details.name + `</a>
+            <button class="list-group-item list-group-item-action" id="placename" data-dismiss="modal">` + details.name + `</button >
             `;
             lists.innerHTML = lists.innerHTML + dynamicContent
+          })
+          lists.addEventListener('click', function(e){
+            placename.textContent = "訪問地：" + e.target.textContent
           })
         }
       })
