@@ -87,6 +87,59 @@ const travelSiteTypes = [
   window.$('#mapModal').modal('show');
   });
 
+
+
+  let searchlist = document.getElementById("searchinput");
+  searchlist.addEventListener("keydown",showsuggest);
+
+
+
+
 }
 
 initMap();
+
+
+async function showsuggest(e){
+  if (e.key === "Enter" && e.target.type !== "submit") {
+      e.preventDefault();
+    const placename = document.getElementById('resultplacename');
+    const request = {
+      textQuery:e.target.value,
+      fields: ["displayName"],
+      isOpenNow: true,
+      maxResultCount: 7,
+      includedType: "restaurant",
+
+    };
+    const lists = document.getElementById("searchlists")
+
+    const { Place } =  await google.maps.importLibrary("places");
+    const { places } = await Place.searchByText(request);
+
+    console.log(e.target.value)
+    console.log(places)
+
+
+    if(places.length > 0){
+      lists.innerHTML = ""
+      places.forEach((place) => {
+
+        const dynamicContent = `<button class="list-group-item list-group-item-action" id="placename">` + place.displayName + `</button >`;
+              lists.innerHTML = lists.innerHTML + dynamicContent
+
+        lists.addEventListener('click', function(e){
+          e.preventDefault();
+          placename.textContent = "訪問地：" + e.target.textContent
+          e.target.remove()
+        })
+      })
+
+    } else {
+      console.log("No results");
+    }
+  }
+
+
+
+}

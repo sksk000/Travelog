@@ -4,7 +4,9 @@
       <%= form_with model: @place, url: post_places_path(@post_id), method: :post do |f| %>
         <div class="form-group col mt-3">
           <%= f.label :place_name, "訪問地をキーワードで検索" %><br>
-          <%= f.text_field :place_name, placeholder:'キーワードを入力' %>
+          <input class="form-control" type="text" placeholder="キーワードを入力" id="searchinput">
+
+          <div class="list-group list-group-flush" id="searchlists"></div>
         </div>
 
         <div class="form-group col" id="resultplacename">
@@ -32,7 +34,7 @@
         <div data-images-target="preview" class="preview-area mt-3"></div>
 
 
-        <%= f.submit "登録" ,class: "btn btn-primary"%>
+        <%= f.submit "登録" , class: 'btn btn-primary' %>
 
       <% end %>
     </div>
@@ -70,4 +72,6 @@
     </div>
   </div>
 </div>
+
+
 <%= javascript_pack_tag 'place_map', 'data-turbolinks-track': 'reload' %>
