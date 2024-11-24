@@ -3,6 +3,13 @@
   key: process.env.Maps_API_Key
 });
 
+let map;
+let markers = [];
+
+const tabdatas = {
+  locations:[]
+}
+
 async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   const {AdvancedMarkerElement} = await google.maps.importLibrary("marker") // 追記
@@ -67,18 +74,17 @@ const travelSiteTypes = [
       lists.innerHTML = ""
       results.forEach(place => {
         const ret = travelSiteTypes.filter(item => place.types.includes(item));
-        console.log("結果：" + ret);
-        console.log(place)
         if(ret.length > 0){
           const placeDetailsRequest = { placeId: place.place_id };
           service.getDetails(placeDetailsRequest, (details, status) => {
           const dynamicContent = `
-            <button class="list-group-item list-group-item-action" id="placename" data-dismiss="modal">` + details.name + `</button >
-            `;
+            <button class="list-group-item list-group-item-action" id="placename" data-dismiss="modal"`+ "data-lat=" + place.geometry.location.lat() + ` ` + "data-lng=" + place.geometry.location.lng() + ">"  + details.name + "</button >";
             lists.innerHTML = lists.innerHTML + dynamicContent
           })
+
           lists.addEventListener('click', function(e){
             placename.textContent = "訪問地：" + e.target.textContent
+            addMarker(e.target.dataset.lat, e.target.dataset.lng, e.target.textContent)
           })
         }
       })
@@ -90,9 +96,10 @@ const travelSiteTypes = [
 
 
   let searchlist = document.getElementById("searchinput");
-  searchlist.addEventListener("keydown",showsuggest);
+  searchlist.addEventListener("keydown",showSuggest);
 
-
+  const registerbtn = document.getElementById("register");
+  registerbtn.addEventListener('click', saveTabData);
 
 
 }
@@ -100,16 +107,15 @@ const travelSiteTypes = [
 initMap();
 
 
-async function showsuggest(e){
+async function showSuggest(e){
   if (e.key === "Enter" && e.target.type !== "submit") {
       e.preventDefault();
     const placename = document.getElementById('resultplacename');
     const request = {
       textQuery:e.target.value,
-      fields: ["displayName"],
+      fields: ["displayName","location"],
       isOpenNow: true,
       maxResultCount: 7,
-      includedType: "restaurant",
 
     };
     const lists = document.getElementById("searchlists")
@@ -117,21 +123,23 @@ async function showsuggest(e){
     const { Place } =  await google.maps.importLibrary("places");
     const { places } = await Place.searchByText(request);
 
-    console.log(e.target.value)
-    console.log(places)
-
-
     if(places.length > 0){
       lists.innerHTML = ""
       places.forEach((place) => {
 
-        const dynamicContent = `<button class="list-group-item list-group-item-action" id="placename">` + place.displayName + `</button >`;
+        const dynamicContent = `
+            <button class="list-group-item list-group-item-action" id="placename" data-dismiss="modal"`+ "data-lat=" + place.location.lat() + ` ` + "data-lng=" + place.location.lng() + ">"  + place.displayName + "</button >";
               lists.innerHTML = lists.innerHTML + dynamicContent
 
         lists.addEventListener('click', function(e){
           e.preventDefault();
           placename.textContent = "訪問地：" + e.target.textContent
-          e.target.remove()
+          placename.dataset.lat = place.location.lat()
+          placename.dataset.lng = place.location.lng()
+
+          lists.innerHTML = ""
+          addMarker(e.target.dataset.lat, e.target.dataset.lng, place.displayName)
+
         })
       })
 
@@ -139,7 +147,85 @@ async function showsuggest(e){
       console.log("No results");
     }
   }
+}
 
 
+function addMarker(lat, lng, placename){
+
+  removeMarkers()
+
+ const marker = new google.maps.Marker ({
+    position: { lat: parseFloat(lat), lng: parseFloat(lng) },
+    map,
+    title: "test",
+  });
+
+  markers.push(marker);
+
+  map.panTo(new google.maps.LatLng(parseFloat(lat),parseFloat(lng)))
+
+  const contentString = `
+        <div class="information container p-0">
+          <div class="mb-3 d-flex align-items-center">
+            <p class="lead m-0 font-weight-bold">${placename}</p>
+          </div>
+        </div>
+      `;
+
+      const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+        ariaLabel: placename,
+      });
+
+      infowindow.open({
+          anchor: marker,
+          map,
+        })
+
+}
+
+function removeMarkers(){
+  for (const marker of markers){
+    marker.setMap(null)
+  }
+
+  markers = []
+}
+
+
+function saveTabData(){
+
+  console.log("called")
+
+  const placenameElem = document.getElementById("resultplacename")
+  const placename = placenameElem.textContent
+
+
+  const comment  = document.getElementById("comment").value;
+
+  const image = document.querySelector("preview-area");
+
+  if(image){
+    image.files[0]
+  }
+
+  const lat = placenameElem.dataset.lat;
+  const lng = placenameElem.dataset.lng;
+
+  const tabdata = {
+    name: placename,
+    comment: comment,
+    location: { lat: lat, lng: lng},
+    image: image,
+    rating: 1,
+  }
+
+
+  //保存
+  tabdatas.locations.push(tabdata)
+
+}
+
+function addTabs(){
 
 }
