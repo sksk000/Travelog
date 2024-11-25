@@ -15,7 +15,7 @@ async function initMap() {
   const {AdvancedMarkerElement} = await google.maps.importLibrary("marker") // 追記
   const { PlacesService } = await google.maps.importLibrary("places");
   const lists = document.getElementById('lists');
-  const placename = document.getElementById('resultplacename');
+
 
 const travelSiteTypes = [
   "amusement_park",      // 遊園地
@@ -59,12 +59,6 @@ const travelSiteTypes = [
 
   const service = new PlacesService(map);
   map.addListener('click', (e) => {
-    //const marker = new google.maps.Marker ({
-    //    position: e.latLng,
-    //    map,
-    //    title: "test",
-    //  });
-
     const request = {
       location: e.latLng,
       radius: 100,
@@ -83,8 +77,8 @@ const travelSiteTypes = [
           })
 
           lists.addEventListener('click', function(e){
-            placename.textContent = "訪問地：" + e.target.textContent
-            addMarker(e.target.dataset.lat, e.target.dataset.lng, e.target.textContent)
+            console.log(e.target.textContent)
+            addPlaceNameAndMaker(e.target.dataset.lat, e.target.dataset.lng, e.target.textContent)
           })
         }
       })
@@ -102,6 +96,9 @@ const travelSiteTypes = [
   registerbtn.addEventListener('click', saveTabData);
 
 
+  const tabbtn = document.getElementById("placeadd");
+  tabbtn.addEventListener('click', addTabs);
+
 }
 
 initMap();
@@ -118,10 +115,13 @@ async function showSuggest(e){
       maxResultCount: 7,
 
     };
+
     const lists = document.getElementById("searchlists")
 
     const { Place } =  await google.maps.importLibrary("places");
     const { places } = await Place.searchByText(request);
+
+    console.log(places)
 
     if(places.length > 0){
       lists.innerHTML = ""
@@ -133,12 +133,8 @@ async function showSuggest(e){
 
         lists.addEventListener('click', function(e){
           e.preventDefault();
-          placename.textContent = "訪問地：" + e.target.textContent
-          placename.dataset.lat = place.location.lat()
-          placename.dataset.lng = place.location.lng()
-
+          addPlaceNameAndMaker(e.target.dataset.lat, e.target.dataset.lng, e.target.textContent)
           lists.innerHTML = ""
-          addMarker(e.target.dataset.lat, e.target.dataset.lng, place.displayName)
 
         })
       })
@@ -195,10 +191,15 @@ function removeMarkers(){
 
 function saveTabData(){
 
-  console.log("called")
-
   const placenameElem = document.getElementById("resultplacename")
-  const placename = placenameElem.textContent
+  const placename = placenameElem.textContent.trim()
+
+  console.log(placename)
+  console.log(placename.length)
+  if(placename.length <= 0){
+    alert("訪問地を設定してください")
+    return
+  }
 
 
   const comment  = document.getElementById("comment").value;
@@ -224,8 +225,59 @@ function saveTabData(){
   //保存
   tabdatas.locations.push(tabdata)
 
+  //タブのところに訪問地名設定
+  document.querySelectorAll('.placedata').item(tabdatas.locations.length - 1).textContent = (tabdatas.locations.length - 1) + ":" + placename
+
+  alert("保存しました")
+
+
+
 }
 
 function addTabs(){
 
+  const placedataindex = document.querySelectorAll('.placedata').length
+
+  if(!tabdatas[placedataindex]){
+    alert("現在の観光地情報が保存されていないためタブを追加出来ません")
+
+    return
+  }
+
+
+  const placename = document.getElementById("placename");
+
+  const placeadd = document.getElementById("placeadd");
+
+  const navList = document.querySelector('.nav.flex-column');
+
+  if(navList){
+    const newNavItem = document.createElement("li");
+    newNavItem.classList.add('nav-item', 'm-0');
+
+    const newButton = document.createElement('button');
+    newButton.classList.add('nav-link', 'border', 'placedata');
+
+
+    const placedatalength = placedataindex + 1;
+
+    const placebtnname = placename.textContent ? placedatalength + ":" + placename.textContent : placedatalength + ":" + "なし"
+
+    newButton.textContent = placebtnname
+
+    newNavItem.appendChild(newButton);
+
+    navList.insertBefore(newNavItem, placeadd.parentNode);
+  }
+
+}
+
+function addPlaceNameAndMaker(lat, lng, placeName){
+  const placename = document.getElementById('resultplacename');
+
+  placename.textContent = placeName
+  placename.dataset.lat = lat
+  placename.dataset.lng = lng
+
+  addMarker(lat, lng, placeName)
 }
