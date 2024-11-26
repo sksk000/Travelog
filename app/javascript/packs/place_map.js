@@ -77,7 +77,6 @@ const travelSiteTypes = [
           })
 
           lists.addEventListener('click', function(e){
-            console.log(e.target.textContent)
             addPlaceNameAndMaker(e.target.dataset.lat, e.target.dataset.lng, e.target.textContent)
           })
         }
@@ -120,8 +119,6 @@ async function showSuggest(e){
 
     const { Place } =  await google.maps.importLibrary("places");
     const { places } = await Place.searchByText(request);
-
-    console.log(places)
 
     if(places.length > 0){
       lists.innerHTML = ""
@@ -194,13 +191,10 @@ function saveTabData(){
   const placenameElem = document.getElementById("resultplacename")
   const placename = placenameElem.textContent.trim()
 
-  console.log(placename)
-  console.log(placename.length)
   if(placename.length <= 0){
     alert("訪問地を設定してください")
     return
   }
-
 
   const comment  = document.getElementById("comment").value;
 
@@ -226,7 +220,7 @@ function saveTabData(){
   tabdatas.locations.push(tabdata)
 
   //タブのところに訪問地名設定
-  document.querySelectorAll('.placedata').item(tabdatas.locations.length - 1).textContent = (tabdatas.locations.length - 1) + ":" + placename
+  document.querySelectorAll('.placedata').item(tabdatas.locations.length - 1).textContent = (tabdatas.locations.length) + ":" + placename
 
   alert("保存しました")
 
@@ -238,17 +232,16 @@ function addTabs(){
 
   const placedataindex = document.querySelectorAll('.placedata').length
 
-  if(!tabdatas[placedataindex]){
-    alert("現在の観光地情報が保存されていないためタブを追加出来ません")
 
+  console.log(tabdatas)
+  if(!tabdatas.locations[placedataindex - 1]){
+    alert("現在の観光地情報が保存されていないため、タブを追加出来ません")
     return
   }
 
 
-  const placename = document.getElementById("placename");
-
+  const placename = document.getElementById("resultplacename");
   const placeadd = document.getElementById("placeadd");
-
   const navList = document.querySelector('.nav.flex-column');
 
   if(navList){
@@ -258,16 +251,28 @@ function addTabs(){
     const newButton = document.createElement('button');
     newButton.classList.add('nav-link', 'border', 'placedata');
 
-
-    const placedatalength = placedataindex + 1;
-
-    const placebtnname = placename.textContent ? placedatalength + ":" + placename.textContent : placedatalength + ":" + "なし"
-
-    newButton.textContent = placebtnname
+    newButton.textContent = placedataindex + 1
 
     newNavItem.appendChild(newButton);
 
     navList.insertBefore(newNavItem, placeadd.parentNode);
+
+
+    const inputplace = document.getElementById("searchinput")
+    const comment = document.getElementById("comment")
+    const imagepreview = document.getElementById("imagepreview")
+
+    //現在のフォームをクリアする
+    placename.textContent = ""
+    inputplace.value = ""
+    comment.value = ""
+    imagepreview.innerHTML = ""
+
+
+
+
+
+
   }
 
 }

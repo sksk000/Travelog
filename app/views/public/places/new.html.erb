@@ -27,15 +27,17 @@
           <%= render 'public/posts/good.html.erb', is_good_edit: true, modelname: "place" %>
         </div>
 
-        <div class="form-group col">
-         <div class="imagedrag
-             data-images-target="drop"
-             data-action="dragover->images#dragOver dragleave->images#dragLeave drop->images#dropImages">
-          <i class="fa-solid fa-circle-plus"></i></br>
-          写真追加
-        </div>
+        <div data-controller="images">
+          <div class="form-group col">
+           <div class="imagedrag"
+               data-images-target="drop"
+               data-action="dragover->images#dragOver dragleave->images#dragLeave drop->images#dropImages">
+            <i class="fa-solid fa-circle-plus"></i></br>
+            写真追加
+          </div>
 
-        <div data-images-target="preview" class="preview-area mt-3"></div>
+          <div data-images-target="preview" class="preview-area mt-3" id="imagepreview"></div>
+        </div>
 
         <div class="btn btn-primary" id="register"> 登録 </div>
 
