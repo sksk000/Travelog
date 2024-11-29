@@ -4,7 +4,7 @@
 });
 
 let map;
-let markers = [];
+let g_marker;
 
 const tabdatas = {
   locations:[]
@@ -95,8 +95,15 @@ const travelSiteTypes = [
   registerbtn.addEventListener('click', saveTabData);
 
 
-  const tabbtn = document.getElementById("placeadd");
-  tabbtn.addEventListener('click', addTabs);
+  const tabaddbtn = document.getElementById("placeadd");
+  tabaddbtn.addEventListener('click', addTabs);
+
+
+  const tabbtns = document.querySelectorAll(".placedata");
+  tabbtns.forEach((btn)=>{
+    btn.addEventListener("click", loadPlacedata)
+
+  })
 
 }
 
@@ -106,11 +113,11 @@ initMap();
 async function showSuggest(e){
   if (e.key === "Enter" && e.target.type !== "submit") {
       e.preventDefault();
+
     const placename = document.getElementById('resultplacename');
     const request = {
       textQuery:e.target.value,
       fields: ["displayName","location"],
-      isOpenNow: true,
       maxResultCount: 7,
 
     };
@@ -120,6 +127,7 @@ async function showSuggest(e){
     const { Place } =  await google.maps.importLibrary("places");
     const { places } = await Place.searchByText(request);
 
+    console.log(places);
     if(places.length > 0){
       lists.innerHTML = ""
       places.forEach((place) => {
@@ -137,7 +145,7 @@ async function showSuggest(e){
       })
 
     } else {
-      console.log("No results");
+
     }
   }
 }
@@ -145,7 +153,7 @@ async function showSuggest(e){
 
 function addMarker(lat, lng, placename){
 
-  removeMarkers()
+  removeMarker()
 
  const marker = new google.maps.Marker ({
     position: { lat: parseFloat(lat), lng: parseFloat(lng) },
@@ -153,7 +161,7 @@ function addMarker(lat, lng, placename){
     title: "test",
   });
 
-  markers.push(marker);
+  g_marker = marker;
 
   map.panTo(new google.maps.LatLng(parseFloat(lat),parseFloat(lng)))
 
@@ -177,12 +185,12 @@ function addMarker(lat, lng, placename){
 
 }
 
-function removeMarkers(){
-  for (const marker of markers){
-    marker.setMap(null)
-  }
+function removeMarker(){
 
-  markers = []
+  if(g_marker){
+    g_marker.setMap(null)
+    g_marker = null
+  }
 }
 
 
@@ -207,12 +215,18 @@ function saveTabData(){
   const lat = placenameElem.dataset.lat;
   const lng = placenameElem.dataset.lng;
 
+
+  const parentraty = document.querySelector('#star_place_edit')
+  const inputraty = parentraty.querySelector('input')
+
+  console.log(inputraty.value)
+
   const tabdata = {
     name: placename,
     comment: comment,
     location: { lat: lat, lng: lng},
     image: image,
-    rating: 1,
+    rating: inputraty.value,
   }
 
 
@@ -257,6 +271,8 @@ function addTabs(){
 
     navList.insertBefore(newNavItem, placeadd.parentNode);
 
+    newButton.addEventListener('click', loadPlacedata)
+
 
     const inputplace = document.getElementById("searchinput")
     const comment = document.getElementById("comment")
@@ -268,11 +284,7 @@ function addTabs(){
     comment.value = ""
     imagepreview.innerHTML = ""
 
-
-
-
-
-
+    removeMarker()
   }
 
 }
@@ -285,4 +297,47 @@ function addPlaceNameAndMaker(lat, lng, placeName){
   placename.dataset.lng = lng
 
   addMarker(lat, lng, placeName)
+
+}
+
+
+function loadPlacedata(e){
+  console.log("called")
+  console.log(e.target)
+
+  const child = Array.from(document.querySelectorAll(".placedata"))
+  const index = child.indexOf(e.target)
+
+  console.log(document.querySelectorAll(".placedata"))
+  const placedata = tabdatas.locations[index]
+
+  //データが保存されている場合
+  if(placedata){
+
+    addPlaceNameAndMaker(placedata.location.lat,placedata.location.lng, placedata.name)
+    const comment = document.getElementById("comment")
+    comment.value = placedata.comment
+
+    loadraty(placedata.rating)
+
+  }
+
+function loadraty( good ){
+
+  var selectname = '#star_place_edit'
+  var elem = document.querySelector(selectname);
+  elem.innerHTML = ""
+  var option = {
+      starOn: elem.dataset.starOn,
+      starOff: elem.dataset.starOff,
+      scoreName: "place[good]",
+      score: good
+  };
+  raty(elem, option);
+}
+
+
+
+
+
 }

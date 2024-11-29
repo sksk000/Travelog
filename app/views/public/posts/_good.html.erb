@@ -1,25 +1,31 @@
 <% if is_good_edit == true %>
-　<div id="star_<%= modelname %>_edit"></div>
+  <div id="star_<%= modelname %>_edit"
+     data-star-on="<%= asset_path('star-on.png') %>"
+     data-star-off="<%= asset_path('star-off.png') %>">
+  </div>
 <script>
   var selectname = '#star_<%= modelname %>_edit'
   var elem = document.querySelector(selectname);
   elem.innerHTML = ""
   var option = {
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
+      starOn: elem.dataset.starOn,
+      starOff: elem.dataset.starOff,
       scoreName: "<%= modelname %>[good]"
   };
   raty(elem, option);
 </script>
 
 <% else %>
-　<div id="star_<%= modelname %>_show_<%= model.id %>"></div>
+  <div id="star_<%= modelname %>_show_<%= model.id %>"
+     data-star-on="<%= asset_path('star-on.png') %>"
+     data-star-off="<%= asset_path('star-off.png') %>">
+  </div>
   <script>
     var elem = document.querySelector('#star_<%= modelname %>_show_<%= model.id %>');
     elem.innerHTML = ""
     var option = {
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
+      starOn: elem.dataset.starOn,
+      starOff: elem.dataset.starOff,
       readOnly: true,
       score: <%= model.good %>
     };

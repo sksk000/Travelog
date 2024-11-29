@@ -37,3 +37,5 @@ document.addEventListener('turbolinks:load', function() {
     sliedesPreview: 1
   });
 });
+
+window.$ = window.jQuery = require('jquery');
