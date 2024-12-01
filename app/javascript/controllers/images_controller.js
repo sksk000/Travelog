@@ -3,24 +3,24 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="images"
 export default class extends Controller {
 
-  static targets = ["drop", "error", "preview", "select","form", "tags", "selectbox", "selects", "submit"]
+  static targets = ["drop", "error", "preview", "select","form", "tags", "selectbox", "selects", "submit", "deletebtn"]
 
-  connect() {}
+  connect() {
+
+  }
 
   dragOver(e) {
-    console.log("dragover")
     e.preventDefault()
     this.dropTarget.classList.add("bg-secondary")
+    this.dropTarget.classList.remove("bg-white")
   }
 
   dragLeave(e) {
-    console.log("dragleave")
     e.preventDefault()
     this.dropTarget.classList.remove("bg-secondary")
   }
 
   dropImages(e){
-    console.log("dropImages")
     e.preventDefault()
     const files = e.dataTransfer.files
 
@@ -46,18 +46,63 @@ export default class extends Controller {
 
   previewImage(file){
     const reader = new FileReader()
+    const imageinfo = document.getElementById("imageinfo")
 
     reader.onload = (e)=>{
       const img = document.createElement("img")
       img.src = e.target.result
       img.classList.add("img-thumbnail")
-      this.previewTarget.innerHTML = ""
-      this.previewTarget.appendChild(img)
+      this.dropTarget.appendChild(img)
+      this.dropTarget.classList.remove("bg-secondary")
+
+
+      const createddeletebtn = document.getElementById("deleteimagebtn")
+
+      if(!createddeletebtn){
+        //画像削除ボタン用意
+        const deletebtn = document.createElement("button")
+        deletebtn.classList.add("btn")
+        deletebtn.classList.add("btn-danger")
+        deletebtn.setAttribute("data-images-target", "deletebtn")
+        deletebtn.setAttribute("data-action", "click->images#deleteImage")
+        deletebtn.setAttribute("id", "deleteimagebtn")
+        deletebtn.textContent = "画像削除"
+        this.dropTarget.parentElement.appendChild(deletebtn)
+      }
+
+      //画像追加説明UI非表示
+      this.visibleImage(false)
+
+
+
     }
     reader.readAsDataURL(file)
   }
 
   getImage(){
     return this.file
+  }
+
+  deleteImage(e){
+    e.preventDefault()
+
+    let checkdelete = window.confirm('画像を削除しますか');
+    this.visibleImage(checkdelete)
+  }
+
+  visibleImage(isShow){
+    const imageinfo = document.getElementById("imageinfo")
+    const imagedata = document.querySelector(".img-thumbnail");
+    const deletebtn = document.getElementById("deleteimagebtn")
+
+    if(isShow){
+      imageinfo.style.display = ''
+      imagedata.remove()
+      deletebtn.remove()
+    }
+    else{
+      imageinfo.style.display = 'none'
+    }
+
   }
 }

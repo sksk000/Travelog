@@ -5,7 +5,7 @@
         <div class="form-group col mt-3">
           <%= f.label :place_name, "訪問地をキーワードで検索" %><br>
           <div class="input-group">
-            <input class="form-control" type="text" placeholder="キーワードを入力" id="searchinput">
+            <input class="form-control" type="text" placeholder="キーワードを入力" data-action="keydown.enter->place#showSuggest" data-place-target="input">
             <i class="fa-solid fa-magnifying-glass fa-xl" style="margin-top:20px;"></i>
           </div>
 
@@ -29,28 +29,29 @@
 
         <div data-controller="images">
           <div class="form-group col">
-           <div class="imagedrag"
+           <div class="imagedrag bg-white"
                data-images-target="drop"
                data-action="dragover->images#dragOver dragleave->images#dragLeave drop->images#dropImages">
-            <i class="fa-solid fa-circle-plus"></i></br>
-            写真追加
+              <div id="imageinfo">
+                <i class="fa-solid fa-circle-plus"></i></br>
+                <a>写真追加</a>
+              </div>
+            </div>
           </div>
-          <div data-images-target="preview" class="preview-area mt-3" id="imagepreview"></div>
-          </div>
-          <div class="btn btn-primary" id="register"> 登録 </div>
         </div>
+        <button type="button" class="btn btn-primary"  data-place-target="tabsave" data-action="click->place#saveData" id="savetabbutton"> 登録 </button>
       <% end %>
     </div>
     <div class="col p-0">
       <ul class="nav flex-column" style="position:absolute; z-index:1;">
         <li class="nav-item m-0">
-          <button class="nav-link border placedata">1</button>
+          <button class="nav-link border placedata" data-place-target="tab" data-action="click->place#loadPlacedata">1</button>
         </li>
         <li class="nav-item m-0">
-          <button class="nav-link border" id="placeadd">+</button>
+          <button class="nav-link border" data-action="click->place#addTabs">+</button>
         </li>
       </ul>
-      <button type="button" class="btn btn-success rounded-circle p-0" id="placesavebutton" data-place-target="submit"  data-action="click->place#submitForm" >
+      <button type="button" class="btn btn-success rounded-circle p-0" id="placesavebutton" data-place-target="submit"  data-action="click->place#submitForm">
         投稿
       </button>
       <div id="place_map" data-id="<%= @post_id %>" style="height: 100vh;"></div>
@@ -77,8 +78,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-<%= javascript_pack_tag 'place_map', 'data-turbolinks-track': 'reload' %>
