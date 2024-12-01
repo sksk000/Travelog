@@ -11,10 +11,7 @@ export default class extends Controller {
     this.map = null
     this.initMap()
     this.marker = null
-
-
-
-    //this.preventEnterInSearch();
+    this.currentindex = 0
   }
 
   static targets = ["submit", "form", "tabsave", "addtab", "input", "list", "tab"]
@@ -148,11 +145,17 @@ export default class extends Controller {
       place_num: this.tabdatas.length + 1
     }
 
-    //保存
-    this.tabdatas.push(tabdata)
+    //既存データの更新か確認する
+    if(this.tabdatas[this.currentindex]){
+      this.tabdatas[this.currentindex] = tabdata
 
-    //タブのところに訪問地名設定
-    document.querySelectorAll('.placedata').item(this.tabdatas.length - 1).textContent = (this.tabdatas.length) + ":" + placename
+    }else{
+      //保存
+      this.tabdatas.push(tabdata)
+      //タブのところに訪問地名設定
+      document.querySelectorAll('.placedata').item(this.tabdatas.length - 1).textContent = (this.tabdatas.length) + ":" + placename
+
+    }
 
     alert("保存しました")
 
@@ -247,13 +250,10 @@ export default class extends Controller {
     newNavItem.appendChild(newButton);
 
     e.target.parentNode.parentNode.insertBefore(newNavItem, e.target.parentNode);
-
-    this.resetForm()
   }
 
   resetForm(){
     const comment = document.getElementById("comment")
-    const imagedata = document.querySelector(".imagedrag")
     const placename = document.getElementById("resultplacename");
 
     //現在のフォームをクリアする
@@ -273,7 +273,7 @@ export default class extends Controller {
     );
 
     if(imageController){
-      imageController.visibleImginfo(true);
+      imageController.visibleImage(false);
     }
 
   }
@@ -311,7 +311,6 @@ export default class extends Controller {
     const index = child.indexOf(e.target)
 
     const placedata = this.tabdatas[index]
-
     this.resetForm()
 
     //データが保存されている場合
@@ -321,8 +320,27 @@ export default class extends Controller {
       const comment = document.getElementById("comment")
       comment.value = placedata.comment
       this.loadraty(placedata.good)
+      this.changesaveTabButtonText(true)
 
+
+      const imageController = this.application.getControllerForElementAndIdentifier(
+      this.element.querySelector('[data-controller="images"]'),
+        "images"
+      );
+
+
+      if(placedata.image){
+        if(imageController){
+          imageController.previewImage(placedata.image)
+        }
+      }
+
+    }else{
+      this.changesaveTabButtonText(false)
     }
+
+
+    this.currentindex = index
   }
 
   addPlaceNameAndMaker(lat, lng, placeName){
@@ -410,6 +428,12 @@ export default class extends Controller {
   }
 
 
+  changesaveTabButtonText(isOldData){
+    const savebtn = document.getElementById('savetabbutton');
 
+    if(isOldData){
+      savebtn.textContent = "更新"
+    }
 
+  }
 }

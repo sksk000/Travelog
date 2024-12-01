@@ -55,7 +55,6 @@ export default class extends Controller {
       this.dropTarget.appendChild(img)
       this.dropTarget.classList.remove("bg-secondary")
 
-
       const createddeletebtn = document.getElementById("deleteimagebtn")
 
       if(!createddeletebtn){
@@ -70,8 +69,7 @@ export default class extends Controller {
         this.dropTarget.parentElement.appendChild(deletebtn)
       }
 
-      //画像追加説明UI非表示
-      this.visibleImage(false)
+      this.visibleImage(true)
 
 
 
@@ -87,7 +85,13 @@ export default class extends Controller {
     e.preventDefault()
 
     let checkdelete = window.confirm('画像を削除しますか');
-    this.visibleImage(checkdelete)
+
+    if(checkdelete){
+      this.visibleImage(false)
+    }else{
+      this.visibleImage(true)
+    }
+
   }
 
   visibleImage(isShow){
@@ -95,10 +99,19 @@ export default class extends Controller {
     const imagedata = document.querySelector(".img-thumbnail");
     const deletebtn = document.getElementById("deleteimagebtn")
 
-    if(isShow){
+    if(!isShow){
       imageinfo.style.display = ''
-      imagedata.remove()
-      deletebtn.remove()
+
+      if(imagedata){
+        imagedata.remove()
+        console.log("imagedata.remove()")
+      }
+
+      if(deletebtn){
+        deletebtn.remove()
+        console.log("deletebtn.remove()")
+      }
+      this.file = null
     }
     else{
       imageinfo.style.display = 'none'
