@@ -6,7 +6,7 @@
 let map;
 let g_marker;
 
-const tabdatas = {
+window.tabdatas = {
   locations:[]
 }
 
@@ -127,7 +127,6 @@ async function showSuggest(e){
     const { Place } =  await google.maps.importLibrary("places");
     const { places } = await Place.searchByText(request);
 
-    console.log(places);
     if(places.length > 0){
       lists.innerHTML = ""
       places.forEach((place) => {
@@ -219,22 +218,23 @@ function saveTabData(){
   const parentraty = document.querySelector('#star_place_edit')
   const inputraty = parentraty.querySelector('input')
 
-  console.log(inputraty.value)
-
   const tabdata = {
-    name: placename,
+    place_name: placename,
     comment: comment,
-    location: { lat: lat, lng: lng},
+    latitude: lat,
+    longitude: lng,
     image: image,
-    rating: inputraty.value,
+    good: inputraty.value,
+    place_num: window.tabdatas.locations.length + 1
   }
 
-
   //保存
-  tabdatas.locations.push(tabdata)
+  window.tabdatas.locations.push(tabdata)
+
+  console.log(window.tabdatas.locations[0].location)
 
   //タブのところに訪問地名設定
-  document.querySelectorAll('.placedata').item(tabdatas.locations.length - 1).textContent = (tabdatas.locations.length) + ":" + placename
+  document.querySelectorAll('.placedata').item(window.tabdatas.locations.length - 1).textContent = (window.tabdatas.locations.length) + ":" + placename
 
   alert("保存しました")
 
@@ -247,8 +247,8 @@ function addTabs(){
   const placedataindex = document.querySelectorAll('.placedata').length
 
 
-  console.log(tabdatas)
-  if(!tabdatas.locations[placedataindex - 1]){
+  console.log(window.tabdatas)
+  if(!window.tabdatas.locations[placedataindex - 1]){
     alert("現在の観光地情報が保存されていないため、タブを追加出来ません")
     return
   }
@@ -309,7 +309,7 @@ function loadPlacedata(e){
   const index = child.indexOf(e.target)
 
   console.log(document.querySelectorAll(".placedata"))
-  const placedata = tabdatas.locations[index]
+  const placedata = window.tabdatas.locations[index]
 
   //データが保存されている場合
   if(placedata){

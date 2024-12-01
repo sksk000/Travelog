@@ -1,21 +1,21 @@
 class Public::PlacesController < ApplicationController
   def new
-    @place = Place.new
     @post_id = params[:post_id]
-    @place_num = Place.where(post_id: @post_id).maximum(:place_num)
   end
 
 
   def create
-    @place = Place.new(place_params)
-    @place.post_id = params[:post_id]
-    save_place_num()
+    place_params.each do |place_param|
 
-    if @place.save
-      redirect_to post_path(@place.post_id)
-    else
-      redirect_to new_post_places_path(params[:post_id]), flash: { alert: @place.errors.full_messages }
+      place = Place.new(place_param.merge(post_id: params[:post_id]))
+
+      unless place.save
+        render json: { error: '投稿に失敗しました', details: place.errors.full_messages }, status: :unprocessable_entity
+        return
+      end
     end
+    render json: { message: '投稿が成功しました', redirect_url: post_path(params[:post_id]) }, status: :created
+
   end
 
   def edit
@@ -34,32 +34,12 @@ class Public::PlacesController < ApplicationController
 
   private
   def place_params
-    params.require(:place).permit(:address, :place_name, :comment)
+    params.require(:place).map do | place |
+      place.permit(:place_name, :comment, :image, :good, :latitude, :longitude, :place_num )
+    end
   end
 
   def update_params(attrs)
     attrs.permit(:place_name, :address, :comment)
-  end
-
-  def save_place_num
-    target_num = params[:place][:place_num]
-    if target_num == "新規追加"
-      max_num = Place.where(post_id: params[:post_id]).maximum(:place_num)
-      if max_num == nil
-        @place.place_num = 1
-      else
-        @place.place_num = max_num + 1
-      end
-    else
-      @place.place_num = params[:place][:place_num]
-
-      datas= Place.where(post_id: params[:post_id]).where('place_num >= ?', target_num)
-      Place.transaction do
-        datas.find_each do | data |
-          data.update!(place_num: data.place_num + 1)
-        end
-      end
-
-    end
   end
 end

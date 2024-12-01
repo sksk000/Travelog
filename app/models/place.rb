@@ -1,9 +1,8 @@
 class Place < ApplicationRecord
   belongs_to :post
-  geocoded_by :address
-  after_validation :geocode
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :reverse_geocode
   has_one_attached :image
 
-  validates :address, presence: true
   validates :place_name, presence: true
 end

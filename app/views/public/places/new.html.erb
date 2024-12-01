@@ -1,7 +1,7 @@
-<div class="container-fluid">
+<div class="container-fluid" data-controller="place">
   <div class="row">
     <div class="col-md-3" style = "background-color: #f0f8ff; height: 100vh; overflow: hidden;">
-      <%= form_with model: @place, url: post_places_path(@post_id), method: :post do |f| %>
+      <%= form_with model: @place, url: post_places_path(@post_id), method: :post, html: { multipart: true },data: { action: "submit->place#submitForm", place_target: "form" } do |f| %>
         <div class="form-group col mt-3">
           <%= f.label :place_name, "訪問地をキーワードで検索" %><br>
           <div class="input-group">
@@ -18,8 +18,8 @@
         </div>
 
         <div class="form-group col">
-          <%= f.label :comment, "感想やメモ" %><br>
-          <%= f.text_area :comment,placeholder:'初めて勾当台公園へ行った結構広く参加したイベントも楽しかった', size: " 100 x 5 ", class:"form-control", id:"comment"%>
+          感想やメモ<br>
+          <textarea class="form-control" id="comment" placeholder="初めて勾当台公園へ行った結構広く参加したイベントも楽しかった" rows="5"></textarea>
         </div>
 
         <div class="form-group col">
@@ -35,25 +35,26 @@
             <i class="fa-solid fa-circle-plus"></i></br>
             写真追加
           </div>
-
           <div data-images-target="preview" class="preview-area mt-3" id="imagepreview"></div>
+          </div>
+          <div class="btn btn-primary" id="register"> 登録 </div>
         </div>
-
-        <div class="btn btn-primary" id="register"> 登録 </div>
-
       <% end %>
     </div>
-  </div>
-  <div class="col p-0">
-    <ul class="nav flex-column" style="position:absolute; z-index:1;">
-      <li class="nav-item m-0">
-        <button class="nav-link border placedata">1</button>
-      </li>
-      <li class="nav-item m-0">
-        <button class="nav-link border" id="placeadd">+</button>
-      </li>
-    </ul>
-    <div id="place_map" data-id="<%= @post_id %>" style="height: 100vh;"></div>
+    <div class="col p-0">
+      <ul class="nav flex-column" style="position:absolute; z-index:1;">
+        <li class="nav-item m-0">
+          <button class="nav-link border placedata">1</button>
+        </li>
+        <li class="nav-item m-0">
+          <button class="nav-link border" id="placeadd">+</button>
+        </li>
+      </ul>
+      <button type="button" class="btn btn-success rounded-circle p-0" id="placesavebutton" data-place-target="submit"  data-action="click->place#submitForm" >
+        投稿
+      </button>
+      <div id="place_map" data-id="<%= @post_id %>" style="height: 100vh;"></div>
+    </div>
   </div>
 </div>
 
@@ -76,6 +77,8 @@
     </div>
   </div>
 </div>
+
+
 
 
 <%= javascript_pack_tag 'place_map', 'data-turbolinks-track': 'reload' %>
