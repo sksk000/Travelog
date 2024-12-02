@@ -13,10 +13,12 @@ import "popper.js";
 import "bootstrap";
 import "../stylesheets/application";
 import "controllers"
+import $ from 'jquery';
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+window.$ = window.jQuery = $;
 
 import Raty from "./raty.js"
 window.raty = function(elem,opt) {
@@ -35,3 +37,5 @@ document.addEventListener('turbolinks:load', function() {
     sliedesPreview: 1
   });
 });
+
+window.$ = window.jQuery = require('jquery');
