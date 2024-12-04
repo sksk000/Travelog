@@ -4,13 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&family=Zen+Kurenaido&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Playwrite+CU:wght@100..400&family=Zen+Kurenaido&display=swap');
 
-#post_map {
-  /*width: 100%;*/
-  width: 800px;
-  /*height: calc(100vh - 88px - 179px);*/
-  height: 1000px;
-
-}
 #user_map {
   /*width: 100%;*/
   width: 100%;
@@ -138,4 +131,8 @@ button.fa-solid {
 #savetabbutton{
   margin-top: 50%;
   width: 100%;
+}
+
+.no-scroll{
+  overflow: hidden;
 }

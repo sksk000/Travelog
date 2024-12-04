@@ -8,7 +8,6 @@ class Public::PlacesController < ApplicationController
     place_params.each do |place_param|
 
       place = Place.new(place_param.merge(post_id: params[:post_id]))
-
       unless place.save
         render json: { error: '投稿に失敗しました', details: place.errors.full_messages }, status: :unprocessable_entity
         return
@@ -34,8 +33,8 @@ class Public::PlacesController < ApplicationController
 
   private
   def place_params
-    params.require(:place).map do | place |
-      place.permit(:place_name, :comment, :image, :good, :latitude, :longitude, :place_num )
+    params[:place].values.map do | place |
+      ActionController::Parameters.new(place).permit(:place_name, :comment, :image, :good, :latitude, :longitude, :place_num )
     end
   end
 

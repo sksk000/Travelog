@@ -48,15 +48,20 @@ class Public::PostsController < ApplicationController
   end
 
   def show
+    @post_id = params[:id]
+    target_place_id = params[:place_id]
 
-   target_place_id = params[:place_id]
+    @post = Post.find(params[:id])
+    if target_place_id
+      @target_place = @post.places.find(target_place_id)
+    else
+      @target_place = @post.places.first
+    end
+    @prefectures = PostPrefecture.where(post_id: params[:id])
+    post_tags = PostTag.where(post_id: params[:id])
+    tag_ids = post_tags.pluck(:tag_id)
+    @tags = Tag.where(id: tag_ids)
 
-   @post = Post.find(params[:id])
-   if target_place_id
-    @target_place = @post.places.find(target_place_id)
-   else
-    @target_place = @post.places.first
-   end
 
     respond_to do |format|
       format.html do
@@ -120,10 +125,11 @@ class Public::PostsController < ApplicationController
   end
 
   def createprefecture(post, prefectures)
-    prefectures = postprefecture_params[:prefecture]
+    prefectures = Array(postprefecture_params[:prefecture])
+
     prefectures.each do |prefecture|
-      data = PostPrefecture.find_or_create_by(prefecture: prefecture)
-      PostPrefecture.create(post: post, prefecture: data) unless post.post_prefectures.include?(data)
+      prefecture_value = PostPrefecture.prefectures[prefecture]
+      PostPrefecture.create(post: post, prefecture: prefecture_value) unless post.post_prefectures.include?(prefecture_value)
     end
   end
 end

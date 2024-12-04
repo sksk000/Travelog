@@ -11,6 +11,9 @@ json.data do
         json.longitude place.longitude
         json.place_name place.place_name
         json.comment place.comment
+        json.image place.image.present? ? url_for(place.image) : asset_path('no_image.jpg')
+        json.good place.good
+        json.id place.id
       end
     end
     json.title @post.title
@@ -20,5 +23,7 @@ json.data do
     json.good @post.good
     json.latitude @target_place_latitude
     json.longitude @target_place_longitude
+    json.ratyimgpath_on asset_path('star-on.png')
+    json.ratyimgpath_off asset_path('star-off.png')
   end
 end
