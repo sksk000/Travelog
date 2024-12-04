@@ -135,6 +135,8 @@ export default class extends Controller {
       image = imageController.getImage()
     }
 
+    console.log(image)
+
     const tabdata = {
       place_name: placename,
       comment: comment,
@@ -172,12 +174,26 @@ export default class extends Controller {
       return
     }
 
+    const formData = new FormData();
+
+    tabdatas.forEach( (data, index )=>{
+
+      formData.append(`place[${index}][place_name]`, data.place_name)
+      formData.append(`place[${index}][comment]`, data.comment)
+      formData.append(`place[${index}][latitude]`, data.latitude)
+      formData.append(`place[${index}][longitude]`, data.longitude)
+      formData.append(`place[${index}][image]`, data.image)
+      formData.append(`place[${index}][good]`, data.good)
+      formData.append(`place[${index}][place_num]`, data.place_num)
+
+    })
+
+
     //PostモデルのPOSTを行う
     fetch(this.formTarget.action, {
       method: "POST",
-      body: JSON.stringify({ place: this.tabdatas }), // 配列をそのまま送信
+      body: formData, // 配列をそのまま送信
       headers: {
-        'Content-Type': 'application/json',
         'X-CSRF-Token': document.querySelector("[name='csrf-token']").content
       }
       }).then((response) => {

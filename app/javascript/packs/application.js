@@ -36,6 +36,19 @@ document.addEventListener('turbolinks:load', function() {
     },
     sliedesPreview: 1
   });
+
+ // 現在のURLパスを取得
+  const currentPath = window.location.pathname;
+
+  // パスが "/posts/ID" の形式の場合
+  if (/^\/posts\/\d+$/.test(currentPath)) {
+    document.body.style.overflow = "hidden"; // スクロールを禁止
+  }
+  else{
+    document.body.style.overflow = ""
+  }
+
+
 });
 
 window.$ = window.jQuery = require('jquery');

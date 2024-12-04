@@ -1,8 +1,8 @@
 <% if is_good_edit == true %>
-  <div id="star_<%= modelname %>_edit"
+  <label id="star_<%= modelname %>_edit"
      data-star-on="<%= asset_path('star-on.png') %>"
      data-star-off="<%= asset_path('star-off.png') %>">
-  </div>
+  </label>
 <script>
   var selectname = '#star_<%= modelname %>_edit'
   var elem = document.querySelector(selectname);
@@ -16,10 +16,10 @@
 </script>
 
 <% else %>
-  <div id="star_<%= modelname %>_show_<%= model.id %>"
+  <label id="star_<%= modelname %>_show_<%= model.id %>"
      data-star-on="<%= asset_path('star-on.png') %>"
      data-star-off="<%= asset_path('star-off.png') %>">
-  </div>
+  </label>
   <script>
     var elem = document.querySelector('#star_<%= modelname %>_show_<%= model.id %>');
     elem.innerHTML = ""

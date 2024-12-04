@@ -29,9 +29,9 @@
           <%= f.label "場所", class:"form-label" %>
           <div class="input-group">
             <%= f.select :place, Post.places.keys.map { |key| [key.humanize, key] }, {},{class:"form-control"} %>
-            <% Post.prefectures.keys.map { |key| [key.humanize, key] } %>
+            <% PostPrefecture.prefectures.keys.map { |key| [key.humanize, key] } %>
             <select class="form-control" data-selectmenu-target = "inputselect">
-              <% Post.prefectures.keys.map.each do | prefecture | %>
+              <% PostPrefecture.prefectures.keys.map.each do | prefecture | %>
                 <option><%= prefecture %></option>
               <% end %>
             </select>
@@ -45,8 +45,10 @@
           <div class="imagedrag col-md-6"
                data-images-target="drop"
                data-action="dragover->images#dragOver dragleave->images#dragLeave drop->images#dropImages">
-            <i class="fa-solid fa-circle-plus"></i></br>
-            写真追加
+            <div id="imageinfo">
+              <i class="fa-solid fa-circle-plus"></i></br>
+              <a>写真追加</a>
+            </div>
           </div>
           <div data-images-target="preview" class="preview-area mt-3"></div>
           <div data-images-target="error" class="error-message mt-2 text-danger"></div>

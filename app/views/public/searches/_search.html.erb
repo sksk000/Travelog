@@ -27,7 +27,7 @@
                   </div>
                   <div class="prefectures mb-3">
                     <%= f.label "都道府県名"%>
-                    <%= f.select :prefectures, [['指定なし', 'all_prefectures']] + Post.prefectures.keys.map { |key| [key.humanize, key] },{}, {class:"form-control"}%>
+                    <%= f.select :prefectures, [['指定なし', 'all_prefectures']] + PostPrefecture.prefectures.keys.map { |key| [key.humanize, key] },{}, {class:"form-control"}%>
                   </div>
                   <div class="nights mb-3">
                     <%= f.label "宿泊数"%>
