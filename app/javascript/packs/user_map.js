@@ -35,8 +35,8 @@ async function initMap() {
     mapId: process.env.Maps_API_Key, // 追記    mapTypeControl: false
   });
 
- for(var data of items.places){
-    for(var place of data){
+ for(let data of items.places){
+    for(let place of data){
 
       const latitude = place.latitude;
       const longitude = place.longitude;
@@ -52,26 +52,56 @@ async function initMap() {
 
     // 追記
       const contentString = `
-        <div class="information container p-0">
-          <div>
+          <div class="information container p-0">
+            <div class="text-center">
+              <img src="${place.image}" class="rounded mx-auto d-block" style="width: 200px; height: auto;">
+            </div>
+            <label><訪問地名></label>
             <h1 class="h4 font-weight-bold">${place.place_name}</h1>
-            <p class="text-muted">${place.address}</p>
+            <label><感想やメモ> </label>
             <p class="lead">${comment}</p>
+            <div class="good">
+              <label>おすすめ度</label>
+              <label class="text-right" id="star_place_show_${place.id}" data-star-on="${items.ratyimgpath_on}" data-star-off="${items.ratyimgpath_off}">
+              </label>
+            </div>
+            <p class="text-muted">${place.address}</p>
           </div>
-        </div>
-      `;
+        `;
+
+      console.log(place.good)
 
       const infowindow = new google.maps.InfoWindow({
         content: contentString,
         ariaLabel: "aaaa",
       });
 
-      marker.addListener("click", () => {
-          infowindow.open({
-          anchor: marker,
-          map,
-        })
-      });
+          marker.addListener("click", () => {
+            infowindow.open({
+            anchor: marker,
+            map,
+          })
+
+
+            setTimeout(() => {
+              console.log(place.id)
+            const elem = document.querySelector(`#star_place_show_${place.id}`);
+            console.log(elem)
+            if (elem) {
+              if (!elem.classList.contains('raty-initialized')) {
+                const option = {
+                  starOn: elem.dataset.starOn,
+                  starOff: elem.dataset.starOff,
+                  readOnly: true,
+                  score: place.good,
+                };
+                raty(elem, option);
+              }
+
+              elem.classList.add('raty-initialized');
+            }
+          }, 10); // タイミング調整のため少し遅延させる
+        });
     }
   }
 }
