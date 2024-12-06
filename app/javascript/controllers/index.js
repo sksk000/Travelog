@@ -10,6 +10,9 @@ application.register("hello", HelloController)
 import ImagesController from "./images_controller"
 application.register("images", ImagesController)
 
+import MypageController from "./mypage_controller"
+application.register("mypage", MypageController)
+
 import PlaceController from "./place_controller"
 application.register("place", PlaceController)
 

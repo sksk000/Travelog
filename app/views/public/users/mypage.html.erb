@@ -1,7 +1,16 @@
-<div class="container">
-  <%= render 'public/users/mypage.html.erb', user: @user %>
-  <div class="row mt-5">
-    <%= render 'public/posts/index.html.erb', targetpost: @user.posts %>
+<div class="container" data-controller="mypage" data-user-id=<%= @user.id %>>
+  <%= render 'public/users/mypage.html.erb', method: :get,  user: @user %>
+    <%= form_with url: mypage_path(@user.id) do |f| %>
+      <div class="selects text-right">
+        <%= select_tag 'postindex',
+        options_for_select([["投稿日付が新しい順", "newpost"], ["コメントが多い順", "comment"]],
+        selected: "投稿日付が新しい順"),
+        {data: {mypage_target: 'select',action: "change->mypage#updatePostIndex"},
+        class: 'form-control w-25 d-inline-block'} %>
+      </div>
+    <% end %>
+  <div class="row mt-3" data-mypage-target="postContainer">
+    <%= render 'public/posts/index.html.erb', targetpost: @posts, userdata: @user %>
   </div>
 </div>
 <% breadcrumb :user_show, @user %>
