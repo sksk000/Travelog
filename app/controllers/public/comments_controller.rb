@@ -6,9 +6,9 @@ class Public::CommentsController < ApplicationController
     @comment.post_id = @post.id
 
     if @comment.save
-      redirect_to post_path(@post.id)
+      render partial: 'public/posts/comment', layout: false, locals: { comment: @comment, user: current_user }
     else
-      flash.now[:alert] = @comment.errors.full_messages.join(', ')
+      render json: { message: "Error", errors: @comment.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

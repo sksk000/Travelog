@@ -62,6 +62,8 @@ class Public::PostsController < ApplicationController
     tag_ids = post_tags.pluck(:tag_id)
     @tags = Tag.where(id: tag_ids)
 
+    @comments = @post.comments.order(created_at: "DESC")
+
 
     respond_to do |format|
       format.html do

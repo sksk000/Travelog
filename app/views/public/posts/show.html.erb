@@ -15,7 +15,7 @@
       </div>
       <div class="body mt-3 border rounded bg-white">
         <h5><旅行の概要></h5>
-        <%= @post.body %>
+        <%= simple_format(h(@post.body)) %>
       </div>
       <div class="place mt-3 border rounded bg-white">
         <h5><訪れた場所一覧></h5>
@@ -56,8 +56,27 @@
       <div class="p-5"></div>
       <div class="p-5"></div>
     </div>
-    <div class="col p-0">
+    <div class="col-6 p-0">
       <div id="post_map" data-id="<%= @post_id %>" style="height: 100vh;"></div>
+    </div>
+    <div class="col overflow-auto p-0" style = "background-color: #f0f8ff; height: 100vh;" data-controller="comment">
+      <%= form_with url: post_comments_path(@post.id), method: :post, html: { multipart: true },data: { action: "submit->comment#submitForm", comment_target: "form" } do |f| %>
+        <div class="form-group mt-3">
+          <%= f.text_area :comment, size: " 100 x 5 ", class:"form-control", data: { comment_target: "comment" }, placeholder:'記事についてコメントしてみよう！'  %>
+        </div>
+        <div class="form-group text-right">
+          <button type="button" class="btn btn-success" data-comment-target="submit"  data-action="click->comment#submitForm">
+            コメント投稿
+          </button>
+        </div>
+      <% end %>
+      <div class="comment" data-comment-target="commentindex">
+        <% @comments.each do | comment |%>
+          <%= render 'public/posts/comment.html.erb', comment: comment, user: comment.user %>
+        <% end %>
+        <div class="p-5"></div>
+        <div class="p-5"></div>
+      </div>
     </div>
   </div>
 </div>
