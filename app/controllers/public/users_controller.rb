@@ -56,8 +56,6 @@ class Public::UsersController < ApplicationController
   def post_index
     @user = User.find(params[:id])
 
-    byebug
-
     @posts = case params[:select]
      when 'newpost'
        @user.posts.order(created_at: :desc)
