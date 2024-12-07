@@ -3,7 +3,8 @@ class Public::UsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit,:infomation]
   # マイページ
   def mypage
-      @user = User.find(params[:id])
+    @user = User.find(params[:id])
+    @posts = @user.posts
 
     unless @user.is_showprofile == true || @user.id == current_user.id
       redirect_to mypage_path(current_user.id)
@@ -42,7 +43,6 @@ class Public::UsersController < ApplicationController
 
   def mypage_place
     @user = User.find(params[:id])
-
     respond_to do |format|
       format.html do
         @user = User.find(params[:id])
@@ -51,6 +51,23 @@ class Public::UsersController < ApplicationController
         @user = User.find(params[:id])
       end
     end
+  end
+
+  def post_index
+    @user = User.find(params[:id])
+
+    byebug
+
+    @posts = case params[:select]
+     when 'newpost'
+       @user.posts.order(created_at: :desc)
+     when 'comment'
+       @user.posts.left_joins(:comments).group(:id).order('COUNT(comments.id) DESC')
+     else
+       @user.posts
+     end
+
+    render partial: 'public/posts/index', layout: false, locals: { targetpost: @posts, userdata: @user }
   end
 
   private

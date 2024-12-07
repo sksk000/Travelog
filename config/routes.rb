@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     get 'mypage/:id/edit' => 'users#edit', as: :edit
     get 'mypage/:id/place' => 'users#mypage_place', as: :mypage_place
     patch 'users/infomation' => 'users#update', as: :users_update_infomation
+    get 'mypage/:id/post_index' => 'users#post_index', as: :post_index
 
     resource :users, only:[] do
       get :infomation, on: :collection

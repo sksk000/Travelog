@@ -1,49 +1,48 @@
  <div class="row">
-    <div class="user_image mx-auto">
-      <% if user.profile_image.attached?  %>
-        <%= image_tag rails_blob_path(user.profile_image),size: "200x180"%>
-      <% else %>
-        <%= image_tag asset_path('no_image.jpg'), size: "200x180"%>
-      <% end %>
+  <div class="col user_image">
+    <label><プロフィール画像></label>
+    <% if user.profile_image.attached?  %>
+      <%= image_tag rails_blob_path(user.profile_image),size: "200x200"%>
+    <% else %>
+      <%= image_tag asset_path('no_image.jpg'), size: "200x200"%>
+    <% end %>
+  </div>
+  <div class="col-8">
+    <div class="username">
+      <label>ユーザ名：</label>
+      <%= user.name %>
     </div>
-    <div class="col">
-      <div class="user_name">
-        <%= user.name %>
-      </div>
-      <div class="user_introduction mt-3">
-        <%= user.introduction %>
-      </div>
+
+    <div class="introduction">
+      <label>自己紹介：</label>
+      <%= user.introduction %>
     </div>
+  </div>
+
+  <div class="col">
     <% if current_user.id == user.id %>
-      <div class="col">
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa-solid fa-gear"></i>
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <%= link_to "ユーザ情報編集", infomation_users_path, class:"dropdown-item" %>
-            <%= link_to "プロフィール編集", edit_path(user.id), class:"dropdown-item"%>
-          </div>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <%= link_to "ユーザ情報編集", infomation_users_path, class:"dropdown-item" %>
+          <%= link_to "プロフィール編集", edit_path(user.id), class:"dropdown-item"%>
         </div>
       </div>
     <% end %>
   </div>
-  <nav class="navbar navbar-expand-lg bg-dark navbar-dark mt-5">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <%= link_to mypage_path(user.id), class: "nav-link text-light" do %>
-          投稿一覧
-        <% end %>
-      </li>
-      <li class="nav-item">
-        <%= link_to mypage_place_path(user.id), class: "nav-link text-light" do %>
-          訪れた場所一覧
-        <% end %>
-      </li>
-      </ul>
-    </div>
-  </nav>
+  </div>
+
+<div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+  <label class="btn btn-secondary <%= 'active' if current_page?(mypage_path(user.id)) %>">
+    <%= link_to mypage_path(user.id) do %>
+      <input type="radio" <%= 'checked' if current_page?(mypage_path(user.id)) %>> 投稿一覧
+    <% end %>
+  </label>
+  <label class="btn btn-secondary <%= 'active' if current_page?(mypage_place_path(user.id)) %>">
+    <%= link_to mypage_place_path(user.id) do %>
+      <input type="radio" <%= 'checked' if current_page?(mypage_place_path(user.id)) %>> 訪れた場所一覧
+    <% end %>
+  </label>
+</div>
