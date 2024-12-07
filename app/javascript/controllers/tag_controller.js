@@ -14,18 +14,7 @@ export default class extends Controller {
   addTag(e){
 
     const inputtag = this.inputTarget.value
-
-    console.log(inputtag)
-
-    const tags  = Array.from(this.tagsTarget.children).map(tagElement => tagElement.textContent.trim());
-
-    if(tags.includes(inputtag)){
-      alert("同じタグが存在します")
-      return
-    }
-
-    this.addTagElement(inputtag)
-    this.inputTarget.value = ""
+    this.addTagHTML(inputtag)
 
   }
 
@@ -41,6 +30,18 @@ export default class extends Controller {
     const tagElements = this.tagsTarget.getElementsByClassName("badge")
     console.log(Array.from(tagElements).map(tagElement => tagElement.textContent.trim()))
     return Array.from(tagElements).map(tagElement => tagElement.textContent.trim())
+  }
+
+  addTagHTML(value){
+    const inputtag = value
+    const tags  = Array.from(this.tagsTarget.children).map(tagElement => tagElement.textContent.trim());
+
+    if(tags.includes(inputtag)){
+      alert("同じタグが存在します")
+      return
+    }
+    this.addTagElement(inputtag)
+    this.inputTarget.value = ""
   }
 
 }

@@ -136,3 +136,9 @@ button.fa-solid {
 .no-scroll{
   overflow: hidden;
 }
+
+#postdetailsbutton{
+  position: absolute;
+  z-index: 1;
+  left: 90%;
+}

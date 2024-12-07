@@ -39,6 +39,14 @@ class Public::PostsController < ApplicationController
   def edit
     @post = Post.find(params[:id])
     is_post_user(@post)
+
+    respond_to do |format|
+      format.html
+      format.json do
+        @prefectures = @post.post_prefectures
+        @tags = @post.tags
+      end
+    end
   end
 
   def destroy

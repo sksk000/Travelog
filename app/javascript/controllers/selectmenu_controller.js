@@ -6,8 +6,22 @@ export default class extends Controller {
 
   connect() {}
 
-  addSelect(select){
+  addSelect(){
     const inputselect = this.inputselectTarget.value
+    this.createBadge(inputselect)
+  }
+
+  getSelects(){
+    console.log("getSelects()")
+    const selectElements = this.selectsTarget.getElementsByClassName("badge")
+    console.log(selectElements)
+    console.log(Array.from(selectElements).map(selectElement => selectElement.textContent.trim()))
+    return Array.from(selectElements).map(selectElement => selectElement.textContent.trim())
+  }
+
+
+  createBadge(value){
+    const inputselect = value
     console.log(inputselect)
     const selectElement = document.createElement("span");
     selectElement.className = "badge badge-pill badge-secondary"
@@ -22,11 +36,4 @@ export default class extends Controller {
     this.selectsTarget.appendChild(selectElement);
   }
 
-  getSelects(){
-    console.log("getSelects()")
-    const selectElements = this.selectsTarget.getElementsByClassName("badge")
-    console.log(selectElements)
-    console.log(Array.from(selectElements).map(selectElement => selectElement.textContent.trim()))
-    return Array.from(selectElements).map(selectElement => selectElement.textContent.trim())
-  }
 }
