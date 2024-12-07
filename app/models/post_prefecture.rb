@@ -1,5 +1,6 @@
 class PostPrefecture < ApplicationRecord
   belongs_to :post
+  validates :prefecture, presence: true
 
   enum prefecture: {
     北海道: 0,    青森: 1,    岩手: 2,

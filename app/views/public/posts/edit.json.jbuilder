@@ -10,7 +10,7 @@ json.data do
   end
   json.tags do
     json.array! @tags do |tag|
-      json.tag tag
+      json.tag tag.name
     end
   end
 end

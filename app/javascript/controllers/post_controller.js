@@ -16,11 +16,10 @@ export default class extends Controller {
       this.map = null
     }
 
-    this.jsondata = null
-
     if(postId){
       this.fetchDataPost(postId)
     }
+
 
   }
 
@@ -175,10 +174,12 @@ export default class extends Controller {
     }
 
     const actionURL = this.formTarget.action.endsWith('.json') ? this.formTarget.action : this.formTarget.action + '.json';
+    const isEdit = window.location.pathname.includes("/edit");
+    const requestMethod = isEdit ? "PATCH" : "POST";
 
     //PostモデルのPOSTを行う
     fetch(actionURL, {
-      method: "POST",
+      method: requestMethod,
       body: formData,
       headers: {
         "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
@@ -303,8 +304,8 @@ export default class extends Controller {
     );
 
     if(selectController){
-      json.prefectures.forEach( prefecture =>{
-        selectController.createBadge(prefecture.prefecture)
+      json.prefectures.forEach( item =>{
+        selectController.createBadge(item.prefecture)
       })
     }
 
@@ -313,8 +314,9 @@ export default class extends Controller {
       "tag"
     );
     if(tagController){
-      json.tags.forEach( tag =>{
-        tagController.addTagHTML(tag.name)
+      console.log(json.tags)
+      json.tags.forEach( item =>{
+        tagController.addTagHTML(item.tag)
       })
     }
   }
