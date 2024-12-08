@@ -45,12 +45,43 @@ export default class extends Controller {
   }
 
   previewImage(file){
-    const reader = new FileReader()
-    const imageinfo = document.getElementById("imageinfo")
 
-    reader.onload = (e)=>{
+    const img = this.dropTarget.querySelector('img')
+    if(img){
+      img.remove()
+    }
+
+    if(file instanceof File){
+      const reader = new FileReader()
+      const imageinfo = document.getElementById("imageinfo")
+
+      reader.onload = (e)=>{
+        const img = document.createElement("img")
+        img.src = e.target.result
+        img.classList.add("img-thumbnail")
+        this.dropTarget.appendChild(img)
+        this.dropTarget.classList.remove("bg-secondary")
+
+        const createddeletebtn = document.getElementById("deleteimagebtn")
+
+        if(!createddeletebtn){
+          //画像削除ボタン用意
+          const deletebtn = document.createElement("button")
+          deletebtn.classList.add("btn")
+          deletebtn.classList.add("btn-danger")
+          deletebtn.setAttribute("data-images-target", "deletebtn")
+          deletebtn.setAttribute("data-action", "click->images#deleteImage")
+          deletebtn.setAttribute("id", "deleteimagebtn")
+          deletebtn.textContent = "画像削除"
+          this.dropTarget.parentElement.appendChild(deletebtn)
+        }
+      }
+      reader.readAsDataURL(file)
+
+    } else if(typeof file == "string"){
+
       const img = document.createElement("img")
-      img.src = e.target.result
+      img.src = file
       img.classList.add("img-thumbnail")
       this.dropTarget.appendChild(img)
       this.dropTarget.classList.remove("bg-secondary")
@@ -67,14 +98,9 @@ export default class extends Controller {
         deletebtn.setAttribute("id", "deleteimagebtn")
         deletebtn.textContent = "画像削除"
         this.dropTarget.parentElement.appendChild(deletebtn)
-      }
-
-      this.visibleImage(true)
-
-
-
     }
-    reader.readAsDataURL(file)
+   }
+    this.visibleImage(true)
   }
 
   getImage(){

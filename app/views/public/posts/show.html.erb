@@ -57,6 +57,19 @@
       <div class="p-5"></div>
     </div>
     <div class="col-6 p-0">
+      <div id="postdetailsbutton">
+        <% if current_user.id == @post.user_id %>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa-solid fa-gear"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <%= link_to "編集", edit_post_path(@post.id) , class:"dropdown-item" %>
+              <%= link_to "削除", post_path(@post.id), method: :delete, class:"dropdown-item", data: { confirm: "投稿を削除してもよいですか" } %>
+            </div>
+          </div>
+        <% end %>
+      </div>
       <div id="post_map" data-id="<%= @post_id %>" style="height: 100vh;"></div>
     </div>
     <div class="col overflow-auto p-0" style = "background-color: #f0f8ff; height: 100vh;" data-controller="comment">

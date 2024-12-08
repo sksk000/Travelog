@@ -9,10 +9,18 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   connect() {
     const element = document.getElementById('post_map')
+    const postId = this.element.dataset.postId;
+
     if(element){
       this.initMap()
       this.map = null
     }
+
+    if(postId){
+      this.fetchDataPost(postId)
+    }
+
+
   }
 
   static targets = ["drop", "error", "preview", "select","form", "tags", "selectbox", "selects", "submit", "placedata"]
@@ -166,10 +174,12 @@ export default class extends Controller {
     }
 
     const actionURL = this.formTarget.action.endsWith('.json') ? this.formTarget.action : this.formTarget.action + '.json';
+    const isEdit = window.location.pathname.includes("/edit");
+    const requestMethod = isEdit ? "PATCH" : "POST";
 
     //PostモデルのPOSTを行う
     fetch(actionURL, {
-      method: "POST",
+      method: requestMethod,
       body: formData,
       headers: {
         "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
@@ -240,6 +250,75 @@ export default class extends Controller {
     console.log(lat)
     console.log(lng)
     this.map.panTo(new google.maps.LatLng(parseFloat(lat),parseFloat(lng)))
+  }
+
+
+  async fetchDataPost(id){
+
+    //新規投稿ページの場合は処理を行わない
+    const currentPath = window.location.pathname;
+
+    const targetURL = `/posts/${id}/edit`
+    if (targetURL != currentPath) {
+      console.log("投稿編集以外のページのためfetchしません")
+      return
+    }
+
+    const response = await fetch(`/posts/${id}/edit.json`);
+    if (!response.ok) throw new Error('Network response was not ok');
+    const json = await response.json();
+
+    this.loadPostdata(json.data)
+  }
+
+
+  loadPostdata(json){
+    console.log(json)
+
+    //raty
+    var selectname = '#star_post_edit'
+    var elem = document.querySelector(selectname);
+    elem.innerHTML = ""
+    var option = {
+        starOn: json.ratyimgpath_on,
+        starOff: json.ratyimgpath_off,
+        scoreName: "post[good]",
+        score: json.good
+    };
+    raty(elem, option);
+
+    if(json.imagepath){
+      const imageController = this.application.getControllerForElementAndIdentifier(
+      this.element.querySelector('[data-controller="images"]'),
+        "images"
+      );
+
+      if(imageController){
+        imageController.previewImage(json.imagepath)
+      }
+    }
+
+    const selectController = this.application.getControllerForElementAndIdentifier(
+      this.element.querySelector('[data-controller="selectmenu"]'),
+      "selectmenu"
+    );
+
+    if(selectController){
+      json.prefectures.forEach( item =>{
+        selectController.createBadge(item.prefecture)
+      })
+    }
+
+    const tagController = this.application.getControllerForElementAndIdentifier(
+      this.element.querySelector('[data-controller="tag"]'),
+      "tag"
+    );
+    if(tagController){
+      console.log(json.tags)
+      json.tags.forEach( item =>{
+        tagController.addTagHTML(item.tag)
+      })
+    }
   }
 
 }

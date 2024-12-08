@@ -28,10 +28,11 @@ class Public::PostsController < ApplicationController
     is_post_user(@post)
 
     if @post.update(post_params)
-      redirect_to edit_post_places_path(@post.id)
+      updatetag(@post, params[:tag]) if params[:tag].present?
+      updateprefecture(@post, params[:prefecture]) if params[:prefecture].present?
+      render json: { redirect_url: edit_post_places_path(@post.id) }
     else
-      flash.now[:alert] = @post.errors.full_messages.join(', ')
-      render :edit
+      render json: { errors: @post.errors.full_messages }, status: :unprocessable_entity
     end
 
   end
@@ -39,6 +40,14 @@ class Public::PostsController < ApplicationController
   def edit
     @post = Post.find(params[:id])
     is_post_user(@post)
+
+    respond_to do |format|
+      format.html
+      format.json do
+        @prefectures = @post.post_prefectures
+        @tags = @post.tags
+      end
+    end
   end
 
   def destroy
@@ -132,6 +141,23 @@ class Public::PostsController < ApplicationController
     prefectures.each do |prefecture|
       prefecture_value = PostPrefecture.prefectures[prefecture]
       PostPrefecture.create(post: post, prefecture: prefecture_value) unless post.post_prefectures.include?(prefecture_value)
+    end
+  end
+
+  def updatetag(post, tagname)
+    tagnames = tag_params[:name]
+    tagnames.each do |tagname|
+      tag = Tag.find_or_create_by(name: tagname)
+      post.tags << tag unless post.tags.include?(tag)
+    end
+  end
+
+  def updateprefecture(post, prefectures)
+    prefectures = Array(postprefecture_params[:prefecture])
+
+    prefectures.each do |prefecture|
+      prefecture_value = PostPrefecture.prefectures[prefecture]
+      post.post_prefectures.find_or_create_by(prefecture: prefecture_value)
     end
   end
 end
