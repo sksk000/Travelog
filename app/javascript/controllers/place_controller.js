@@ -3,18 +3,25 @@ import { Controller } from "@hotwired/stimulus"
   key: process.env.Maps_API_Key
 });
 
-
 // Connects to data-controller="place"
 export default class extends Controller {
   connect() {
     this.tabdatas = []
     this.map = null
-    this.initMap()
-    this.marker = null
+    this.isPatch = false
     this.currentindex = 0
+    this.marker = null
+
+    this.initMap().then(() => {
+      this.fetchData()
+    }).catch((error) => {
+      console.error("Map initialization failed:", error);
+    });
+
+
   }
 
-  static targets = ["submit", "form", "tabsave", "addtab", "input", "list", "tab"]
+  static targets = ["submit", "form", "tabsave", "input", "list", "tab", "modalselect"]
 
   preventEnterInSearch() {
     this.inputTarget.addEventListener("keydown", (event) => {
@@ -60,9 +67,6 @@ export default class extends Controller {
 
   // 追記
     let element = document.getElementById('place_map');
-    const response = await fetch(`/posts/${element.dataset.id}/places/new.json`);
-    if (!response.ok) throw new Error('Network response was not ok');
-
     let center = new google.maps.LatLng(35.6811673, 139.7670516);
 
     this.map = new Map(element, {
@@ -86,24 +90,23 @@ export default class extends Controller {
         if(ret.length > 0){
           const placeDetailsRequest = { placeId: place.place_id };
           service.getDetails(placeDetailsRequest, (details, status) => {
-          const dynamicContent = `
-            <button class="list-group-item list-group-item-action" id="placename" data-dismiss="modal" data-place-target="addtab" data-action="click->place#setPlaceData"`+
-            "data-lat=" + place.geometry.location.lat() + ` ` + "data-lng=" + place.geometry.location.lng() + ">"+
-            details.name +
-            "</button >";
-            lists.innerHTML = lists.innerHTML + dynamicContent
+            const button = document.createElement("button");
+            button.classList.add("list-group-item", "list-group-item-action");
+            button.id = "placename";
+            button.setAttribute("data-place-target", "modalselect");
+            button.setAttribute("data-dismiss", "modal");
+            button.setAttribute("data-action", "click->place#setPlaceData");
+            button.setAttribute("data-lat", place.geometry.location.lat());
+            button.setAttribute("data-lng", place.geometry.location.lng());
+            button.textContent = details.name;
+            lists.appendChild(button);
           })
         }
       })
     })
-
     window.$('#mapModal').modal('show');
-    });
-
+    })
   }
-
-
-
 
 
   saveData(e){
@@ -187,11 +190,13 @@ export default class extends Controller {
       formData.append(`place[${index}][place_num]`, data.place_num)
 
     })
-
+    const actionURL = this.formTarget.action.endsWith('.json') ? this.formTarget.action : this.formTarget.action + '.json';
+    const isEdit = window.location.pathname.includes("/edit");
+    const requestMethod = isEdit ? "PATCH" : "POST";
 
     //PostモデルのPOSTを行う
-    fetch(this.formTarget.action, {
-      method: "POST",
+    fetch(actionURL, {
+      method: requestMethod,
       body: formData, // 配列をそのまま送信
       headers: {
         'X-CSRF-Token': document.querySelector("[name='csrf-token']").content
@@ -365,7 +370,6 @@ export default class extends Controller {
     placename.textContent = placeName
     placename.dataset.lat = lat
     placename.dataset.lng = lng
-
     this.addMarker(lat, lng, placeName)
 
   }
@@ -381,7 +385,9 @@ export default class extends Controller {
   addMarker(lat, lng, placename){
 
     this.removeMarker()
-
+  console.log("lat:", lat)
+  console.log("lng:", lng)
+  console.log("placename:", placename)
    const marker = new google.maps.Marker ({
       position: { lat: parseFloat(lat), lng: parseFloat(lng) },
       map: this.map,
@@ -430,7 +436,7 @@ export default class extends Controller {
         lists.innerHTML = ""
         places.forEach((place) => {
 
-          const dynamicContent = `<button type="button" class="list-group-item list-group-item-action" id="placename" data-dismiss="modal" data-place-target="list" data-action="click->place#setPlaceData" `+ "data-lat=" + place.location.lat() + ` `+ "data-lng=" + place.location.lng() + ">"  +　place.displayName + "</button >";
+          const dynamicContent = `<button type="button" class="list-group-item list-group-item-action" id="placename" data-place-target="list" data-action="click->place#setPlaceData" `+ "data-lat=" + place.location.lat() + ` `+ "data-lng=" + place.location.lng() + ">"  +　place.displayName + "</button >";
           lists.innerHTML = lists.innerHTML + dynamicContent
 
         })
@@ -439,6 +445,7 @@ export default class extends Controller {
   }
 
   setPlaceData(e){
+    window.$('#mapModal').modal('hide');
     e.currentTarget.parentElement.innerHTML = ""
     this.addPlaceNameAndMaker(e.target.dataset.lat, e.target.dataset.lng, e.target.textContent)
   }
@@ -451,5 +458,95 @@ export default class extends Controller {
       savebtn.textContent = "更新"
     }
 
+  }
+
+  async fetchData(){
+
+    const currentPath = window.location.pathname;
+    let element = document.getElementById('place_map');
+    const targetURL = `/posts/${element.dataset.id}/places/edit`
+
+
+    if (targetURL != currentPath) {
+      console.log("観光地編集以外のページのためfetchしません")
+      return
+    }
+
+    const actionURL = `/posts/${element.dataset.id}/places/edit.json`
+    const response = await fetch(actionURL);
+    if (!response.ok) throw new Error('Network response was not ok');
+    const json = await response.json();
+
+    this.loadJSONData(json.data)
+
+  }
+
+  loadJSONData(json){
+    const sortedPlaces = json.places.sort((a, b) => a.place_num - b.place_num);
+    json.places.forEach((place, index)=>{
+
+      const tabdata = {
+        place_name: place.place_name,
+        comment: place.comment,
+        latitude: place.latitude,
+        longitude: place.longitude,
+        image: place.image,
+        good: place.good,
+        place_num: place.place_num
+      }
+
+      this.tabdatas[index] = tabdata
+
+      if(index > 0){
+        this.addTabsHTML(index)
+        document.querySelectorAll('.placedata').item(index).textContent = index + 1 + ":" + place.place_name
+      }else{
+        document.querySelectorAll('.placedata').item(index).textContent = index + 1 + ":" + place.place_name
+      }
+
+    })
+
+    this.addMarker(this.tabdatas[0].latitude,this.tabdatas[0].longitude,this.tabdatas[0].place_name)
+
+    //フォームにも表示させるようにする
+    const comment = document.getElementById("comment")
+    comment.value = this.tabdatas[0].comment
+    this.loadraty(this.tabdatas[0].good)
+
+    const imageController = this.application.getControllerForElementAndIdentifier(
+    this.element.querySelector('[data-controller="images"]'),
+      "images"
+    );
+
+
+    if(this.tabdatas[0].image){
+      if(imageController){
+        imageController.previewImage(this.tabdatas[0].image)
+      }
+    }
+
+  }
+
+  addTabsHTML(index){
+
+    if(!this.tabdatas[index]){
+      alert("現在の観光地情報が保存されていないため、タブを追加出来ません")
+      return
+    }
+    const newNavItem = document.createElement("li");
+    newNavItem.classList.add('nav-item', 'm-0');
+
+    const newButton = document.createElement('button');
+    newButton.classList.add('nav-link', 'border', 'placedata');
+    newButton.textContent = index
+    newButton.setAttribute("data-place-target", "tab")
+    newButton.setAttribute("data-action","click->place#loadPlacedata")
+
+    newNavItem.appendChild(newButton);
+
+    const parentPlacedata = document.querySelectorAll('.placedata').item(index - 1).parentNode;
+    const parentparentPlacedata = parentPlacedata.parentNode;
+
+    parentPlacedata.appendChild(newNavItem)
   }
 }

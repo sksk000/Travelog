@@ -294,7 +294,7 @@ export default class extends Controller {
       );
 
       if(imageController){
-        imageController.previewImageURL(json.imagepath)
+        imageController.previewImage(json.imagepath)
       }
     }
 

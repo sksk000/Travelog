@@ -20,15 +20,31 @@ class Public::PlacesController < ApplicationController
   def edit
     @place = Place.where(post_id: params[:post_id]).order(:place_num)
     @post_id = params[:post_id]
+
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def update
-    datas = params[:place]
-    datas.each do | id, attrs |
-      data = Place.find(id)
-      data.update(update_params(attrs))
+     places_data = place_params # place_params を呼び出してデータ取得
+
+    ActiveRecord::Base.transaction do
+      places_data.each do |place_data|
+        place = Place.find_or_initialize_by(place_num: place_data[:place_num], post_id: params[:post_id])
+
+        # 画像データを適切にアタッチ
+        if place_data[:image].is_a?(ActionDispatch::Http::UploadedFile)
+          place.image.attach(place_data[:image])
+        end
+
+        unless place.update(place_data.except(:image)) # :image を除外して更新
+          render json: { error: '投稿に失敗しました', details: place.errors.full_messages }, status: :unprocessable_entity and return
+        end
+      end
     end
-    redirect_to post_path(params[:post_id])
+    render json: { message: '投稿が成功しました', redirect_url: post_path(params[:post_id]) }
   end
 
   private
