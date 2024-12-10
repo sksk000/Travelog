@@ -12,26 +12,16 @@ class Public::UsersController < ApplicationController
 
   end
 
-  # マイページ編集
   def edit
     @user = User.find(params[:id])
-  end
 
-  # ユーザ詳細ページ
-  def infomation
-    @user = current_user
-  end
-
-  # ユーザ情報編集
-  def update
-    @user = current_user
-    if @user.update(user_params)
-      redirect_to mypage_path(@user.id)
-    else
-      flash.now[:alert] = @user.errors.full_messages.join(', ')
-      render :infomation
+    image_url = @user.profile_image.attached? ? url_for(@user.profile_image) : asset_path('no_image.jpg')
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: { image_url: image_url}
+      end
     end
-
   end
 
   # ユーザ退会
@@ -69,10 +59,6 @@ class Public::UsersController < ApplicationController
   end
 
   private
-  def user_params
-    params.require(:user).permit(:name, :email, :is_showprofile,:introduction, :profile_image)
-  end
-
   def is_matching_login_user
     if current_user == nil
       redirect_to new_user_session_path

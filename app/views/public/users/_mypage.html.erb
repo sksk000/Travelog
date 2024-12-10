@@ -26,8 +26,7 @@
           <i class="fa-solid fa-gear"></i>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <%= link_to "ユーザ情報編集", infomation_users_path, class:"dropdown-item" %>
-          <%= link_to "プロフィール編集", edit_path(user.id), class:"dropdown-item"%>
+          <%= link_to "ユーザ情報編集", edit_path(user.id), class:"dropdown-item" %>
         </div>
       </div>
     <% end %>

@@ -1,0 +1,21 @@
+<%= form_with url: user_registration_path ,model: @user, data: { action: "submit->post#submitProfile", user_target: "profileform" } do |f| %>
+
+  <div class="form-group">
+    <%= f.label :introduction, "自己紹介文" %>
+    <%= f.text_area :introduction, size: " 70 x 10 ", class:"form-control w-25", placeholder:"はじめまして！私はTestUserです。よろしくお願いします。" %>
+  </div>
+
+  <div data-controller="images">
+    <div class="imagedrag col-md-6"
+         data-images-target="drop"
+         data-action="dragover->images#dragOver dragleave->images#dragLeave drop->images#dropImages">
+      <div id="imageinfo">
+        <i class="fa-solid fa-circle-plus"></i></br>
+        <a>写真追加</a>
+      </div>
+    </div>
+    <div data-images-target="preview" class="preview-area mt-3"></div>
+    <div data-images-target="error" class="error-message mt-2 text-danger"></div>
+  </div>
+  <button type="button" class="btn btn-primary mt-5" data-user-target="updateprof" data-action="click->user#submitProfile">更新</button>
+<% end %>
