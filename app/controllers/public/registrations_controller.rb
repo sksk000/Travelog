@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Public::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
+  #before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -10,9 +10,15 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    user = build_resource(sign_up_params)
+    if user.save
+      sign_in(user)
+      redirect_to posts_path
+    else
+      redirect_to new_user_registration_path, alert: 'サインアップに失敗しました。'
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -30,6 +36,10 @@ class Public::RegistrationsController < Devise::RegistrationsController
 
   def user_params
     params.require(:user).permit(:name, :email, :is_showprofile, :introduction, :profile_image, :email, :password, :password_confirmation, :current_password)
+  end
+
+  def sign_up_params
+    params.require(:user).permit(:name,:email, :password, :password_confirmation)
   end
 
   def update_resource(resource, params)
@@ -68,9 +78,9 @@ class Public::RegistrationsController < Devise::RegistrationsController
   end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  #def after_sign_up_path_for(resource)
+  #
+  #end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
