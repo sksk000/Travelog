@@ -27,3 +27,6 @@ application.register("selectmenu", SelectmenuController)
 
 import TagController from "./tag_controller"
 application.register("tag", TagController)
+
+import UserController from "./user_controller"
+application.register("user", UserController)

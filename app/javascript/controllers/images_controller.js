@@ -45,7 +45,7 @@ export default class extends Controller {
   }
 
   previewImage(file){
-
+    console.log(file)
     const img = this.dropTarget.querySelector('img')
     if(img){
       img.remove()
