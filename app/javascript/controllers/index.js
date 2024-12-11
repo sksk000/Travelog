@@ -13,6 +13,9 @@ application.register("hello", HelloController)
 import ImagesController from "./images_controller"
 application.register("images", ImagesController)
 
+import ManagementController from "./management_controller"
+application.register("management", ManagementController)
+
 import MypageController from "./mypage_controller"
 application.register("mypage", MypageController)
 

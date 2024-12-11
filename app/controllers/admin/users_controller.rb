@@ -1,13 +1,10 @@
 class Admin::UsersController < ApplicationController
   before_action :is_matching_admin_user
-  def index
-    @userall = User.all
-  end
 
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to admin_users_path
+    redirect_to admin_management_index_path
   end
 
   def show
