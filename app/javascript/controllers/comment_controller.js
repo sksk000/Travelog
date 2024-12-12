@@ -31,16 +31,26 @@ export default class extends Controller {
       .then((response) => {
       if (!response.ok) {
         alert("投稿失敗しました")
+        return response.json();
       }
-      return response.text(); // HTMLテンプレートをテキストとして取得
+      return response.json(); // HTMLテンプレートをテキストとして取得
     })
-    .then((html) => {
-      console.log(html)
-      // 部分テンプレートをページに反映する
-      this.commentindexTarget.insertAdjacentHTML('afterbegin',html)
-    })
+    .then((json) => {
+      console.log(json)
+
+      if(json.redirect_url){
+        alert("ログインしてください")
+        window.location.href = json.redirect_url
+      }
+
+      if(json.html){
+        // 部分テンプレートをページに反映する
+        this.commentindexTarget.insertAdjacentHTML('afterbegin',json.html)
+      }
+
+      })
     .catch((error) => {
-      console.error("Error:", error);
+      console.error("エラー:", error.message);
     });
 
   }
