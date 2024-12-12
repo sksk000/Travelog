@@ -1,9 +1,37 @@
-<div class="container-fluid">
-  <div class="about-text">
-    <div class="text-center h3">Travelogでできること</div>
-    <div class="text-center h5 mt-5">事前に用意した旅行計画と、実際に旅行した内容が異なることはありませんか</div>
-    <div class="text-center h5 mt-5">実際の旅行プランや、旅行後の感想をレビュー</div>
-    <div class="text-center h5 mt-5">あなたの旅行を失敗しない楽しい旅行に</div>
+<div class="container">
+  <div class="row">
+    <div class="about-text">
+      <div class="h3 text-left">Travelogとは</div>
+      <div class="text-left">ユーザの旅行体験した感想を参考に</div>
+      <div class="text-left">自身の旅行計画を良くしたい人向けサイトです</div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <label class="border-0 rounded-pill h-25 bg-success text-white text-center" style="width: 10%;">Step1</label>
+    <div class="col">
+      <%= image_tag asset_path('postimage.PNG'),size: "500x300", class:"mt-3 rounded"  %>
+    </div>
+    <div class="col">
+      <div>まずは、旅行先や地域名などで投稿を検索してみよう</div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <label class="border-0 rounded-pill h-25 bg-success text-white text-center" style="width: 10%;">Step1</label>
+    <div class="col">
+      <%= image_tag asset_path('postshow.PNG'),size: "500x300", class:"mt-3 rounded"  %>
+    </div>
+    <div class="col">
+      <div>様々な投稿の中から、良いと思った投稿を見つけて参考にしよう</div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <label class="border-0 rounded-pill h-25 bg-success text-white text-center" style="width: 10%;">Step1</label>
+    <div class="col">
+      <%= image_tag asset_path('postnew.PNG'),size: "500x300", class:"mt-3 rounded"  %>
+    </div>
+    <div class="col">
+      <div>旅行から帰ってきたら、旅行内容について投稿してみよう</div>
+    </div>
   </div>
 </div>
 <% breadcrumb :about, @about %>

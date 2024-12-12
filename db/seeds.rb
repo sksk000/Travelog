@@ -51,63 +51,47 @@ image_files = [
   'nitish-meena-RbbdzZBKRDY-unsplash.jpg'
 ]
 
+tags = ["自然", "歴史", "リラックス", "冒険", "家族旅行", "グルメ", "文化", "絶景", "アクティビティ", "買い物"]
 
+users = { judy: User.find_by(name: "Judy"), lucas: User.find_by(name: "Lucas"), olivia: User.find_by(name: "Olivia") }
 
+users.each do |user_key, user|
+  3.times do |i|
+    post = Post.find_or_initialize_by(user: user, title: "#{user.name}の素敵な旅#{i + 1}") do |post_data|
+      post_data.body = "#{user.name}が旅した第#{i + 1}弾の記録です。今回の旅では、特に印象に残る場所を巡りました。どこも素晴らしい体験ができるスポットばかりでした！"
+      post_data.good = rand(1..5)
+      post_data.night = Post.nights.keys.sample
+      post_data.people = Post.people.keys.sample
+      post_data.travelmonth = rand(1..12)
+      post_data.season = Post.seasons.keys.sample
+      post_data.place = Post.places.keys.sample
+      post_data.is_release = true
+      post_data.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_files.sample)), filename: image_files.sample)
+    end
+    post.save!
 
-# Judyの投稿データ
-judy_post_first = Post.find_or_initialize_by(user: judy, title: "1日で京都の名所を巡りました！") do |post_data|
-  post_data.body = "京都の観光地を一日で回りました。まず、清水寺を訪れました。歴史的な雰囲気が素晴らしく、その美しい景観は、どこを見ても感動を覚えます。特に、清水の舞台から見下ろす町並みは息を呑むほど美しかったです。その後、金閣寺に向かい、その庭園の見事さに圧倒されました。金閣寺の金色の外観は、周囲の景色と見事に調和しており、特に水面に映る姿は幻想的でした。また、庭園を散策しながら、様々な植物や花の美しさを楽しむことができました。次に、嵐山竹林の小径を歩きました。竹が生い茂る道は、静寂に包まれ、まるで別世界にいるような気分にさせてくれます。風に揺れる竹の音が心地よく、リラックスできる場所でした。その後、嵐山で有名な渡月橋を渡り、美しい景色を楽しみました。ここからは、川の流れや山々の風景が広がり、心が癒されました。さらに、地元の名物である抹茶アイスを食べながら、優雅なひとときを過ごしました。最後に、京都の伝統的な町並みを散策し、古いお店や工芸品を見ながら、地元の人々との交流も楽しみました。京都の魅力を存分に感じる一日でした。"
-  post_data.good = 2
-  post_data.night = 2
-  post_data.people = 3
-  post_data.travelmonth = 4
-  post_data.is_release = true
-  post_data.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'ash-edmonds-uztw2giebSc-unsplash.jpg')), filename: 'ash-edmonds-uztw2giebSc-unsplash.jpg')
-end
+    3.times do |place_index|
+      Place.find_or_create_by(post: post, place_name: "#{user.name}のおすすめスポット#{place_index + 1}") do |place|
+        place.latitude = rand(24.0..45.0)
+        place.longitude = rand(123.0..145.0)
+        place.comment = "自然と歴史を感じられる素晴らしい場所でした。特に#{place_index + 1}番目のスポットは印象深かったです。"
+        place.place_num = place_index + 1
+        place.good = rand(1..5)
+        place.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_files.sample)), filename: image_files.sample)
+      end
+    end
 
-# Placeデータ
-Place.find_or_create_by(post: judy_post_first, place_name: "清水寺") do |place|
-  place.latitude = 35.0038
-  place.longitude = 135.7850
-  place.comment = "歴史の重みを感じる美しい寺院。"
-  place.place_num = 1
-  place.good = 2
-  place.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_files.sample)), filename: image_files.sample)
-end
-Place.find_or_create_by(post: judy_post_first, place_name: "清水寺") do |place|
-  place.latitude = 35.0038
-  place.longitude = 135.7850
-  place.comment = "歴史の重みを感じる美しい寺院。観光客が多いですが、それでも落ち着ける雰囲気です。"
-  place.place_num = 1
-  place.good = 2
-  place.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_files.sample)), filename: image_files.sample)
-end
-Place.find_or_create_by(post: judy_post_first, place_name: "国際通り") do |place|
-  place.latitude = 26.2124
-  place.longitude = 127.6792
-  place.comment = "素敵"
-  place.place_num = 2
-  place.good = 1
-  place.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_files.sample)), filename: image_files.sample)
-end
-Place.find_or_create_by(post: judy_post_first, place_name: "金閣寺") do |place|
-  place.latitude = 35.0394
-  place.longitude = 135.7292
-  place.comment = "庭園の美しさが印象的でした。"
-  place.place_num = 3
-  place.good = 4
-  place.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_files.sample)), filename: image_files.sample)
-end
-Place.find_or_create_by(post: judy_post_first, place_name: "嵐山竹林の小径") do |place|
-  place.latitude = 35.0282
-  place.longitude = 135.6760
-  place.comment = "自然の中でリラックスできるスポット。"
-  place.place_num = 4
-  place.good = 4
-  place.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_files.sample)), filename: image_files.sample)
+    prefectures = (0..46).to_a.sample(3)
+    prefectures.each do |prefecture|
+      PostPrefecture.find_or_create_by(post: post, prefecture: prefecture)
+    end
+
+    # ランダムにタグを追加
+    selected_tags = tags.sample(3) # 3つのタグをランダムに選択
+    selected_tags.each do |tag_name|
+      tag = Tag.find_or_create_by(name: tag_name)
+      PostTag.find_or_create_by(post: post, tag: tag)
+    end
+  end
 end
 
-PostPrefecture.find_or_create_by(post: judy_post_first, prefecture: 3)
-PostPrefecture.find_or_create_by(post: judy_post_first, prefecture: 6)
-PostPrefecture.find_or_create_by(post: judy_post_first, prefecture: 8)
-PostPrefecture.find_or_create_by(post: judy_post_first, prefecture: 10)
