@@ -1,0 +1,18 @@
+<div class="col p-0" data-management-target="post">
+  <table class="table">
+    <tr>
+      <th scope="col">タイトル</th>
+      <th scope="col">投稿者名</th>
+      <th scope="col">削除ボタン</th>
+    </tr>
+    <tbody>
+      <% postall.each do | post |%>
+        <tr>
+          <td><%= post.title %></td>
+          <td><%= post.user.name %></td>
+          <td><%= link_to "削除" , admin_post_path(post.id),method: :delete, class: "btn btn-danger", data: {confirm: "削除しますか？"}%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

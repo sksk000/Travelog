@@ -1,0 +1,12 @@
+<div class="container-field" style="height: 100vh;" data-controller="management">
+  <div class="row" style="height: 100vh;">
+    <div class="col-sm-2 pr-0 adminmenu">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item list-group-item-action adminmenu" data-management-target="userbtn" data-action="click->management#showUsers" >ユーザ一覧</li>
+        <li class="list-group-item list-group-item-action adminmenu" data-management-target="postbtn" data-action="click->management#showPosts" >投稿一覧</li>
+      </ul>
+    </div>
+    <%= render 'admin/users/index.html.erb', userall: @userall %>
+    <%= render 'admin/posts/index.html.erb', postall: @postall %>
+  </div>
+</div>
