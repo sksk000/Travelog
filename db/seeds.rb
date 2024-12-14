@@ -9,7 +9,7 @@
 
 judy = User.find_or_create_by!(email: "judy@example.com") do |user|
   user.name = "Judy"
-  user.password = "password"
+  user.password = "a|3xh/9ZMV#v"
   user.introduction = "こんにちは！私はJudyです。旅行と美味しい食べ物が大好きで、特に日本の文化に魅了されています。最近は京都に行きました。歴史的な場所や美しい自然を楽しみながら、新しい経験をするのが私の喜びです。"
   user.profile_image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'onepiece01_luffy.png')), filename: 'onepiece01_luffy.png')
 end
