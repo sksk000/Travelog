@@ -185,7 +185,9 @@ export default class extends Controller {
       formData.append(`place[${index}][comment]`, data.comment)
       formData.append(`place[${index}][latitude]`, data.latitude)
       formData.append(`place[${index}][longitude]`, data.longitude)
-      formData.append(`place[${index}][image]`, data.image)
+      if(data.image){
+        formData.append(`place[${index}][image]`, data.image)
+      }
       formData.append(`place[${index}][good]`, data.good)
       formData.append(`place[${index}][place_num]`, data.place_num)
 
@@ -204,7 +206,7 @@ export default class extends Controller {
       }).then((response) => {
       if (!response.ok) {
         this.submitTarget.blur()
-        return response.text(); // レスポンスのテキストを取得
+        return response.json(); // レスポンスのテキストを取得
       }
       return response.json(); // 正常の場合はJSONレスポンスを処理
     })
@@ -215,6 +217,7 @@ export default class extends Controller {
         return
       }
 
+      console.log(data.details)
       if(data.redirect_url){
         window.location.href = data.redirect_url;
       }else{
