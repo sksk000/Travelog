@@ -22,12 +22,12 @@ class Post < ApplicationRecord
     @post = Post.where("title LIKE?","%#{searchdata}%")
     # 旅行月
     unless month == nil
-      @post = Post.where(month: month)
+      @post = @post.where(travelmonth: month)
     end
 
     # 都道府県名
     unless prefectures == "all_prefectures"
-      @post = Post.where(prefecture: prefectures)
+      @post = @post.joins(:post_prefectures).where(post_prefectures: { prefecture: prefectures })
     end
 
     # 宿泊日数フィルター
@@ -42,10 +42,10 @@ class Post < ApplicationRecord
 
     # 投稿月
     unless postmonth == nil
-      if ActiveRecord::Base.connection.adapter_name == "SQLite"
+      if Rails.env.development?
         # 開発環境用
         @post = @post.where("strftime('%m', created_at) IN (?)", postmonth.map { |m| format('%02d', m) })
-      elsif ActiveRecord::Base.connection.adapter_name == "MySQL"
+      elsif Rails.env.production?
         # 本番環境用
         @post = @post.where("EXTRACT(MONTH FROM created_at) IN (?)", postmonth)
       end
