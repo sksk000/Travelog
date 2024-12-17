@@ -53,7 +53,7 @@ class Post < ApplicationRecord
 
     # 観光点数
     unless postgood == nil
-      @post = @post.where(good: postgood.map)
+      @post = @post.where(good: postgood)
     end
 
     return @post
