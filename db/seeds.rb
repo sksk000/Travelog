@@ -8,22 +8,22 @@
 
 
 judy = User.find_or_create_by!(email: "judy@example.com") do |user|
-  user.name = "山田花子"
+  user.name = "はなちゃん"
   user.password = "a|3xh/9ZMV#v"
-  user.introduction = "こんにちは！私は山田花子です。旅行と美味しい食べ物が大好きで、特に日本の文化に魅了されています。最近は京都に行きました。歴史的な場所や美しい自然を楽しみながら、新しい経験をするのが私の喜びです。"
+  user.introduction = "こんにちは！私ははなちゃんです。旅行と美味しい食べ物が大好きで、特に日本の文化に魅了されています。最近は京都に行きました。歴史的な場所や美しい自然を楽しみながら、新しい経験をするのが私の喜びです。"
   user.profile_image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'onepiece01_luffy.png')), filename: 'onepiece01_luffy.png')
 end
 lucas = User.find_or_create_by!(email: "lucas@example.com") do |user|
-  user.name = "山田太郎"
+  user.name = "やまだ"
   user.password = "password"
   user.profile_image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'onepiece02_zoro.png')), filename: 'onepiece02_zoro.png')
-  user.introduction = "はじめまして、山田太郎です。技術とゲームが好きなエンジニア志望です。プログラミングや新しい技術を学ぶのが楽しく、将来は自分のプロジェクトを持ちたいと思っています。自由な時間には、友達とアウトドアを楽しんでいます。"
+  user.introduction = "はじめまして、やまだです。技術とゲームが好きなエンジニア志望です。プログラミングや新しい技術を学ぶのが楽しく、将来は自分のプロジェクトを持ちたいと思っています。自由な時間には、友達とアウトドアを楽しんでいます。"
 end
 olivia = User.find_or_create_by!(email: "olivia@example.com") do |user|
-  user.name = "山田次郎"
+  user.name = "じろー"
   user.password = "password"
   user.profile_image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'onepiece03_nami.png')), filename: 'onepiece03_nami.png')
-  user.introduction = "こんにちは、山田次郎です！アートや音楽に興味があり、クリエイティブなことが好きです。最近は自分の絵を描いたり、地元の音楽イベントに参加したりしています。友達と過ごす時間が何よりの宝物です。"
+  user.introduction = "こんにちは、じろーです！アートや音楽に興味があり、クリエイティブなことが好きです。最近は自分の絵を描いたり、地元の音楽イベントに参加したりしています。友達と過ごす時間が何よりの宝物です。"
 end
 
 
@@ -76,9 +76,9 @@ image_files = [
 tags = ["自然", "歴史", "リラックス", "冒険", "家族旅行", "グルメ", "文化", "絶景", "アクティビティ", "買い物"]
 
 users = {
-  judy_hokkaido: User.find_by(name: "Judy"),
-  lucas_okinawa: User.find_by(name: "Lucas"),
-  olivia_osaka: User.find_by(name: "Olivia")
+  judy_hokkaido: User.find_by(name: "はなちゃん"),
+  lucas_okinawa: User.find_by(name: "やまだ"),
+  olivia_osaka: User.find_by(name: "じろー")
 }
 
 # 地域別の観光地設定
