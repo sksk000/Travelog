@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="tag"
 export default class extends Controller {
-  static targets = ["input", "tags"]
+  static targets = ["input", "tags", "delete"]
 
   initialize() {
     this.element[this.identifier] = this
@@ -20,8 +20,18 @@ export default class extends Controller {
 
   addTagElement(tag){
     const tagElement = document.createElement("span");
-    tagElement.className = "badge badge-pill badge-secondary"
+    tagElement.className = "badge badge-pill badge-primary"
     tagElement.textContent = tag;
+
+     // バツボタンの作成
+    const deleteButton = document.createElement("div");
+    deleteButton.className = "fa-solid fa-circle-xmark ml-4";
+    deleteButton.setAttribute("data-action", "click->tag#deleteTag");
+    deleteButton.setAttribute("data-tag-target", "delete");
+
+    // タグ要素にバツボタンを追加
+    tagElement.appendChild(deleteButton);
+
     this.tagsTarget.appendChild(tagElement);
   }
 
@@ -43,5 +53,14 @@ export default class extends Controller {
     this.addTagElement(inputtag)
     this.inputTarget.value = ""
   }
+
+  deleteTag(e){
+    const tagElement = e.target.closest("span"); // 親のバッヂ要素を取得
+    if (tagElement) {
+      tagElement.remove(); // 要素を削除
+    }
+  }
+
+
 
 }

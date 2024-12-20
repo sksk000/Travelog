@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="selectmenu"
 export default class extends Controller {
-  static targets = ["click", "selects", "inputselect"]
+  static targets = ["click", "selects", "inputselect", "delete"]
 
   connect() {}
 
@@ -33,7 +33,23 @@ export default class extends Controller {
       return
     }
 
+    // バツボタンの作成
+    const deleteButton = document.createElement("div");
+    deleteButton.className = "fa-solid fa-circle-xmark ml-4";
+    deleteButton.setAttribute("data-action", "click->selectmenu#deleteBadge");
+    deleteButton.setAttribute("data-tag-target", "delete");
+
+    // タグ要素にバツボタンを追加
+    selectElement.appendChild(deleteButton);
+
     this.selectsTarget.appendChild(selectElement);
+  }
+
+  deleteBadge(e){
+    const tagElement = e.target.closest("span"); // 親のバッヂ要素を取得
+    if (tagElement) {
+      tagElement.remove(); // 要素を削除
+    }
   }
 
 }
