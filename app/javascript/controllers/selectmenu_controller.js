@@ -24,7 +24,7 @@ export default class extends Controller {
     const inputselect = value
     console.log(inputselect)
     const selectElement = document.createElement("span");
-    selectElement.className = "badge badge-pill badge-secondary"
+    selectElement.className = "badge badge-pill badge-primary"
     selectElement.textContent = inputselect;
     const selects  = Array.from(this.selectsTarget.children).map(selectElement => selectElement.textContent.trim());
     console.log(selects)
@@ -35,7 +35,7 @@ export default class extends Controller {
 
     // バツボタンの作成
     const deleteButton = document.createElement("div");
-    deleteButton.className = "fa-solid fa-circle-xmark ml-4";
+    deleteButton.className = "fa-solid fa-circle-xmark ml-4 deleteTagButton";
     deleteButton.setAttribute("data-action", "click->selectmenu#deleteBadge");
     deleteButton.setAttribute("data-tag-target", "delete");
 

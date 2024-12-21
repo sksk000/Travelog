@@ -98,6 +98,7 @@ body{
   border-style: dotted;
   border-width: 1px;
   border-color: black;
+  position: relative;
 }
 .form-label{
   text-align: left;
@@ -166,4 +167,8 @@ button.fa-solid {
 .previewImage{
   width: 100%;
   height: 100%;
+}
+
+.deleteTagButton{
+  cursor: pointer;
 }

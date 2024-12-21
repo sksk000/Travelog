@@ -33,9 +33,11 @@
         </div>
         <div class="place mt-3">
           <label>都道府県名</label>
-          <% @prefectures.each do | prefecture |%>
-            <p class="badge badge-pill badge-secondary"> <%= prefecture.prefecture %>県</p>
-          <% end %>
+          <div class="placetag">
+            <% @prefectures.each do | prefecture |%>
+              <p class="badge badge-pill badge-primary"> <%= prefecture.prefecture %>県</p>
+            <% end %>
+          </div>
         </div>
         <div class="people mt-3">
           <p>人数：<%= @post.people %></p>
@@ -48,7 +50,7 @@
         </div>
         <div class="tag mt-3">
           <% @tags.each do | tag |%>
-            <div class="badge badge-pill badge-secondary"> #<%= tag.name %></div>
+            <div class="badge badge-pill badge-primary"> #<%= tag.name %></div>
           <% end %>
         </div>
       </div>

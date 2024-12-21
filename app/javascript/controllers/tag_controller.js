@@ -25,7 +25,7 @@ export default class extends Controller {
 
      // バツボタンの作成
     const deleteButton = document.createElement("div");
-    deleteButton.className = "fa-solid fa-circle-xmark ml-4";
+    deleteButton.className = "fa-solid fa-circle-xmark ml-4 deleteTagButton";
     deleteButton.setAttribute("data-action", "click->tag#deleteTag");
     deleteButton.setAttribute("data-tag-target", "delete");
 
