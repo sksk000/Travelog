@@ -338,6 +338,7 @@ export default class extends Controller {
 
     const placedata = this.tabdatas[index]
     this.resetForm()
+    console.log(placedata)
 
     //データが保存されている場合
     if(placedata){
@@ -444,10 +445,13 @@ export default class extends Controller {
 
 
   changesaveTabButtonText(isOldData){
+    console.log("changesaveTabButtonText")
     const savebtn = document.getElementById('savetabbutton');
 
     if(isOldData){
       savebtn.textContent = "更新"
+    }else{
+      savebtn.textContent = "登録"
     }
 
   }
@@ -564,6 +568,7 @@ export default class extends Controller {
       this.visibleDeleteBtn(true)
     }else{
       placeTabs[0].textContent = "1"
+      this.changesaveTabButtonText(false)
     }
 
   }
