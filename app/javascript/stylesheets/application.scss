@@ -129,8 +129,7 @@ button.fa-solid {
 
 }
 
-#savetabbutton{
-  margin-top: 50%;
+.tabbutton{
   width: 100%;
 }
 
@@ -171,4 +170,8 @@ button.fa-solid {
 
 .deleteTagButton{
   cursor: pointer;
+}
+
+#deletebtn{
+  display: none;
 }

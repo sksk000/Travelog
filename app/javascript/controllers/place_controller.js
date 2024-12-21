@@ -21,7 +21,7 @@ export default class extends Controller {
 
   }
 
-  static targets = ["submit", "form", "tabsave", "input", "list", "tab", "modalselect"]
+  static targets = ["submit", "form", "tabsave", "input", "list", "tab", "modalselect", "deletedata"]
 
   preventEnterInSearch() {
     this.inputTarget.addEventListener("keydown", (event) => {
@@ -162,8 +162,9 @@ export default class extends Controller {
 
     }
 
+    this.visibleDeleteBtn(true)
+    this.changesaveTabButtonText(true)
     alert("保存しました")
-
 
   }
 
@@ -179,7 +180,7 @@ export default class extends Controller {
 
     const formData = new FormData();
 
-    tabdatas.forEach( (data, index )=>{
+    tabdatas.forEach( ( data, index )=>{
 
       formData.append(`place[${index}][place_name]`, data.place_name)
       formData.append(`place[${index}][comment]`, data.comment)
@@ -300,6 +301,7 @@ export default class extends Controller {
       imageController.visibleImage(false);
     }
 
+    this.visibleDeleteBtn(false)
   }
 
   resetRaty(){
@@ -341,26 +343,13 @@ export default class extends Controller {
     if(placedata){
 
       this.addPlaceNameAndMaker(placedata.latitude,placedata.longitude, placedata.place_name)
-      const comment = document.getElementById("comment")
-      comment.value = placedata.comment
-      this.loadraty(placedata.good)
+      this.showFormData(placedata.comment, placedata.good, placedata.image, placedata.place_name)
       this.changesaveTabButtonText(true)
-
-
-      const imageController = this.application.getControllerForElementAndIdentifier(
-      this.element.querySelector('[data-controller="images"]'),
-        "images"
-      );
-
-
-      if(placedata.image){
-        if(imageController){
-          imageController.previewImage(placedata.image)
-        }
-      }
+      this.visibleDeleteBtn(true)
 
     }else{
       this.changesaveTabButtonText(false)
+      this.visibleDeleteBtn(false)
     }
 
 
@@ -510,24 +499,8 @@ export default class extends Controller {
     })
 
     this.addMarker(this.tabdatas[0].latitude,this.tabdatas[0].longitude,this.tabdatas[0].place_name)
-
-    //フォームにも表示させるようにする
-    const comment = document.getElementById("comment")
-    comment.value = this.tabdatas[0].comment
-    this.loadraty(this.tabdatas[0].good)
-
-    const imageController = this.application.getControllerForElementAndIdentifier(
-    this.element.querySelector('[data-controller="images"]'),
-      "images"
-    );
-
-
-    if(this.tabdatas[0].image){
-      if(imageController){
-        imageController.previewImage(this.tabdatas[0].image)
-      }
-    }
-
+    this.showFormData(this.tabdatas[0].comment, this.tabdatas[0].good, this.tabdatas[0].image, this.tabdatas[0].place_name)
+    this.visibleDeleteBtn(true)
   }
 
   addTabsHTML(index){
@@ -552,4 +525,79 @@ export default class extends Controller {
 
     parentPlacedata.appendChild(newNavItem)
   }
+
+  removePlaceData(e){
+    e.preventDefault()
+
+    this.resetForm()
+
+    //データの削除
+    this.tabdatas.splice(this.currentindex, 1)
+
+    //place_numを再度採番する
+    this.tabdatas.forEach((data, index)=>{
+      data.place_num = index + 1
+    })
+
+    //追加ボタン以外のPlaceタブを削除する
+    let placeTabs = document.querySelectorAll('.placedata')
+    if(placeTabs.length > 1){
+      placeTabs[this.currentindex].remove()
+      console.log(placeTabs)
+      placeTabs = document.querySelectorAll('.placedata')
+      placeTabs.forEach((tab, index) =>{
+        console.log("index:", index)
+
+        tab.textContent = this.tabdatas[index].place_num + ":" + this.tabdatas[index].place_name
+      })
+
+      if(this.currentindex == this.tabdatas.length){
+        this.currentindex = this.currentindex - 1
+      }
+
+      console.log("this.currentindex:", this.currentindex)
+      console.log(this.tabdatas)
+
+      this.showFormData(this.tabdatas[this.currentindex].comment, this.tabdatas[this.currentindex].good, this.tabdatas[this.currentindex].image, this.tabdatas[this.currentindex].place_name)
+      this.addMarker(this.tabdatas[this.currentindex].latitude, this.tabdatas[this.currentindex].longitude, this.tabdatas[this.currentindex].place_name)
+      this.changesaveTabButtonText(true)
+      this.visibleDeleteBtn(true)
+    }else{
+      placeTabs[0].textContent = "1"
+    }
+
+  }
+
+  showFormData( comment, good, image, place_name ){
+     //フォームにも表示させるようにする
+    const commentElement = document.getElementById("comment")
+    commentElement.value = comment
+    this.loadraty(good)
+
+    const imageController = this.application.getControllerForElementAndIdentifier(
+    this.element.querySelector('[data-controller="images"]'),
+      "images"
+    );
+
+
+    if(image){
+      if(imageController){
+        imageController.previewImage(image)
+      }
+    }
+
+    const placeElement = document.getElementById("resultplacename")
+    placeElement.textContent = place_name
+  }
+
+  visibleDeleteBtn(isShow){
+    const btn = document.getElementById("deletebtn")
+
+    if(isShow){
+      btn.style.display = "block"
+    }else{
+      btn.style.display = "none"
+    }
+  }
+
 }
