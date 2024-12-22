@@ -5,7 +5,7 @@ export default class extends Controller {
   connect() {
   }
 
-  static targets = ["form", "commentindex"]
+  static targets = ["form", "commentindex", "destroy"]
 
 
   submitForm(e){
@@ -61,6 +61,37 @@ export default class extends Controller {
       return false
     }
     return true
+  }
+
+
+  deleteComment(e){
+    event.preventDefault();
+
+    const commentid = event.target.dataset.commentid;
+    const postid = event.target.dataset.postid;
+    const url = `/posts/${postid}/comments/${commentid}`;
+
+
+    const response = fetch(url,{
+       method: "DELETE",
+       headers: {
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+        "Content-Type": "application/json",
+      },
+    })
+    .then(response => response.json())
+    .then((json) => {
+      console.log(json.html)
+       if (json.html) {
+          this.element.innerHTML = json.html;
+        } else {
+          alert('コメント削除に失敗しました');
+      }
+    })
+    .catch((error) => {
+      console.error("エラー:", error.message);
+    });
+
   }
 
 }
