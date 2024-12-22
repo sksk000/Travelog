@@ -505,6 +505,7 @@ export default class extends Controller {
     this.addMarker(this.tabdatas[0].latitude,this.tabdatas[0].longitude,this.tabdatas[0].place_name)
     this.showFormData(this.tabdatas[0].comment, this.tabdatas[0].good, this.tabdatas[0].image, this.tabdatas[0].place_name)
     this.visibleDeleteBtn(true)
+    this.changesaveTabButtonText(true)
   }
 
   addTabsHTML(index){
@@ -551,8 +552,11 @@ export default class extends Controller {
       placeTabs = document.querySelectorAll('.placedata')
       placeTabs.forEach((tab, index) =>{
         console.log("index:", index)
-
-        tab.textContent = this.tabdatas[index].place_num + ":" + this.tabdatas[index].place_name
+        if(this.tabdatas[index]){
+          tab.textContent = this.tabdatas[index].place_num + ":" + this.tabdatas[index].place_name
+        }else{
+          tab.textContent = index + 1
+        }
       })
 
       if(this.currentindex == this.tabdatas.length){
