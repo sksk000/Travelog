@@ -67,6 +67,11 @@ export default class extends Controller {
   deleteComment(e){
     event.preventDefault();
 
+    if(!confirm("コメントを削除しますか？")){
+      return
+    }
+
+
     const commentid = event.target.dataset.commentid;
     const postid = event.target.dataset.postid;
     const url = `/posts/${postid}/comments/${commentid}`;
