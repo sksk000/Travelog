@@ -28,18 +28,21 @@ class Public::PlacesController < ApplicationController
   end
 
   def update
-     places_data = place_params # place_params を呼び出してデータ取得
+    places_data = place_params # place_params を呼び出してデータ取得
 
     ActiveRecord::Base.transaction do
+
+      Place.where(post_id: params[:post_id]).destroy_all
+
       places_data.each do |place_data|
-        place = Place.find_or_initialize_by(place_num: place_data[:place_num], post_id: params[:post_id])
+        place = Place.new(place_data.except(:image).merge(post_id: params[:post_id]))
 
         # 画像データを適切にアタッチ
         if place_data[:image].is_a?(ActionDispatch::Http::UploadedFile)
           place.image.attach(place_data[:image])
         end
 
-        unless place.update(place_data.except(:image)) # :image を除外して更新
+        unless place.save
           render json: { error: '投稿に失敗しました', details: place.errors.full_messages }, status: :unprocessable_entity and return
         end
       end
