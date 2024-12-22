@@ -552,8 +552,11 @@ export default class extends Controller {
       placeTabs = document.querySelectorAll('.placedata')
       placeTabs.forEach((tab, index) =>{
         console.log("index:", index)
-
-        tab.textContent = this.tabdatas[index].place_num + ":" + this.tabdatas[index].place_name
+        if(this.tabdatas[index]){
+          tab.textContent = this.tabdatas[index].place_num + ":" + this.tabdatas[index].place_name
+        }else{
+          tab.textContent = index + 1
+        }
       })
 
       if(this.currentindex == this.tabdatas.length){
