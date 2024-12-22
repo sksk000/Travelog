@@ -15,7 +15,10 @@ class Public::UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
 
-    image_url = @user.profile_image.attached? ? url_for(@user.profile_image) : asset_path('no_image.jpg')
+    if @user.profile_image.attached?
+      image_url = url_for(@user.profile_image)
+    end
+
     respond_to do |format|
       format.html
       format.json do
