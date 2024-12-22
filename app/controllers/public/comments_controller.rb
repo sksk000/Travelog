@@ -11,7 +11,7 @@ class Public::CommentsController < ApplicationController
     @comment.post_id = @post.id
 
     if @comment.save
-      render json: { html: render_to_string(partial: 'public/posts/comment', layout: false, locals: { comment: @comment, user: current_user })}
+      render json: { html: render_to_string(partial: 'public/posts/comment', layout: false, locals: { comment: @comment, user: current_user, post_id: @post.id })}
     else
       render json: { message: "Error", errors: @comment.errors.full_messages }, status: :unprocessable_entity
     end
@@ -20,8 +20,12 @@ class Public::CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @post = Post.find(params[:post_id])
-    @comment.destroy
-    redirect_to post_path(@post.id)
+    if @comment.destroy
+      comments = @post.comments.order(created_at: "DESC")
+      render json: { html: render_to_string(partial: 'public/posts/commentindex', layout: false, locals: { comments: comments, post_id: params[:post_id] }) }
+    else
+      render json: { message: "コメント削除に失敗しました" }, status: :unprocessable_entity
+    end
   end
 
   private
