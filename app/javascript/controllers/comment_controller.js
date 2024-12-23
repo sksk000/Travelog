@@ -5,7 +5,7 @@ export default class extends Controller {
   connect() {
   }
 
-  static targets = ["form", "commentindex", "destroy"]
+  static targets = ["form", "commentindex", "destroy", "comment"]
 
 
   submitForm(e){
