@@ -46,6 +46,7 @@ export default class extends Controller {
       if(json.html){
         // 部分テンプレートをページに反映する
         this.commentindexTarget.insertAdjacentHTML('afterbegin',json.html)
+        this.commentTarget.value = ""
       }
 
       })
@@ -75,7 +76,6 @@ export default class extends Controller {
     const commentid = event.target.dataset.commentid;
     const postid = event.target.dataset.postid;
     const url = `/posts/${postid}/comments/${commentid}`;
-
 
     const response = fetch(url,{
        method: "DELETE",
