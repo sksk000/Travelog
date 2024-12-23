@@ -71,7 +71,7 @@ export default class extends Controller {
 
     this.map = new Map(element, {
       center: center,
-      zoom: 15,
+      zoom: 5,
       apiKey: process.env.Place_API_Key,
       disableDefaultUI: true,
     });
