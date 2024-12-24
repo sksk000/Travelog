@@ -17,10 +17,12 @@ export default class extends Controller {
   static targets = ["delete", "profile", "user", "updateinfo", "updateprof", "template", "profileform", "infoform"]
 
   renderProfile(e){
+    this.pushprofile()
     this.showProfile()
   }
 
   renderUserSetting(e){
+    this.pushuserinfo()
     this.showInfo()
   }
 
@@ -114,6 +116,16 @@ export default class extends Controller {
       return
     });
 
+  }
+
+  pushprofile(){
+    this.profileTarget.classList.add("active")
+    this.userTarget.classList.remove("active")
+  }
+
+  pushuserinfo(){
+    this.profileTarget.classList.remove("active")
+    this.userTarget.classList.add("active")
   }
 
 }
