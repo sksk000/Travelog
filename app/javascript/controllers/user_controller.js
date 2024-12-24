@@ -11,6 +11,7 @@ export default class extends Controller {
 
     this.image = null
 
+    this.pushprofile()
     this.showProfile()
   }
 
