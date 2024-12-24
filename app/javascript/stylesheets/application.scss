@@ -175,3 +175,9 @@ button.fa-solid {
 #deletebtn{
   display: none;
 }
+
+.list-group-item.active{
+  background-color: white;
+  color: black;
+  border-color: #a3a3a3;
+}
