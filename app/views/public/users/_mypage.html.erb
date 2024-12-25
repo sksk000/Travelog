@@ -34,14 +34,10 @@
   </div>
 
 <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-  <label class="btn btn-secondary <%= 'active' if current_page?(mypage_path(user.id)) %>">
-    <%= link_to mypage_path(user.id) do %>
-      <input type="radio" <%= 'checked' if current_page?(mypage_path(user.id)) %>> 投稿一覧
-    <% end %>
-  </label>
-  <label class="btn btn-secondary <%= 'active' if current_page?(mypage_place_path(user.id)) %>">
-    <%= link_to mypage_place_path(user.id) do %>
-      <input type="radio" <%= 'checked' if current_page?(mypage_place_path(user.id)) %>> 訪れた場所一覧
-    <% end %>
-  </label>
+  <%= link_to mypage_path(user.id), class: "btn btn-secondary w-100 #{'active' if current_page?(mypage_path(user.id))}" do %>
+    投稿一覧
+  <% end %>
+  <%= link_to mypage_place_path(user.id), class: "btn btn-secondary w-100 #{'active' if current_page?(mypage_place_path(user.id))}" do %>
+    訪れた場所一覧
+  <% end %>
 </div>
