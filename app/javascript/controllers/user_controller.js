@@ -74,7 +74,7 @@ export default class extends Controller {
   }
 
   fetchData( formtarget ){
-     const formData = new FormData(formtarget)
+    const formData = new FormData(formtarget)
 
     const imageController = this.application.getControllerForElementAndIdentifier(
       this.element.querySelector('[data-controller="images"]'),
@@ -127,6 +127,41 @@ export default class extends Controller {
   pushuserinfo(){
     this.profileTarget.classList.remove("active")
     this.userTarget.classList.add("active")
+  }
+
+  withdrawUser(e){
+
+    let isWithdraw = confirm("退会しますか？")
+    if(!isWithdraw){
+      return
+    }
+
+    const actionURL = `/users/withdraw`
+    fetch(actionURL, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
+      }
+      }).then((response) => {
+      if (!response.ok) {
+        alert("削除に失敗しました")
+        return response.json();
+      }
+      return response.json();
+    })
+    .then((data)=>{
+      if(data.redirect_url){
+        window.location.href = data.redirect_url;
+      }else{
+        alert("リダイレクトURLが含まれていません");
+        this.submitTarget.blur()
+        return
+      }
+    })
+    .catch((error) => {
+      alert("削除に失敗しました");
+      return
+    });
   }
 
 }
