@@ -15,10 +15,12 @@
       <div class="card-text mt-1"><%= simple_format(h(comment.comment)) %></div>
     </div>
     <div class="delete ml-auto">
-      <% if current_user.id == user.id %>
-        <button type="button" class="btn btn-danger btn-sm" data-action="click->comment#deleteComment" data-postid="<%= post_id %>" data-commentid="<%= comment.id %>" >
-          削除
-        </button>
+      <% if current_user %>
+        <% if current_user.id == user.id %>
+          <button type="button" class="btn btn-danger btn-sm" data-action="click->comment#deleteComment" data-postid="<%= post_id %>" data-commentid="<%= comment.id %>" >
+            削除
+          </button>
+        <% end %>
       <% end %>
     </div>
   </div>
