@@ -30,8 +30,11 @@ class Public::UsersController < ApplicationController
   # ユーザ退会
   def withdraw
     @user = current_user
-    @user.destroy
-    redirect_to root_path
+    if @user.destroy
+      render json: { message: '投稿が成功しました', redirect_url: root_path }, status: :ok
+    else
+      render json: { error: '投稿に失敗しました', details: @user.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def mypage_place
