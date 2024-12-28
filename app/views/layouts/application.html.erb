@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   </head>
-
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
       <a class="navbar-brand top-text">
@@ -67,6 +66,7 @@
         <% end %>
       </ul>
     </nav>
+    <header>
       <% breadcrumb_content = breadcrumbs(separator: " &rsaquo; ") %>
       <% if breadcrumb_content.present? %>
       <nav aria-label="breadcrumb" class="breadcrumb-wrapper">
@@ -76,20 +76,22 @@
       </nav>
       <% end %>
     </header>
-    <% if flash[:notice] %>
-      <p class="notice"><%= notice %></p>
-    <% end %>
-    <% if flash[:alert]%>
-  　  <p class="alert"><%= alert %></p>
-  　<% end %>
-
-    <%= yield %>
-  </body>
-  <footer>
-    <div class="container-fluid footer mt-5 p-3">
-      <div class="text-center text-white">
-        Copyright © Travelog All Rights Reserved.
+    <main class="pb-5">
+      <% if flash[:notice] %>
+        <p class="notice"><%= notice %></p>
+      <% end %>
+      <% if flash[:alert]%>
+    　  <p class="alert"><%= alert %></p>
+    　<% end %>
+      <%= yield %>
+    </main>
+    <footer>
+      <div class="container-fluid footer p-3">
+        <div class="text-center text-white">
+          Copyright © Travelog All Rights Reserved.
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
+  </body>
+
 </html>
