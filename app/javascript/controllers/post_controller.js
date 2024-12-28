@@ -48,7 +48,7 @@ export default class extends Controller {
       disableDefaultUI: true
     });
 
-    items.places.forEach( place =>{
+    items.places.forEach( (place, index) =>{
       const latitude = place.latitude;
       const longitude = place.longitude;
       const comment  = place.comment;
@@ -84,6 +84,13 @@ export default class extends Controller {
           content: contentString,
           ariaLabel: "aaaa",
         });
+
+        if(index == 0){
+          infowindow.open({
+            anchor: marker,
+            map: this.map,
+          })
+        }
 
         marker.addListener("click", () => {
             infowindow.open({
