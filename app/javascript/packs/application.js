@@ -48,6 +48,15 @@ document.addEventListener('turbolinks:load', function() {
     document.querySelector('main').classList.add('pb-5');
   }
 
+  // パスが "/posts/ID" の形式の場合
+  if (/^\/posts\/\d+$/.test(currentPath)) {
+    document.body.style.overflow = "hidden"; // スクロールを禁止
+  }
+  else{
+    document.body.style.overflow = ""
+  }
+
+
 
 });
 
