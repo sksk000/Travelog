@@ -10,6 +10,7 @@ export default class extends Controller {
   connect() {
     const element = document.getElementById('post_map')
     const postId = this.element.dataset.postId;
+    this.markers = []
 
     if(element){
       this.initMap()
@@ -91,6 +92,9 @@ export default class extends Controller {
             map: this.map,
           })
         }
+        console.log(marker)
+        this.markers.push(marker)
+        console.log(this.markers)
 
         marker.addListener("click", () => {
             infowindow.open({
@@ -253,10 +257,14 @@ export default class extends Controller {
 
     const lat = e.target.dataset.latitude
     const lng = e.target.dataset.longitude
+    const index = Number(e.target.dataset.index)
 
     console.log(lat)
     console.log(lng)
     this.map.panTo(new google.maps.LatLng(parseFloat(lat),parseFloat(lng)))
+
+    google.maps.event.trigger(this.markers[index], "click");
+
   }
 
 
