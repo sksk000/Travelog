@@ -40,12 +40,12 @@ document.addEventListener('turbolinks:load', function() {
  // 現在のURLパスを取得
   const currentPath = window.location.pathname;
 
-  // パスが "/posts/ID" の形式の場合
-  if (/^\/posts\/\d+$/.test(currentPath)) {
-    document.body.style.overflow = "hidden"; // スクロールを禁止
-  }
-  else{
-    document.body.style.overflow = ""
+  if (/^\/mypage\/\d+\/edit$/.test(currentPath)) {
+    // mainタグにpb-5クラスを追加
+    document.querySelector('main').classList.remove('pb-5');
+  } else {
+    // mainタグからpb-5クラスを削除（他のページであれば）
+    document.querySelector('main').classList.add('pb-5');
   }
 
 
