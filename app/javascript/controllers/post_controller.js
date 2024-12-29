@@ -21,6 +21,9 @@ export default class extends Controller {
       this.fetchDataPost(postId)
     }
 
+    const body = document.getElementById("body-textarea");
+    body.placeholder = "旅行のプランやコンセプトなど、自由に記載してみよう！\n例:) 2泊3日で北海道に行ってきました！歩き中心のプランで疲れましたが、お魚はどれも絶品でした！";
+
 
   }
 
