@@ -4,49 +4,69 @@
         <div class="col">
           <h2><%= templetetitle %></h2>
         </div>
-        <div class="form-group col mb-3">
+        <div class="form-group col mb-3 p-3 post-form">
           <%= f.label :title, "タイトル" %></br>
-          <%= f.text_field :title, size: " 100 x 20 " , class:"form-control"%>
+          <%= f.text_field :title, size: " 100 x 20 " , placeholder:'投稿のタイトルを入力', class:"form-control"%>
         </div>
 
-        <div class="form-group col">
-          <%= f.label :body, "投稿内容"%></br>
-          <%= f.text_area :body, size: " 100 x 5 " , class:"form-control" %>
+        <div class="form-group col p-3 post-form">
+          <%= f.label :body, "旅行の概要"%></br>
+          <%= f.text_area :body, size: " 100 x 5 " , class:"form-control", id: "body-textarea"%>
         </div>
 
-        <div class="form-group col">
-          <%= f.label "旅行点数" %>
+        <div class="form-group col p-3 post-form">
+          <%= f.label "旅行点数", class:"form-label w-25" %>
           <%= render 'public/posts/good.html.erb', is_good_edit: true, modelname: "post" %>
         </div>
-        <div class="form-group col-md-6">
-          <%= f.label "月", class:"form-label" %>
+        <div class="form-group col d-flex p-3 post-form">
+          <%= f.label "訪問月", class:"form-label w-25" %>
           <%= f.select :travelmonth,[["1月",1], ["2月",2], ["3月",3], ["4月",4],
                               ["5月",5], ["6月",6], ["7月",7], ["8月",8],
-                              ["9月",9], ["10月",10], ["11月",11], ["12月",12]], {},{class:"form-control"} %>
+                              ["9月",9], ["10月",10], ["11月",11], ["12月",12]], {},{class:"form-control w-25"} %>
         </div>
-
-        <div data-controller = "selectmenu" class="form-group col-md-6">
-          <%= f.label "場所", class:"form-label" %>
-          <div class="input-group">
-            <%= f.select :place, Post.places.keys.map { |key| [key.humanize, key] }, {},{class:"form-control"} %>
+        <div data-controller = "selectmenu" class="form-group col align-items-center p-3 post-form">
+          <div class="prefecture d-flex">
+            <%= f.label "訪問した都道府県(複数選択可)", class:"form-label text-nowrap" %>
             <% PostPrefecture.prefectures.keys.map { |key| [key.humanize, key] } %>
-            <select class="form-control" data-selectmenu-target = "inputselect">
+            <select class="form-control w-25" data-selectmenu-target = "inputselect">
               <% PostPrefecture.prefectures.keys.map.each do | prefecture | %>
                 <option><%= prefecture %></option>
               <% end %>
             </select>
-            <button type="button" class="fa-solid fa-circle-plus" data-action="click->selectmenu#addSelect"></button>
+            <button type="button" class="btn btn-primary rounded-circle" data-action="click->selectmenu#addSelect">
+              <i class="fa fa-plus"></i>
+            </button>
           </div>
-          <div data-selectmenu-target="selects" class="select-list h4">
+          <div data-selectmenu-target="selects" class="select-list h4 d-block"></div>
+        </div>
+        <div class="form-group col d-flex p-3 post-form">
+          <%= f.label "宿泊数", class:"form-label w-25"%>
+          <%= f.select :night, Post.nights.keys.map { |key| [key.humanize, key] },{},{class:"form-control w-25"} %>
+        </div>
+        <div class="form-group col d-flex p-3 post-form">
+          <%= f.label "人数", class:"form-label w-25" %>
+          <%= f.select :people,Post.people.keys.map { |key| [key.humanize, key] },{},{class:"form-control w-25"} %>
+        </div>
+
+        <div data-controller="tag" class="form-group col p-3 post-form">
+          <div class="d-flex">
+            <%= f.label "タグ", class:"form-label w-25"%>
+            <input type="input" class="form-control inputtag w-50" placeholder="例) 女子旅" data-tag-target="input" >
+            <button type="button" class="btn btn-primary rounded-circle" data-action="click->tag#addTag">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <div data-tag-target="tags" class="tag-list h4">
           </div>
         </div>
 
-        <div data-controller="images">
-          <div class="imagedrag col-md-6"
+        <div data-controller="images" class="post-form p-3">
+          <label>サムネイル画像</label>
+          <div class="imagedrag col bg-white"
                data-images-target="drop"
                data-action="dragover->images#dragOver dragleave->images#dragLeave drop->images#dropImages">
             <div id="imageinfo">
-              <i class="fa-solid fa-circle-plus"></i></br>
+              <i class="fa-solid fa-circle-plus" style="font-size: 30px;"></i></br>
               <a>写真追加</a>
             </div>
           </div>
@@ -54,25 +74,7 @@
           <div data-images-target="error" class="error-message mt-2 text-danger"></div>
         </div>
 
-        <div class="form-group col-md-6">
-          <%= f.label "宿泊数", class:"form-label"%>
-          <%= f.select :night, Post.nights.keys.map { |key| [key.humanize, key] },{},{class:"form-control"} %>
-        </div>
-        <div class="form-group col-md-6">
-          <%= f.label "人数" %>
-          <%= f.select :people,Post.people.keys.map { |key| [key.humanize, key] },{},{class:"form-control"} %>
-        </div>
-
-        <div data-controller="tag" class="form-group col-md-6">
-          <div class="input-group">
-            <input type="input" class="form-control inputtag" placeholder="タグを追加" data-tag-target="input" ></input>
-            <button type="button" class="fa-solid fa-circle-plus" data-action="click->tag#addTag" ></button>
-          </div>
-          <div data-tag-target="tags" class="tag-list h4">
-          </div>
-        </div>
-
-        <div class="text-right" >
+        <div class="text-right">
           <button type="button" class="btn btn-success rounded-circle p-0 nextbutton" data-post-target="submit"  data-action="click->post#submitForm">
               次へ
           </button>

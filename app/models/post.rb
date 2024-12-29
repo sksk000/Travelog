@@ -14,8 +14,8 @@ class Post < ApplicationRecord
 
   enum season: { 春: 0, 夏: 1, 秋: 2, 冬: 3 }
   enum place: { 海外旅行: 0, 国内旅行: 1 }
-  enum night: { 一泊: 0, 二泊: 1, 三泊: 2, 四泊: 3, 五泊: 4, 六泊以上: 5 }
-  enum people: { 一人: 0, 二人: 1, 三人: 2, 四人: 3, 五人: 4, 六人以上: 5 }
+  enum night: { "1泊": 0, "2泊": 1, "3泊": 2, "4泊": 3, "5泊": 4, "6泊以上": 5 }
+  enum people: { "1人": 0, "2人": 1, "3人": 2, "4人": 3, "5人": 4, "6人以上": 5 }
 
   def self.looks(searchdata, month, prefectures, night, people, postmonth, postgood)
     # 部分一致
