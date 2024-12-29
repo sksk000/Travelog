@@ -44,7 +44,11 @@ class Post < ApplicationRecord
     unless postmonth == nil
       if Rails.env.development?
         # 開発環境用
-        @post = @post.where("strftime('%m', created_at) IN (?)", postmonth.map { |m| format('%02d', m) })
+        # 月を2桁形式に整形する
+        formatted_months = postmonth.map { |m| format('%02d', m) }
+
+        # SQLiteの場合、created_atの月と比較する
+        @post = @post.where("strftime('%m', posts.created_at) IN (?)", formatted_months)
       elsif Rails.env.production?
         # 本番環境用
         @post = @post.where("EXTRACT(MONTH FROM created_at) IN (?)", postmonth)
