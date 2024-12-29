@@ -12,7 +12,7 @@ class Public::SearchesController < ApplicationController
     if @category == "user_search"
       @user =  User.looks(@seachdata)
     elsif @category == "post_search"
-      @post = Post.looks(@seachdata, params[:travel_months], params[:prefectures], params[:night], params[:people], params[:post_months], params[:travel_goods])
+      @post = Post.looks(params[:seachdata], params[:travel_months], params[:prefectures], params[:night], params[:people], params[:post_months], params[:travel_goods])
     end
 
     render 'result'
