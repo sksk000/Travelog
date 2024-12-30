@@ -56,6 +56,22 @@ document.addEventListener('turbolinks:load', function() {
     document.body.style.overflow = ""
   }
 
+    // パスが "/posts/ID" の形式の場合
+  if (/^\/posts\/\d+$/.test(currentPath)) {
+    document.body.style.overflow = "hidden"; // スクロールを禁止
+  }
+  else{
+    document.body.style.overflow = ""
+  }
+
+  // パスが "/posts/{id}/places/{action}" の形式の場合
+  if (/^\/posts\/\d+\/places\/\w+/.test(currentPath)) {
+    document.body.style.overflow = "hidden"; // スクロールを禁止
+  } else {
+    document.body.style.overflow = ""; // スクロールを許可
+  }
+
+
 
 
 });
