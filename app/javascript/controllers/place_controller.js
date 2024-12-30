@@ -9,7 +9,6 @@ export default class extends Controller {
     this.tabdatas = []
     this.map = null
     this.isPatch = false
-    this.currentindex = 0
     this.marker = null
 
     this.initMap().then(() => {
@@ -19,6 +18,20 @@ export default class extends Controller {
     });
 
 
+     this.state = new Proxy(
+      {
+        currentindex: 0,
+      },
+      {
+        set: (target, property, newValue) => {
+          if (property === "currentindex") {
+            this.onCurrentIndexChanged(newValue, target[property]); // 値変更時の処理
+          }
+          target[property] = newValue;
+          return true;
+        },
+      }
+    );
   }
 
   static targets = ["submit", "form", "tabsave", "input", "list", "tab", "modalselect", "deletedata"]
@@ -151,8 +164,8 @@ export default class extends Controller {
     }
 
     //既存データの更新か確認する
-    if(this.tabdatas[this.currentindex]){
-      this.tabdatas[this.currentindex] = tabdata
+    if(this.tabdatas[this.state.currentindex]){
+      this.tabdatas[this.state.currentindex] = tabdata
 
     }else{
       //保存
@@ -177,6 +190,11 @@ export default class extends Controller {
       this.submitTarget.blur()
       return
     }
+
+    if(!confirm("投稿を確定しますか？内容は投稿詳細ページより編集可能です")){
+      return
+    }
+
 
     const formData = new FormData();
 
@@ -267,7 +285,7 @@ export default class extends Controller {
     newNavItem.classList.add('nav-item', 'm-0');
 
     const newButton = document.createElement('button');
-    newButton.classList.add('nav-link', 'border', 'placedata');
+    newButton.classList.add('nav-link', 'border','border-secondary', 'placedata', 'bg-primary', 'text-white');
     newButton.textContent = placedataindex + 1
     newButton.setAttribute("data-place-target", "tab")
     newButton.setAttribute("data-action","click->place#loadPlacedata")
@@ -353,8 +371,7 @@ export default class extends Controller {
       this.visibleDeleteBtn(false)
     }
 
-
-    this.currentindex = index
+    this.updateCurrentIndex(index)
   }
 
   addPlaceNameAndMaker(lat, lng, placeName){
@@ -429,7 +446,7 @@ export default class extends Controller {
         lists.innerHTML = ""
         places.forEach((place) => {
 
-          const dynamicContent = `<button type="button" class="list-group-item list-group-item-action" id="placename" data-place-target="list" data-action="click->place#setPlaceData" `+ "data-lat=" + place.location.lat() + ` `+ "data-lng=" + place.location.lng() + ">"  +　place.displayName + "</button >";
+          const dynamicContent = `<button type="button" class="list-group-item list-group-item-action border" id="placename" data-place-target="list" data-action="click->place#setPlaceData" `+ "data-lat=" + place.location.lat() + ` `+ "data-lng=" + place.location.lng() + ">"  +　place.displayName + "</button >";
           lists.innerHTML = lists.innerHTML + dynamicContent
 
         })
@@ -446,12 +463,13 @@ export default class extends Controller {
 
   changesaveTabButtonText(isOldData){
     console.log("changesaveTabButtonText")
+    console.log("isOldData:", isOldData)
     const savebtn = document.getElementById('savetabbutton');
 
     if(isOldData){
-      savebtn.textContent = "更新"
+      savebtn.textContent = "個別訪問地を更新"
     }else{
-      savebtn.textContent = "登録"
+      savebtn.textContent = "個別訪問地を登録"
     }
 
   }
@@ -518,7 +536,7 @@ export default class extends Controller {
     newNavItem.classList.add('nav-item', 'm-0');
 
     const newButton = document.createElement('button');
-    newButton.classList.add('nav-link', 'border', 'placedata');
+    newButton.classList.add('nav-link', 'border', 'border-secondary','placedata','bg-primary', 'text-white');
     newButton.textContent = index
     newButton.setAttribute("data-place-target", "tab")
     newButton.setAttribute("data-action","click->place#loadPlacedata")
@@ -537,7 +555,7 @@ export default class extends Controller {
     this.resetForm()
 
     //データの削除
-    this.tabdatas.splice(this.currentindex, 1)
+    this.tabdatas.splice(this.state.currentindex, 1)
 
     //place_numを再度採番する
     this.tabdatas.forEach((data, index)=>{
@@ -547,7 +565,7 @@ export default class extends Controller {
     //追加ボタン以外のPlaceタブを削除する
     let placeTabs = document.querySelectorAll('.placedata')
     if(placeTabs.length > 1){
-      placeTabs[this.currentindex].remove()
+      placeTabs[this.state.currentindex].remove()
       console.log(placeTabs)
       placeTabs = document.querySelectorAll('.placedata')
       placeTabs.forEach((tab, index) =>{
@@ -559,17 +577,17 @@ export default class extends Controller {
         }
       })
 
-      if(this.currentindex == this.tabdatas.length){
-        this.currentindex = this.currentindex - 1
+      if(this.state.currentindex == this.tabdatas.length){
+        this.updateCurrentIndex(this.state.currentindex - 1)
       }
 
-      console.log("this.currentindex:", this.currentindex)
       console.log(this.tabdatas)
 
-      this.showFormData(this.tabdatas[this.currentindex].comment, this.tabdatas[this.currentindex].good, this.tabdatas[this.currentindex].image, this.tabdatas[this.currentindex].place_name)
-      this.addMarker(this.tabdatas[this.currentindex].latitude, this.tabdatas[this.currentindex].longitude, this.tabdatas[this.currentindex].place_name)
+      this.showFormData(this.tabdatas[this.state.currentindex].comment, this.tabdatas[this.state.currentindex].good, this.tabdatas[this.state.currentindex].image, this.tabdatas[this.state.currentindex].place_name)
+      this.addMarker(this.tabdatas[this.state.currentindex].latitude, this.tabdatas[this.state.currentindex].longitude, this.tabdatas[this.state.currentindex].place_name)
       this.changesaveTabButtonText(true)
       this.visibleDeleteBtn(true)
+      this.onCurrentIndexChanged(this.state.currentindex, null)
     }else{
       placeTabs[0].textContent = "1"
       this.changesaveTabButtonText(false)
@@ -607,6 +625,36 @@ export default class extends Controller {
     }else{
       btn.style.display = "none"
     }
+  }
+
+  updateCurrentIndex(newIndex){
+    this.state.currentindex = newIndex
+  }
+
+  onCurrentIndexChanged(newValue, oldValue){
+    const parentPlacedata = document.querySelectorAll('.placedata')
+
+    if(newValue == oldValue){
+      parentPlacedata[newValue].classList.remove("bg-primary")
+      parentPlacedata[newValue].classList.add("bg-danger")
+      return
+    }
+
+    //選択されているタブは赤くする
+    parentPlacedata[newValue].classList.remove("bg-primary")
+    parentPlacedata[newValue].classList.add("bg-danger")
+
+    //選択されていたタブは青に戻す
+
+    if(parentPlacedata[oldValue]){
+      parentPlacedata[oldValue].classList.remove("bg-danger")
+      parentPlacedata[oldValue].classList.add("bg-primary")
+    }
+
+
+    console.log(newValue)
+    console.log(oldValue)
+
   }
 
 }

@@ -117,16 +117,7 @@ button.fa-solid {
 #searchlists{
   position: absolute;
   z-index: 1;
-}
-
-#placesavebutton{
-  width: 10rem;
-  height: 10rem;
-  position: absolute;
-  right: 5%;
-  top: 70%;
-  z-index: 1;
-
+  width: 93%;
 }
 
 .tabbutton{
@@ -212,4 +203,10 @@ footer {
 
 .post-form{
   background-color: antiquewhite;
+}
+
+#searchicon{
+  position: absolute;
+  top: 50%;
+  right: 5%;
 }
