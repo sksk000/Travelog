@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller="certification">
   <div class="row">
     <div class="card mx-auto p-5 w-50" style="margin-top: 100px;">
       <h2 class="mx-auto">新規会員登録</h2>
@@ -6,27 +6,32 @@
         <%= form_with model: @user, url: user_registration_path do |f| %>
           <div class="form-group">
             <%= f.label "メールアドレス"%>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true,class:"form-control email" %>
+            <div class="invalid-feedback">正しいメールアドレスを入力してください。</div>
           </div>
           <div class="form-group">
             <%= f.label "ユーザ名"%>
-            <%= f.text_field :name, autofocus: true, class:"form-control" %>
+            <em>(最低3文字)</em>
+            <%= f.text_field :name, autofocus: true, required: true, minlength: 3, class:"form-control username" %>
+            <div class="invalid-feedback">正しいメールアドレスを入力してください。</div>
           </div>
           <div class="form-group">
             <%= f.label "パスワード" %>
             <% if @minimum_password_length %>
             <em>(最低<%= @minimum_password_length %>文字)</em>
             <% end %><br />
-            <%= f.password_field :password, autocomplete: "new-password", class:"form-control" %>
+            <%= f.password_field :password, autocomplete: "new-password", required: true, minlength: @minimum_password_length, class:"form-control password" %>
+            <div class="invalid-feedback"></div>
           </div>
 
           <div class="form-group">
             <%= f.label "パスワード再入力" %>
-            <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password",　required: true,class:"form-control password_confirmation" %>
+            <div class="invalid-feedback"></div>
           </div>
 
           <div class="form-group mt-5">
-            <%= f.submit "登録", class:"btn btn-success btn-block" %>
+            <%= f.submit "登録", class:"btn btn-success btn-block", data: { action: "certification#signinSubmit", formTarget: "signin" }  %>
           </div>
         <% end %>
       </div>
