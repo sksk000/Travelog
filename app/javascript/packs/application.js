@@ -14,6 +14,7 @@ import "bootstrap";
 import "../stylesheets/application";
 import "controllers"
 import $ from 'jquery';
+import toastr from 'toastr';
 
 Rails.start()
 Turbolinks.start()
@@ -77,3 +78,4 @@ document.addEventListener('turbolinks:load', function() {
 });
 
 window.$ = window.jQuery = require('jquery');
+window.toastr = toastr;
