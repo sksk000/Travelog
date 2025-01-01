@@ -77,3 +77,5 @@ gem 'activerecord-import'
 gem 'gretel'
 
 gem 'stimulus-rails'
+
+gem 'toastr-rails'

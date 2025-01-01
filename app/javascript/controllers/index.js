@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import CertificationController from "./certification_controller"
+application.register("certification", CertificationController)
+
 import CommentController from "./comment_controller"
 application.register("comment", CommentController)
 

@@ -77,12 +77,6 @@
       <% end %>
     </header>
     <main class="pb-5">
-      <% if flash[:notice] %>
-        <p class="notice"><%= notice %></p>
-      <% end %>
-      <% if flash[:alert]%>
-    　  <p class="alert"><%= alert %></p>
-    　<% end %>
       <%= yield %>
     </main>
     <footer>
@@ -93,5 +87,14 @@
       </div>
     </footer>
   </body>
-
 </html>
+
+<% if flash.any? %>
+  <% flash.each do |key, value| %>
+    <% key = "error" if key == "alert" %>
+    <% key = "success" if key == "notice" %>
+    <script>
+      toastr['<%= key %>']('<%= value %>');
+    </script>
+  <% end %>
+<% end %>

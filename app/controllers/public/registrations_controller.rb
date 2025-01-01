@@ -14,9 +14,9 @@ class Public::RegistrationsController < Devise::RegistrationsController
     user = build_resource(sign_up_params)
     if user.save
       sign_in(user)
-      redirect_to posts_path
+      redirect_to posts_path, notice: '登録に成功しました。'
     else
-      redirect_to new_user_registration_path, alert: 'サインアップに失敗しました。'
+      redirect_to new_user_registration_path, alert: '登録に失敗しました。'
     end
   end
 

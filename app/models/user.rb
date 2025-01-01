@@ -8,8 +8,9 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_one_attached :profile_image, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 3 }
   validates :email, presence: true
+  validates :password, length: { minimum: 6 }
 
   def self.looks(searchdata)
     # 部分一致
