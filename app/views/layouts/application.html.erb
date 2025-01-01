@@ -90,11 +90,11 @@
 </html>
 
 <% if flash.any? %>
-  <script type="text/javascript">
-    <% flash.each do |key, value| %>
-      <% key = "success" if key == "notice" %>
-      <% key = "error" if key == "alert" %>
+  <% flash.each do |key, value| %>
+    <% key = "error" if key == "alert" %>
+    <% key = "success" if key == "notice" %>
+    <script>
       toastr['<%= key %>']('<%= value %>');
-    <% end %>
-  </script>
+    </script>
+  <% end %>
 <% end %>
