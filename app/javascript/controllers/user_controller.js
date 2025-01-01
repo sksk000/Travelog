@@ -174,8 +174,4 @@ export default class extends Controller {
     });
   }
 
-  validForm(){
-
-  }
-
 }
