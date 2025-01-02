@@ -147,5 +147,21 @@ export function validTagForm(tags, value){
   return ret
 }
 
+export function validPlaceForm(value){
+  let ret = true
+  const validtext = document.getElementById("placename-invalid")
+
+  if(value == ""){
+    validtext.textContent = "訪問地名が空欄です。"
+    validtext.style.display = "block"
+    ret = false
+  }else{
+    validtext.textContent = "";
+    validtext.style.display = "none"
+  }
+
+  return ret
+}
+
 
 
