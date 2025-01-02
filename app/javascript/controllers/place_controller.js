@@ -154,7 +154,10 @@ export default class extends Controller {
       image = imageController.getImage()
     }
 
-    console.log(image)
+    let placenum = this.tabdatas.length + 1
+    if(this.tabdatas[this.state.currentindex]){
+      placenum = this.state.currentindex + 1
+    }
 
     const tabdata = {
       place_name: placename,
@@ -163,12 +166,15 @@ export default class extends Controller {
       longitude: lng,
       image: image,
       good: inputraty.value,
-      place_num: this.tabdatas.length + 1
+      place_num: this.state.currentindex + 1
     }
+
+    console.log(tabdata)
 
     //既存データの更新か確認する
     if(this.tabdatas[this.state.currentindex]){
       this.tabdatas[this.state.currentindex] = tabdata
+      document.querySelectorAll('.placedata').item(this.state.currentindex).textContent = (this.state.currentindex + 1) + ":" + placename
 
     }else{
       //保存
@@ -206,8 +212,14 @@ export default class extends Controller {
       }
       formData.append(`place[${index}][good]`, data.good)
       formData.append(`place[${index}][place_num]`, data.place_num)
+      if(data.id){
+        formData.append(`place[${index}][id]`, data.id)
+      }else{
+        formData.append(`place[${index}][id]`, null)
+      }
 
     })
+
     const actionURL = this.formTarget.action.endsWith('.json') ? this.formTarget.action : this.formTarget.action + '.json';
     const isEdit = window.location.pathname.includes("/edit");
     const requestMethod = isEdit ? "PATCH" : "POST";
@@ -477,6 +489,8 @@ export default class extends Controller {
 
   loadJSONData(json){
     const sortedPlaces = json.places.sort((a, b) => a.place_num - b.place_num);
+
+    console.log(json.places)
     json.places.forEach((place, index)=>{
 
       const tabdata = {
@@ -486,8 +500,11 @@ export default class extends Controller {
         longitude: place.longitude,
         image: place.image,
         good: place.good,
-        place_num: place.place_num
+        place_num: place.place_num,
+        id: place.id
       }
+
+      console.log(place.image)
 
       this.tabdatas[index] = tabdata
 
