@@ -50,28 +50,15 @@ document.addEventListener('turbolinks:load', function() {
   }
 
   // パスが "/posts/ID" の形式の場合
-  if (/^\/posts\/\d+$/.test(currentPath)) {
+  if ((/^\/posts\/\d+$/.test(currentPath)) || (/^\/posts\/\d+\/places\/\w+/.test(currentPath))) {
+    console.log("overflow:hidden")
     document.body.style.overflow = "hidden"; // スクロールを禁止
   }
   else{
+    console.log("overflow:none")
     document.body.style.overflow = ""
   }
 
-    // パスが "/posts/ID" の形式の場合
-  if (/^\/posts\/\d+$/.test(currentPath)) {
-    document.body.style.overflow = "hidden"; // スクロールを禁止
-  }
-  else{
-    document.body.style.overflow = ""
-  }
-
-  // パスが "/posts/{id}/places/{action}" の形式の場合
-  if (/^\/posts\/\d+\/places\/\w+/.test(currentPath)) {
-    document.body.style.overflow = "hidden"; // スクロールを禁止
-  } else {
-    document.body.style.overflow = ""; // スクロールを許可
-  }
-  console.log("turbolinks:load")
   const toastData = localStorage.getItem('toastMessage');
     if (toastData) {
       console.log("toastData")
