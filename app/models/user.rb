@@ -7,10 +7,11 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_one_attached :profile_image, dependent: :destroy
+  attr_accessor :current_password
 
   validates :name, presence: true, length: { minimum: 3 }
   validates :email, presence: true
-  validates :password, length: { minimum: 6 }
+  validates :password, length: { minimum: 6 }, allow_blank: true
 
   def self.looks(searchdata)
     # 部分一致

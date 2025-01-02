@@ -7,13 +7,13 @@
           <div class="form-group">
             <%= f.label "メールアドレス"%>
             <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true,class:"form-control email" %>
-            <div class="invalid-feedback">正しいメールアドレスを入力してください。</div>
+            <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
             <%= f.label "ユーザ名"%>
             <em>(最低3文字)</em>
             <%= f.text_field :name, autofocus: true, required: true, minlength: 3, class:"form-control username" %>
-            <div class="invalid-feedback">正しいメールアドレスを入力してください。</div>
+            <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
             <%= f.label "パスワード" %>

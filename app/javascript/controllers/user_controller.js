@@ -1,4 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
+import { validEditForm } from "../packs/validation";
+import  toastr from 'toastr';
 
 // Connects to data-controller="user"
 export default class extends Controller {
@@ -90,8 +92,9 @@ export default class extends Controller {
       formData.append(`user[profile_image]`, image)
     }
 
-
-    console.log(this.profileformTarget)
+    if(!validEditForm()){
+      return
+    }
 
     const actionURL = `/users`
     fetch(actionURL, {
@@ -102,16 +105,23 @@ export default class extends Controller {
       }
       }).then((response) => {
       if (!response.ok) {
-        alert("更新に失敗しました")
+        console.log("!response.ok")
+        toastr.error("ユーザ情報更新に失敗しました")
         this.updateprofTarget.blur()
         this.updateinfoTarget.blur()
         return
       }
-      alert("更新しました");
-      return
+      // レスポンスをJSONとしてパース
+      response.json().then((data) => {
+        if (data.message) {
+          toastr.success(data.message);
+        }
+      });
+
+      return;
     })
     .catch((error) => {
-      alert("更新に失敗しました");
+      console.log(error);
         this.updateprofTarget.blur()
         this.updateinfoTarget.blur()
       return
@@ -144,7 +154,7 @@ export default class extends Controller {
       }
       }).then((response) => {
       if (!response.ok) {
-        alert("削除に失敗しました")
+        toastr.error("削除に失敗しました")
         return response.json();
       }
       return response.json();
@@ -153,13 +163,13 @@ export default class extends Controller {
       if(data.redirect_url){
         window.location.href = data.redirect_url;
       }else{
-        alert("リダイレクトURLが含まれていません");
+        toastr.error("リダイレクトURLが含まれていません");
         this.submitTarget.blur()
         return
       }
     })
     .catch((error) => {
-      alert("削除に失敗しました");
+      toastr.error("削除に失敗しました");
       return
     });
   }

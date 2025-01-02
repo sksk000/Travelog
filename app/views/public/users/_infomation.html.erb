@@ -1,27 +1,32 @@
 <%= form_with url: user_registration_path, model: @user, method: :patch, data: { action: "submit->post#submitInfo", user_target: "infoform" } do |f| %>
   <div class="form-group">
     <%= f.label :メールアドレス %>
-    <%= f.email_field :email, class:"form-control w-25" %>
+    <%= f.email_field :email, autocomplete: "email", required: true,class:"form-control w-25 email" %>
+    <div class="invalid-feedback"></div>
   </div>
 
   <div class="form-group">
     <%= f.label :ユーザ名 %>
-    <%= f.email_field :name, class:"form-control w-25" %>
+    <%= f.text_field :name, required: true, minlength: 3, class:"form-control w-25 username" %>
+    <div class="invalid-feedback"></div>
   </div>
 
   <div class="form-group">
     <%= f.label :現在のパスワード %>
-    <%= f.password_field :current_password, class:"form-control w-25" %>
+    <%= f.password_field :current_password, required: true, minlength: @minimum_password_length,class:"form-control w-25 password" %>
+    <div class="invalid-feedback"></div>
   </div>
 
   <div class="form-group">
     <%= f.label :新しいパスワード %>
-    <%= f.password_field :password, class:"form-control w-25" %>
+    <%= f.password_field :password, required: true, minlength: @minimum_password_length,class:"form-control w-25 password_confirmation"%>
+    <div class="invalid-feedback"></div>
   </div>
 
   <div class="form-group">
     <%= f.label :新しいパスワード（確認用）%>
-    <%= f.password_field :password_confirmation, class: "form-control w-25" %>
+    <%= f.password_field :password_confirmation, required: true, minlength: @minimum_password_length, class: "form-control w-25" %>
+    <div class="invalid-feedback"></div>
   </div>
 
   <button type="button" class="btn btn-primary mt-5" data-user-target="updateinfo" data-action="click->user#submitInfo">更新</button>
