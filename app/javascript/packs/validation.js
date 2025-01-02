@@ -49,6 +49,7 @@
     const username = document.querySelector(".username")
     const password = document.querySelector(".password")
     const pwdconf = document.querySelector(".password_confirmation")
+    const newpwd = document.querySelector(".newpassword")
 
     if(!email.checkValidity()){
       email.classList.add("is-invalid");
@@ -69,7 +70,8 @@
         password.nextElementSibling.textContent = "";
       }
 
-      if(password.value != pwdconf.value){
+      //新しいパスワードと新しいパスワードを再度入力して間違っていないか確認
+      if(pwdconf.value != newpwd.value){
         pwdconf.classList.add("is-invalid");
         pwdconf.nextElementSibling.textContent = "上記で入力したパスワードと異なります";
         ret = false
