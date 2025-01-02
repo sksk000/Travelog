@@ -71,8 +71,18 @@ document.addEventListener('turbolinks:load', function() {
   } else {
     document.body.style.overflow = ""; // スクロールを許可
   }
-
-
+  console.log("turbolinks:load")
+  const toastData = localStorage.getItem('toastMessage');
+    if (toastData) {
+      console.log("toastData")
+        const { type, message } = JSON.parse(toastData);
+        if (type === 'success') {
+            toastr.success(message);
+        } else if (type === 'error') {
+            toastr.error(message);
+        }
+        localStorage.removeItem('toastMessage');
+    }
 
 
 });

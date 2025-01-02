@@ -1,5 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { validPlaceForm } from "../packs/validation";
+import  toastr from 'toastr';
+
 (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
   key: process.env.Maps_API_Key
 });
@@ -178,7 +180,7 @@ export default class extends Controller {
 
     this.visibleDeleteBtn(true)
     this.changesaveTabButtonText(true)
-    alert("保存しました")
+    toastr.success("訪問地を保存しました。")
 
   }
 
@@ -226,22 +228,25 @@ export default class extends Controller {
     })
     .then((data) => {
       if (data && data.error) {
-        alert("投稿に失敗しました: " + data.error);
+        toastr.error("投稿に失敗しました: " + data.error)
         this.submitTarget.blur()
         return
       }
-
-      console.log(data.details)
       if(data.redirect_url){
+        //トースト通知のメッセージをストレージに格納し、リダイレクト後にトースト通知を行う
+        localStorage.setItem('toastMessage', JSON.stringify({
+          type: 'success',
+          message: data.message
+        }));
         window.location.href = data.redirect_url;
       }else{
-        alert("リダイレクトURLが含まれていません");
+        toastr.error("リダイレクトURLが含まれていません");
         this.submitTarget.blur()
         return
       }
     })
     .catch((error) => {
-      alert("投稿に失敗しました");
+      toastr.error("投稿に失敗しました");
       this.submitTarget.blur()
       return
     });
