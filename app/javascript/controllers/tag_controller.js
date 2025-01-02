@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { validTagForm } from "../packs/validation";
 
 // Connects to data-controller="tag"
 export default class extends Controller {
@@ -44,10 +45,10 @@ export default class extends Controller {
 
   addTagHTML(value){
     const inputtag = value
+
     const tags  = Array.from(this.tagsTarget.children).map(tagElement => tagElement.textContent.trim());
 
-    if(tags.includes(inputtag)){
-      alert("同じタグが存在します")
+    if(!validTagForm(tags, inputtag)){
       return
     }
     this.addTagElement(inputtag)

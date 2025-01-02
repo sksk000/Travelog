@@ -6,12 +6,14 @@
         </div>
         <div class="form-group col mb-3 p-3 post-form">
           <%= f.label :title, "タイトル" %></br>
-          <%= f.text_field :title, size: " 100 x 20 " , placeholder:'投稿のタイトルを入力', class:"form-control"%>
+          <%= f.text_field :title, size: " 100 x 20 " , required: true, minlength: 1, placeholder:'投稿のタイトルを入力', class:"form-control"%>
+          <div class="invalid-feedback"></div>
         </div>
 
         <div class="form-group col p-3 post-form">
           <%= f.label :body, "旅行の概要"%></br>
-          <%= f.text_area :body, size: " 100 x 5 " , class:"form-control", id: "body-textarea"%>
+          <%= f.text_area :body, size: " 100 x 5 " , required: true, minlength: 1, class:"form-control", id: "body-textarea"%>
+          <div class="invalid-feedback"></div>
         </div>
 
         <div class="form-group col p-3 post-form">
@@ -51,11 +53,12 @@
         <div data-controller="tag" class="form-group col p-3 post-form">
           <div class="d-flex">
             <%= f.label "タグ", class:"form-label w-25"%>
-            <input type="input" class="form-control inputtag w-50" placeholder="例) 女子旅" data-tag-target="input" >
+            <input type="input" class="form-control inputtag w-50" required= "true", placeholder="例) 女子旅" data-tag-target="input" >
             <button type="button" class="btn btn-primary rounded-circle" data-action="click->tag#addTag">
               <i class="fa fa-plus"></i>
             </button>
           </div>
+          <div class="invalid-feedback" id="tag-invalid"></div>
           <div data-tag-target="tags" class="tag-list h4">
           </div>
         </div>
