@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { validPlaceForm } from "../packs/validation";
 (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
   key: process.env.Maps_API_Key
 });
@@ -127,8 +128,8 @@ export default class extends Controller {
     const placenameElem = document.getElementById("resultplacename")
     const placename = placenameElem.textContent.trim()
 
-    if(placename.length <= 0){
-      alert("訪問地を設定してください")
+    if(!validPlaceForm(placename)){
+      this.submitTarget.blur()
       return
     }
 
@@ -186,15 +187,9 @@ export default class extends Controller {
     e.preventDefault()
     const tabdatas = this.tabdatas
 
-    if(!this.validForm(tabdatas)){
-      this.submitTarget.blur()
-      return
-    }
-
     if(!confirm("投稿を確定しますか？内容は投稿詳細ページより編集可能です")){
       return
     }
-
 
     const formData = new FormData();
 
@@ -252,26 +247,6 @@ export default class extends Controller {
     });
 
   }
-
-  validForm(datas){
-    let errormsg = ""
-    let isSuccess = true
-
-    datas.forEach((data, index)=>{
-      if(!data.place_name){
-        errormsg = errormsg + "訪問地名が空欄です\n"
-        isSuccess = isSuccess && false
-      }
-
-    })
-
-    if(isSuccess){
-        return true
-    } else {
-      alert(errormsg)
-    }
-  }
-
 
   addTabs(e){
 
