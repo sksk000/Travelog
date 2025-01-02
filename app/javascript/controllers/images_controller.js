@@ -23,21 +23,26 @@ export default class extends Controller {
   dropImages(e){
     e.preventDefault()
     const files = e.dataTransfer.files
-
-    if (files.length > 1) {
-      alert("画像は1枚のみアップロード可能です。")
-      return
-    }
+    const validtext = document.getElementById("image-invalid")
 
     if(this.checkImageSize(files[0])){
-      alert("ファイルサイズの上限2MBを超えている画像はアップロードできません。")
+      validtext.textContent = "ファイルサイズの上限2MBを超えている画像はアップロードできません。"
+      validtext.style.display = "block"
+      this.dropTarget.classList.remove("bg-secondary")
+      this.dropTarget.classList.add("bg-white")
       return
+    }else{
+      validtext.style.display = "none"
+      validtext.textContent = ""
     }
     //ファイル保存
     this.file = files[0]
 
     //ドラッグアンドドロップした画像をプレビュー表示する
     this.previewImage(this.file)
+
+    this.dropTarget.classList.remove("bg-secondary")
+    this.dropTarget.classList.add("bg-white")
   }
 
   checkImageSize(file){
