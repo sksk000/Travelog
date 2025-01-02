@@ -13,7 +13,7 @@ class Public::PlacesController < ApplicationController
         return
       end
     end
-    render json: { message: '投稿が成功しました', redirect_url: post_path(params[:post_id]) }, status: :created
+    render json: { message: '投稿に成功しました', redirect_url: post_path(params[:post_id]) }, status: :created
 
   end
 
