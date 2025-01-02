@@ -129,12 +129,13 @@ export default class extends Controller {
 
 
   submitForm(e){
+    let isfetch = true
     e.preventDefault()
     const formData = new FormData(this.formTarget)
 
     if(!validPostForm()){
       this.submitTarget.blur()
-      return
+      isfetch = false
     }
 
     const tagController = this.application.getControllerForElementAndIdentifier(
@@ -161,20 +162,26 @@ export default class extends Controller {
     else{
       alert("tagControllerが見つかりません");
       this.submitTarget.blur()
+      isfetch = false
     }
 
     if(selectController){
-
+      const selectValidText = document.getElementById("select-invalid")
       const selects = selectController.getSelects()
 
+      console.log("selectController")
+
       if(selects.length < 1){
-        alert("旅行した都道府県を最低1つ選択してください")
+        selectValidText.textContent = "最低でも1つ訪れた都道府県を追加してください"
+        selectValidText.style.display = "block"
         this.submitTarget.blur()
-        return
+        isfetch = false
+      }else{
+        selectValidText.textContent = ""
+        selectValidText.style.display = "none"
       }
 
       selects.forEach((prefecture) => {
-        console.log(prefecture)
         formData.append(`prefecture[prefecture][]`, prefecture)
       })
 
@@ -188,46 +195,48 @@ export default class extends Controller {
       }
     }
 
-    const actionURL = this.formTarget.action.endsWith('.json') ? this.formTarget.action : this.formTarget.action + '.json';
-    const isEdit = window.location.pathname.includes("/edit");
-    const requestMethod = isEdit ? "PATCH" : "POST";
 
-    //PostモデルのPOSTを行う
-    fetch(actionURL, {
-      method: requestMethod,
-      body: formData,
-      headers: {
-        "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
-      }
-      }).then((response) => {
-      if (!response.ok) {
-        this.submitTarget.blur()
-        return response.text(); // レスポンスのテキストを取得
-      }
-      console.log("投稿成功");
-      return response.json(); // 正常の場合はJSONレスポンスを処理
-    })
-    .then((data) => {
-      if (data && data.error) {
-        alert("投稿に失敗しました: " + data.error);
+    if(isfetch){
+      const actionURL = this.formTarget.action.endsWith('.json') ? this.formTarget.action : this.formTarget.action + '.json';
+      const isEdit = window.location.pathname.includes("/edit");
+      const requestMethod = isEdit ? "PATCH" : "POST";
+
+      //PostモデルのPOSTを行う
+      fetch(actionURL, {
+        method: requestMethod,
+        body: formData,
+        headers: {
+          "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
+        }
+        }).then((response) => {
+        if (!response.ok) {
+          this.submitTarget.blur()
+          return response.text(); // レスポンスのテキストを取得
+        }
+        console.log("投稿成功");
+        return response.json(); // 正常の場合はJSONレスポンスを処理
+      })
+      .then((data) => {
+        if (data && data.error) {
+          alert("投稿に失敗しました: " + data.error);
+          this.submitTarget.blur()
+          return
+        }
+
+        if(data.redirect_url){
+          window.location.href = data.redirect_url;
+        }else{
+          alert("リダイレクトURLが含まれていません");
+          this.submitTarget.blur()
+          return
+        }
+      })
+      .catch((error) => {
+        alert("投稿に失敗しました");
         this.submitTarget.blur()
         return
-      }
-
-      if(data.redirect_url){
-        window.location.href = data.redirect_url;
-      }else{
-        alert("リダイレクトURLが含まれていません");
-        this.submitTarget.blur()
-        return
-      }
-    })
-    .catch((error) => {
-      alert("投稿に失敗しました");
-      this.submitTarget.blur()
-      return
-    });
-
+      });
+    }
   }
 
   moveMaker(e){
