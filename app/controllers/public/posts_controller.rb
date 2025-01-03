@@ -6,7 +6,7 @@ class Public::PostsController < ApplicationController
     if @post.save
       createtag(@post, params[:tag]) if params[:tag].present?
       createprefecture(@post, params[:prefecture]) if params[:prefecture].present?
-      render json: { post: @post, message: '投稿が成功しました', redirect_url: new_post_places_path(@post.id) }, status: :created
+      render json: { post: @post, message: '投稿内容登録完了しました、次のページに移動します', redirect_url: new_post_places_path(@post.id) }, status: :created
     else
       render json: { message: "投稿に失敗しました。: #{@post.errors.full_messages.join(', ')}" }, status: :unprocessable_entity
     end

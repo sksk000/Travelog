@@ -212,23 +212,13 @@ export default class extends Controller {
           "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
         }
         }).then((response) => {
-        if (!response.ok) {
-          console.log(response)
-          this.submitTarget.blur()
-        }
-        return response.json(); // JSONで受け取るように設定
+          return response.json(); // JSONで受け取るように設定
       })
       .then((data) => {
-        if (data && data.message) {
-          toastr.error(data.message)
-          this.submitTarget.blur()
-          return
-        }
-
-        if(data.redirect_url){
+        if(data && data.redirect_url){
           window.location.href = data.redirect_url;
         }else{
-          toastr.error("リダイレクト先が見見つかりませんでした。時間を置いて再度お試しください。")
+          toastr.error(data.message);
           this.submitTarget.blur()
           return
         }
