@@ -90,6 +90,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.12.1)
+      devise (>= 4.9.0)
     diff-lcs (1.5.1)
     dotenv (3.1.2)
     dotenv-rails (3.1.2)
@@ -184,6 +186,9 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails-i18n (7.0.10)
+      i18n (>= 0.7, < 2)
+      railties (>= 6.0.0, < 8)
     railties (6.1.7.8)
       actionpack (= 6.1.7.8)
       activesupport (= 6.1.7.8)
@@ -288,6 +293,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  devise-i18n
   dotenv-rails
   factory_bot_rails
   faker
@@ -303,6 +309,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.7, >= 6.1.7.7)
   rails-controller-testing
+  rails-i18n
   rspec-rails
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)

@@ -34,7 +34,7 @@ class Public::SessionsController < Devise::SessionsController
       scope = :user
 
     else
-      flash[:alert] = "ログイン情報が正しくありません。"
+      flash[:alert] = "メールアドレスまたはパスワードが間違っています。"
       redirect_to new_user_session_path and return
     end
 

@@ -16,7 +16,7 @@
 
     if(!password.checkValidity()){
       password.classList.add("is-invalid");
-      password.nextElementSibling.textContent = "パスワードを入力してください";
+      password.nextElementSibling.textContent = "6文字以上のパスワードを入力してください。";
       ret = false
     }else{
       password.classList.remove("is-invalid");
@@ -25,7 +25,7 @@
 
     if(password.value != pwdconf.value){
       pwdconf.classList.add("is-invalid");
-      pwdconf.nextElementSibling.textContent = "上記で入力したパスワードと異なります";
+      pwdconf.nextElementSibling.textContent = "上記で入力したパスワードと異なります。";
       ret = false
     }else{
         pwdconf.classList.remove("is-invalid");
@@ -34,7 +34,7 @@
 
     if(!username.checkValidity()){
       username.classList.add("is-invalid");
-      username.nextElementSibling.textContent = "ユーザ名を入力して下さい";
+      username.nextElementSibling.textContent = "3文字以上のユーザ名を入力してください。";
       ret = false
     }else{
         username.classList.remove("is-invalid");
