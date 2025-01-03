@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { validPostForm } from "../packs/validation";
+import  toastr from 'toastr';
 
 // ブートストラップ ローダ
 (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
@@ -172,6 +173,7 @@ export default class extends Controller {
 
       console.log("selectController")
 
+      //都道府県のバリデーションチェック
       if(selects.length < 1){
         selectValidText.textContent = "最低でも1つ訪れた都道府県を追加してください"
         selectValidText.style.display = "block"
@@ -211,15 +213,14 @@ export default class extends Controller {
         }
         }).then((response) => {
         if (!response.ok) {
+          console.log(response)
           this.submitTarget.blur()
-          return response.text(); // レスポンスのテキストを取得
         }
-        console.log("投稿成功");
-        return response.json(); // 正常の場合はJSONレスポンスを処理
+        return response.json(); // JSONで受け取るように設定
       })
       .then((data) => {
-        if (data && data.error) {
-          alert("投稿に失敗しました: " + data.error);
+        if (data && data.message) {
+          toastr.error(data.message)
           this.submitTarget.blur()
           return
         }
@@ -227,13 +228,14 @@ export default class extends Controller {
         if(data.redirect_url){
           window.location.href = data.redirect_url;
         }else{
-          alert("リダイレクトURLが含まれていません");
+          toastr.error("リダイレクト先が見見つかりませんでした。時間を置いて再度お試しください。")
           this.submitTarget.blur()
           return
         }
       })
       .catch((error) => {
-        alert("投稿に失敗しました");
+        toastr.error("不明なエラーが発生しました。時間を置いて再度お試しください。また解決しない場合は問題が解決しない場合は、サポートまでご連絡ください。")
+        console.error("キャッチされたエラー:", error.message);
         this.submitTarget.blur()
         return
       });

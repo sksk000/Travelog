@@ -8,7 +8,7 @@ class Public::PostsController < ApplicationController
       createprefecture(@post, params[:prefecture]) if params[:prefecture].present?
       render json: { post: @post, message: '投稿が成功しました', redirect_url: new_post_places_path(@post.id) }, status: :created
     else
-      render json: { error: '投稿に失敗しました', details: @post.errors.full_messages }, status: :unprocessable_entity
+      render json: { message: "投稿に失敗しました。: #{@post.errors.full_messages.join(', ')}" }, status: :unprocessable_entity
     end
 
   end
