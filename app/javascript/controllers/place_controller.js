@@ -232,19 +232,10 @@ export default class extends Controller {
         'X-CSRF-Token': document.querySelector("[name='csrf-token']").content
       }
       }).then((response) => {
-      if (!response.ok) {
-        this.submitTarget.blur()
-        return response.json(); // レスポンスのテキストを取得
-      }
-      return response.json(); // 正常の場合はJSONレスポンスを処理
+        return response.json(); // 正常の場合はJSONレスポンスを処理
     })
     .then((data) => {
-      if (data && data.error) {
-        toastr.error("投稿に失敗しました: " + data.error)
-        this.submitTarget.blur()
-        return
-      }
-      if(data.redirect_url){
+      if(data && data.redirect_url){
         //トースト通知のメッセージをストレージに格納し、リダイレクト後にトースト通知を行う
         localStorage.setItem('toastMessage', JSON.stringify({
           type: 'success',
@@ -252,13 +243,19 @@ export default class extends Controller {
         }));
         window.location.href = data.redirect_url;
       }else{
-        toastr.error("リダイレクトURLが含まれていません");
+        console.log("called")
+        toastr.error(data.message);
         this.submitTarget.blur()
         return
       }
     })
     .catch((error) => {
-      toastr.error("投稿に失敗しました");
+      if(error.message){
+        toastr.error(error.message)
+      }else{
+        toastr.error("不明なエラーが発生しました。時間を置いて再度お試しください。また解決しない場合は問題が解決しない場合は、サポートまでご連絡ください。")
+      }
+      console.error("キャッチされたエラー:", error.message);
       this.submitTarget.blur()
       return
     });
@@ -270,7 +267,7 @@ export default class extends Controller {
     const placedataindex = document.querySelectorAll('.placedata').length
 
     if(!this.tabdatas[placedataindex - 1]){
-      alert("現在の観光地情報が保存されていないため、タブを追加出来ません")
+      toastr.error("現在の観光地情報が保存されていないため、タブを追加出来ません。")
       return
     }
     const newNavItem = document.createElement("li");

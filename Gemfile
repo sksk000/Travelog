@@ -79,3 +79,6 @@ gem 'gretel'
 gem 'stimulus-rails'
 
 gem 'toastr-rails'
+
+gem 'rails-i18n'
+gem 'devise-i18n'

@@ -6,14 +6,13 @@ class Public::PlacesController < ApplicationController
 
   def create
     place_params.each do |place_param|
-
       place = Place.new(place_param.merge(post_id: params[:post_id]))
       unless place.save
-        render json: { error: '投稿に失敗しました', details: place.errors.full_messages }, status: :unprocessable_entity
+        render json: { message: "投稿に失敗しました。: #{place.errors.full_messages.join(', ')}" }, status: :unprocessable_entity
         return
       end
     end
-    render json: { message: '投稿に成功しました', redirect_url: post_path(params[:post_id]) }, status: :created
+    render json: { message: '投稿に成功しました。', redirect_url: post_path(params[:post_id]) }, status: :created
 
   end
 
