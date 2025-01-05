@@ -114,6 +114,7 @@ export default class extends Controller {
       // レスポンスをJSONとしてパース
       response.json().then((data) => {
         if (data.message) {
+          this.resetPasswordForm()
           toastr.success(data.message);
         }
       });
@@ -172,6 +173,14 @@ export default class extends Controller {
       toastr.error("削除に失敗しました");
       return
     });
+  }
+
+  resetPasswordForm(){
+    const pwdconf = document.querySelector(".password_confirmation")
+    const newpwd = document.querySelector(".newpassword")
+
+    pwdconf.value = ""
+    newpwd.value = ""
   }
 
 }
