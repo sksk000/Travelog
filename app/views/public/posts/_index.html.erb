@@ -1,5 +1,5 @@
 <% targetpost.each do | post | %>
-  <div class="col mt-5" style="justify-items: center;">
+  <div class="col col-3 mt-4" style="justify-items: center;">
     <div class="card border-dark" style="width: 260px; height: 380px;">
       <% if post.image.present? %>
         <%= image_tag post.image, size: "200x180", class:"card-img-top" %>
