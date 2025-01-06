@@ -1,4 +1,4 @@
-<div class="container" data-controller="mypage" data-user-id=<%= @user.id %>>
+<div class="container" data-controller="mypage" data-user-id="<%= @user.id %>" id="main-background">
   <%= render 'public/users/mypage.html.erb', method: :get,  user: @user %>
     <%= form_with url: mypage_path(@user.id) do |f| %>
       <div class="selects text-right">
