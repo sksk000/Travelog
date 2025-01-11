@@ -1,10 +1,11 @@
 # Travelog
 
 ## サイト概要
-サイトURL:https://travelog.sagglenix.com/
+サイトURL: https://travelog.sagglenix.com/
 ### サイトのテーマ
-
-- 旅行計画時の悩み解消、他の旅行計画を見て参考にしより良い旅行をしたい人向けの旅行プランレビューサイト
+- 旅行プランのレビューサイト
+- 自身の旅行プランの共有、他ユーザの投稿した旅行プランを閲覧しての情報収集、コメント機能でのユーザ間交流を主機能とする。
+- 旅行プランは地図上のマーカーをベースに、画像も交えてグラフィカルに共有できるようにする。
 
 ### テーマを選んだ理由
 - 友達と旅行中、計画通りに訪れたい場所に行けないこと、訪れても想定と異なることがあったため
@@ -29,7 +30,8 @@
 
 
 ### アプリケーション詳細設計書
-https://docs.google.com/spreadsheets/d/1aIgPEIFOkfqcmqNj6BG38Xfc0BuvaskWfOxuz8dgwrs/edit?usp=drive_link
+![image](https://github.com/user-attachments/assets/599514f8-5ade-4591-b95f-fc88dd4bbfad)
+
 
 ### テーブル定義書
 https://docs.google.com/spreadsheets/d/1qXiKlpyrYHdSDIMqwMFumkS4Jl1uj7081Eztgk77d_8/edit?usp=drive_link
@@ -66,5 +68,5 @@ https://docs.google.com/spreadsheets/d/1qXiKlpyrYHdSDIMqwMFumkS4Jl1uj7081Eztgk77
 ## 使用素材
 - Unsplash様
 - ぱくたそ様
-- いらすとや様
+- いらすとや様<br>
 他のユーザが投稿した画像については、この限りではありません。
