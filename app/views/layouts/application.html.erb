@@ -11,12 +11,13 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <%= favicon_link_tag('favicon.ico') %>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="d-flex align-items-center me-auto">
         <%= link_to root_path,class: "nav-link text-light" do %>
-          Travelog
+          <%= image_tag asset_path('travelog_logo.png'),size: "170x50"%>
         <% end %>
       </div>
       <div class="d-flex justify-content-center flex-grow-1">
