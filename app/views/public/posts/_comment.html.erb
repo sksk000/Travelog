@@ -12,7 +12,7 @@
     <div class="text">
       <div class="userdata">
         <label class="card-text"><%= link_to user.name, mypage_path( user.id ) %></label>
-        <label class="ml-2"><%= comment.created_at %></label>
+        <label class="ml-2"><%= l comment.created_at %></label>
       </div>
       <div class="card-text mt-1"><%= simple_format(h(comment.comment)) %></div>
     </div>
