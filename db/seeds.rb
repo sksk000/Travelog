@@ -244,7 +244,11 @@ ActiveRecord::Base.transaction do
         PostPrefecture.find_or_create_by!(post_id: post.id, prefecture: prefecture)
       end
 
-      comment_users = User.where.not(id: user.id).order("RANDOM()").limit(3)
+      if Rails.env.production?
+        comment_users = User.where.not(id: user.id).order("RAND()").limit(3)
+      else
+        comment_users = User.where.not(id: user.id).order("RANDOM()").limit(3)
+      end
       comment_users.each do |comment_user|
         comment_text = comments_sample.sample
         post.comments.create!(user: comment_user, comment: comment_text)
