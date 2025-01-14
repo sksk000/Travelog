@@ -156,11 +156,48 @@ places_coordinates = {
     { name: "首里城", latitude: 26.2130, longitude: 127.7189, comment: "首里城は沖縄の歴史を感じる場所で、美しい庭園と建物が魅力的でした。沖縄の文化を知ることができました。" }
   ],
 }
+comments_sample = [
+  "こんな素敵な場所、見たことがありません！本当に心が癒されます。",
+  "絶対に行きたくなりました！こんな美しい景色が広がっているなんて感動です。",
+  "この景色を見た瞬間、言葉が出ませんでした。心が満たされた気がします。",
+  "想像以上の美しさでした！また行きたくなる場所です。",
+  "とにかく感動しました！これこそ理想の旅行先ですね。",
+  "心が震えました。この場所に行ったら、絶対に何度も訪れたくなるはずです。",
+  "素晴らしい景色に包まれて、何時間でもぼーっとしていたい気分です。",
+  "本当に夢のような場所ですね。行きたい気持ちが止まりません！",
+  "この場所の美しさに、ただただ圧倒されました。何度でも訪れたいです。",
+  "素晴らしい！どこを見ても絶景で、感動して涙が出そうになりました。",
+  "思わず息を呑んでしまいました。この場所には魔法がかかっているみたいです。",
+  "こんなに心を動かされる場所があったなんて！もう一度行きたいです。",
+  "こんなに美しい場所があるなんて本当に驚きです。ぜひ行ってみたい！",
+  "ここで過ごす時間がどれほど貴重なのか、実感できる場所でした。",
+  "その美しさに心が震えました。いつか行ってみたくてたまりません！",
+  "どんなに疲れていても、ここに来たらリフレッシュできそうです。",
+  "まるで映画のワンシーンのような場所ですね！行くべきリストに追加決定です。",
+  "こんな素晴らしい景色を見られるなんて、人生最高の瞬間でした。",
+  "想像していたよりも何倍も素晴らしい場所で、また行きたくてたまりません。",
+  "この場所の美しさに心が癒されました。何時間でもここにいられる。",
+  "写真では伝わらない美しさがあり、現地で見ることができて本当に良かった！",
+  "景色だけでなく、空気まで美しい。とても贅沢な時間を過ごせました。",
+  "こんなに感動的な場所、人生で一度は訪れなければいけません！",
+  "自然の力を感じられる場所でした。訪れるたびに心が洗われるようです。",
+  "すごくリラックスできる場所ですね。ここに来ると心が安らぎます。",
+  "想像以上の美しさでした！一度来たら、何度でも訪れたくなること間違いなし。",
+  "ここに来て、全ての疲れが吹き飛びました。本当に素晴らしい場所です。",
+  "この景色を見た瞬間、言葉を失いました。本当に言葉にできない美しさです。",
+  "まるで異世界に迷い込んだような感覚を味わいました。素晴らしい！",
+  "心から癒される場所です。こんな場所があるなんて、本当に驚きました。",
+  "自然の美しさに圧倒される一方、心が落ち着きました。最高の場所です。",
+  "これほど素晴らしい場所があったなんて、もっと早く知りたかったです。",
+  "想像していた以上の美しさに、ただただ感動するばかりでした。",
+  "絶対にまた来たい！この景色をもう一度見られることを願っています。",
+  "こんなに美しい場所が本当に存在するなんて、信じられません！"
+]
 
 
 ActiveRecord::Base.transaction do
-  users.each do |user_key, user|
-    places_coordinates[user_key].each_with_index do |place_data, index|
+  3.times do
+    users.each do |user_key, user|
       post = Post.find_or_initialize_by(user: user, title: titles.sample) do |post_data|
         post_data.body = body_comments[user_key].sample
         post_data.good = rand(0..5)
@@ -172,21 +209,21 @@ ActiveRecord::Base.transaction do
         post_data.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_files.sample)), filename: image_files.sample)
       end
       post.save!
-
-      # 投稿に複数のPlaceを関連付け
-      places_coordinates[user_key].each_with_index do |place_data, place_index|
-        Place.find_or_create_by(post: post, place_name: place_data[:name]) do |place|
-          place.latitude = place_data[:latitude]
-          place.longitude = place_data[:longitude]
-          place.comment = place_data[:comment]
-          place.place_num = place_index + 1
-          place.good = rand(0..5)
-          place.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_files.sample)), filename: image_files.sample)
+      places_coordinates[user_key].each_with_index do |place_data, index|
+        # 投稿に複数のPlaceを関連付け
+        places_coordinates[user_key].each_with_index do |place_data, place_index|
+          Place.find_or_create_by(post: post, place_name: place_data[:name]) do |place|
+            place.latitude = place_data[:latitude]
+            place.longitude = place_data[:longitude]
+            place.comment = place_data[:comment]
+            place.place_num = place_index + 1
+            place.good = rand(0..5)
+            place.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', image_files.sample)), filename: image_files.sample)
+          end
         end
       end
-
       # ランダムにタグを追加
-      selected_tags = tags.sample(1)
+      selected_tags = tags.sample(3)
       selected_tags.each do |tag_name|
         tag = Tag.find_or_create_by(name: tag_name)
         PostTag.find_or_create_by(post: post, tag: tag)
@@ -205,6 +242,12 @@ ActiveRecord::Base.transaction do
                     end
       prefectures.each do |prefecture|
         PostPrefecture.find_or_create_by!(post_id: post.id, prefecture: prefecture)
+      end
+
+      comment_users = User.where.not(id: user.id).order("RANDOM()").limit(3)
+      comment_users.each do |comment_user|
+        comment_text = comments_sample.sample
+        post.comments.create!(user: comment_user, comment: comment_text)
       end
     end
   end
