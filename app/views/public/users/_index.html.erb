@@ -1,6 +1,6 @@
 <% targetuser.each do | user | %>
   <% unless user.name == "guestuser" && user.email == "guest@example.com"%>
-    <div class="col mt-5" style="justify-items: center;">
+    <div class="col col-3 mt-4" style="justify-items: center;">
       <div class="card border-dark" style="width: 260px; height: 380px;">
         <% if user.profile_image.present? %>
           <%= image_tag user.profile_image, size: "200x180", class:"card-img-top" %>
