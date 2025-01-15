@@ -1,9 +1,27 @@
 <div class="container" id="main-background">
   <div class="row">
-    <% if @category == "user_search" %>
-      <%= render 'public/users/index.html.erb', targetuser: @user %>
-    <% elsif @category == "post_search" %>
-      <%= render 'public/posts/index.html.erb', targetpost: @post %>
+    <% if @is_empty %>
+      <div class="col">
+        <% if @category == "user_search" %>
+          <p>検索条件に当てはまるユーザが見つかりませんでした。</p>
+        <% elsif @category == "post_search" %>
+          <p>検索条件に当てはまる投稿が見つかりませんでした。</p>
+        <% end %>
+        <p>検索のヒント:</p>
+        <ul>
+          <li>キーワードに誤字・脱字がないか確認します。</li>
+          <li>別のキーワードを試してみます。</li>
+          <li>もっと一般的なキーワードに変えてみます。</li>
+          <li>キーワードの数を減らしてみます。</li>
+          <li>検索条件を変更してみます。</li>
+        </ul>
+      </div>
+    <% else %>
+      <% if @category == "user_search" %>
+        <%= render 'public/users/index', targetuser: @user %>
+      <% elsif @category == "post_search" %>
+        <%= render 'public/posts/index', targetpost: @post %>
+      <% end %>
     <% end %>
   </div>
 </div>
