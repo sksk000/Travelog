@@ -11,28 +11,28 @@
         <h3><%= @post.title %></h3>
       </div>
       <div class="username mt-3">
-        <p>投稿者名：<%= link_to @post.user.name, mypage_path( @post.user.id ) %></p>
+        <p>投稿者名:<%= link_to @post.user.name, mypage_path( @post.user.id ) %></p>
       </div>
       <div class="body mt-3 border rounded bg-white">
-        <h5><旅行の概要></h5>
+        <h5>旅行の概要:</h5>
         <%= simple_format(h(@post.body)) %>
       </div>
       <div class="place mt-3 border rounded bg-white">
-        <h5><訪れた場所一覧></h5>
+        <h5>訪れた場所一覧️:</h5>
         <% @place.each_with_index do | place, i |%>
-          <a class="link-opacity-25-hover" data-action="click->post#moveMaker" data-post-target="placedata" data-latitude="<%= place.latitude%>" data-longitude="<%= place.longitude%>" data-index=" <%= i %>"> <%= place.place_name %></a>
+          📍<a class="link-opacity-25-hover" data-action="click->post#moveMaker" data-post-target="placedata" data-latitude="<%= place.latitude%>" data-longitude="<%= place.longitude%>" data-index=" <%= i %>"> <%= place.place_name %></a>
           <% if @place.length - 1 > i %>
             <div  class="border-right border-secondary" style="height: 20px; width: 20px;"></div>
           <% end %>
         <% end %>
       </div>
       <div class="info mt-3 border rounded bg-white">
-        <h5><詳細情報></h5>
+        <h5>詳細情報:</h5>
         <div class="month mt-3 ">
-          <p>旅行月：<%= @post.travelmonth %>月</p>
+          <p>旅行月:<%= @post.travelmonth %>月</p>
         </div>
         <div class="place mt-3">
-          <label>都道府県名</label>
+          <label>都道府県名:</label>
           <div class="placetag">
             <% @prefectures.each do | prefecture |%>
               <p class="badge badge-pill badge-primary"> <%= prefecture.prefecture %></p>
@@ -40,13 +40,13 @@
           </div>
         </div>
         <div class="people mt-3">
-          <p>人数：<%= @post.people %></p>
+          <p>人数:<%= @post.people %></p>
         </div>
         <div class="people mt-3">
-          <p>宿泊数：<%= @post.night %></p>
+          <p>宿泊数:<%= @post.night %></p>
         </div>
         <div class="good mt-3">
-          旅行点数：<%= render 'public/posts/good.html.erb', is_good_edit: false, modelname: "post", model: @post %></p>
+          旅行点数:<%= render 'public/posts/good.html.erb', is_good_edit: false, modelname: "post", model: @post %></p>
         </div>
         <div class="tag mt-3">
           <% @tags.each do | tag |%>
@@ -54,7 +54,7 @@
           <% end %>
         </div>
         <div class="date mt-3">
-          <p>投稿日：<%= l @post.created_at %></p>
+          <p>投稿日:<%= l @post.created_at %></p>
         </div>
       </div>
       <div class="p-5"></div>
