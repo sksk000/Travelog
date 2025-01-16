@@ -66,15 +66,15 @@ ActiveRecord::Base.transaction do
       title: "ラーメン二郎巡ってみた",
       body: "大好きなラーメン二郎を1泊2日で巡ってみました。胃袋に自身はあったのですが合計3店舗しか行けなかった。。また時間作って二郎巡りしたいな～",
       good: 5,
-      night: ,
+      night: 1,
       people: 4,
       travelmonth: 12,
       image: "seedsimages/sapporo_hirosaki.jpg",
       places: [
-        { name: "ラーメン二郎 三田本店", latitude: 35.648225621704078, longitude: 139.74164332559033, comment: "初めて三田本店にいきました、次も控えているためコールなしで注文！チャーシューがほろほろで染みた野菜が美味しすぎる・・。麺は少し柔めで太さもあり食べ応えがある！最高でした。。", image: "seedsimages/hokkaido_goryokaku.jpg", good: 5 },
-        { name: "ラーメン二郎 神田神保町店", latitude: 35.69527613138069, longitude: 139.7609022274397, comment: "こちらも初めての訪問、あの「レベルの高い合格点を超える二郎 オールウェイズ出してくれる」でおなじみの場所。食べ切れるか分からないので麺少なめに。三田本店より量多き氣がするのはきのせい？けど美味しかった～～！", image: "seedsimages/sushi.jpg", good: 5 },
+        { name: "ラーメン二郎 三田本店", latitude: 35.648225621704078, longitude: 139.74164332559033, comment: "初めて三田本店にいきました、次も控えているためコールなしで注文！チャーシューがほろほろで染みた野菜が美味しすぎる・・。麺は少し柔めで太さもあり食べ応えがある！最高でした。。", image: "seedsimages/mita_jiro.jpg", good: 5 },
+        { name: "ラーメン二郎 神田神保町店", latitude: 35.69527613138069, longitude: 139.7609022274397, comment: "こちらも初めての訪問、あの「レベルの高い合格点を超える二郎 オールウェイズ出してくれる」でおなじみの場所。食べ切れるか分からないので麺少なめに。三田本店より量多き氣がするのはきのせい？けど美味しかった～～！", image: "seedsimages/jinbo_jiro.jpg", good: 5 },
         { name: "アパホテル(神田神保町駅東)", latitude: 35.69470617799219, longitude: 139.76230085385862, comment: "ラーメン二郎の近くだったのでココに決めました、普通によかった。", image: "seedsimages/sushi.jpg", good: 3 },
-        { name: "ラーメン二郎 亀戸店", latitude: 35.70291804775031, longitude: 139.82615013237017, comment: "何回か訪問した亀戸二郎、チャーシュー最高すぎ・・。醤油のキレがよくて麺とよくあって美味しい。今度は選択肢として汁なしも検討しよう。", image: "seedsimages/sushi.jpg", good: 5 },
+        { name: "ラーメン二郎 亀戸店", latitude: 35.70291804775031, longitude: 139.82615013237017, comment: "何回か訪問した亀戸二郎、チャーシュー最高すぎ・・。醤油のキレがよくて麺とよくあって美味しい。今度は選択肢として汁なしも検討しよう。", image: "seedsimages/kameido_jiro.jpg", good: 5 },
       ],
       tags: ["二郎"],
       prefectures: [0],
@@ -82,6 +82,74 @@ ActiveRecord::Base.transaction do
         { user: "いっちゃん", text: "そんなに食べたの！？すごーい！！！前、夫といっしょに二郎系行ったとき1杯で動けないぐらいお腹いっぱいだった。。" },
       ]
     },
+    icchan_okinawa: {
+      user: icchan,
+      title: "2泊3日沖縄の旅",
+      body: "夫といっしょに初めての沖縄へいきました。大好きなお肉や珍しい魚を食べることができ、更には素敵な景色を堪能できました！！沖縄さいこ～～",
+      good: 5,
+      night: 2,
+      people: 4,
+      travelmonth: 12,
+      image: "seedsimages/sapporo_hirosaki.jpg",
+      places: [
+        { name: "沖縄美ら海水族館", latitude: 26.694558438731132, longitude: 127.87807746950608, comment: "ジンベイザメってこんなに大きいとは思ってなかった・・。イルカショーも素晴らしく、ダンスや歌など披露していてとてもかわいかった❤", image: "seedsimages/mita_jiro.jpg", good: 5 },
+        { name: "ナゴパイナップルパーク", latitude: 26.616684117755728, longitude: 127.969445649902, comment: "入口からパイナップルずくしで、写真映えしますね！！！パイナップルのソフトクリームを食べたのですが、パイナップル好きには最高です！", image: "seedsimages/mita_jiro.jpg", good: 5 },
+        { name: "ルネッサンス沖縄リゾート", latitude: 35.648225621704078, longitude: 139.74164332559033, comment: "館内が充実していて、海やプールがあり更には卓球台がありました！館内をお散歩するだけでもとても楽しい♪", image: "seedsimages/mita_jiro.jpg", good: 5 },
+        { name: "JUMBO STEAK HAN’S", latitude: 26.220789375102953, longitude: 127.67798355456107, comment: "お肉！！！Tボーンステーキを頂きました！肉肉しく美味！！", image: "seedsimages/sushi.jpg", good: 3 },
+        { name: "アメリカンビレッジ", latitude: 35.70291804775031, longitude: 139.82615013237017, comment: "めちゃくちゃ写真映えするような建物がいっぱい！日本じゃないみたい！！", image: "seedsimages/kameido_jiro.jpg", good: 5 },
+      ],
+      tags: ["沖縄","パイナップル","アメリカン","肉"],
+      prefectures: [0],
+      comments: [
+        { user: "サンサン", text: "写真映えしますね～！僕も今度カメラ持って沖縄行こうかな" },
+        { user: "よん様", text: "素敵～～！！夫婦仲良くて羨ましい～～！" },
+        { user: "食べ過ぎ二郎", text: "おお～！お肉大きいですね！！Tボーンステーキ食べてみたいな・・" },
+      ]
+    },
+    sunsun_kyoto: {
+      user: sun,
+      title: "紅葉の京都巡り！静かで趣深い秋旅",
+      body: "友人と紅葉シーズンに京都へ行きました。素晴らしい秋の景色が広がっておりカメラを手放せない程夢中で撮影していました。",
+      good: 5,
+      night: 2,
+      people: 2,
+      travelmonth: 11,
+      image: "seedsimages/kyoto_autumn.jpg",
+      places: [
+        { name: "清水寺", latitude: 34.99488334011819, longitude: 135.78460611448176, comment: "ライトアップされた紅葉はとても素敵で、写真映えします。", image: "seedsimages/kiyomizu.jpg", good: 5 },
+        { name: "嵐山", latitude: 35.010005664857914, longitude: 135.66698377974177, comment: "竹林の道を散歩しながら紅葉を満喫！心が洗われるような美しさでした。", image: "seedsimages/arashiyama.jpg", good: 4 },
+        { name: "嵐山温泉 花伝抄", latitude: 35.010821413612234, longitude: 135.68030087748085, comment: "枕を選べることに感動！ぐっすり休むことができた。夕食は旬の食材を利用した料理ばかりで、とても美味でした。", image: "seedsimages/kaden.jpg", good: 5 }
+        { name: "一澤信三郎帆布", latitude: 35.007730044880546, longitude: 135.7779273676187, comment: "手作りのバッグが素敵で、旅のお土産に購入しました！", image: "seedsimages/ichizawa.jpg", good: 5 },
+        { name: "祇園辻利 祇園本店", latitude: 35.00392482034129, longitude: 135.77449414015916, comment: "濃厚な抹茶パフェが絶品で、あまり甘いものが得意でない僕でも食べれちゃう一品", image: "seedsimages/tsujiri.jpg", good: 5 },
+      ],
+      tags: ["紅葉", "寺社仏閣", "和菓子"],
+      prefectures: [26],
+      comments: [
+        { user: "いっちゃん", text: "紅葉シーズンの京都、憧れます！私も夫といつか行きたいな～" },
+        { user: "よん様", text: "抹茶パフェおいしそう～！京都の秋は本当に素敵ですよね。" }
+      ]
+    },
+    yonsama_nagano: {
+      user: yonsama,
+      title: "夏の長野！涼しい避暑地でリフレッシュ",
+      body: "最近お酒ばかり飲んで不健康なので、久々にハイキングに来ました。空気が美味しい！！帰りはアウトレットでぷち贅沢❤",
+      good: 7,
+      night: 2,
+      people: 1,
+      travelmonth: 8,
+      image: "seedsimages/nagano_summer.jpg",
+      places: [
+        { name: "白馬岳", latitude: 36.6982, longitude: 137.8644, comment: "山の景色が素晴らしく、ハイキングが楽しかった！", image: "seedsimages/hakuba.jpg", good: 5 },
+        { name: "星のや軽井沢", latitude: 36.35850120036834, longitude: 138.59095579489252, comment: "敷地内は自然が多く、素晴らしい景観で散歩しているだけでも楽しめる素晴らしいホテルです。", image: "seedsimages/zenkoji.jpg", good: 4 },
+        { name: "軽井沢・プリンスショッピングプラザ", latitude: 36.340863824135084, longitude: 138.63600066697595, comment: "アウトレットで散財！", image: "seedsimages/karuizawa.jpg", good: 5 }
+      ],
+      tags: ["夏", "避暑地", "自然"],
+      prefectures: [20],
+      comments: [
+        { user: "いっちゃん", text: "軽井沢行ってみたんだけど、なかなか機会がないのよね。。" },
+        { user: "サンサン", text: "景色すばらしいですね～ハイキング運動不足な僕が行けるものかな・・？気になる。。" }
+      ]
+    }
   }
 
   posts_data.each do |user_key, post_data|
