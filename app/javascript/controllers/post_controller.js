@@ -73,15 +73,15 @@ export default class extends Controller {
               <img src="${place.image}" class="rounded mx-auto d-block" style="width: 400px; height: auto;">
             </div>
             <div class="mt-3">
-              <h5>📍訪問地名:</h5>
+              <h5><b>📍訪問地名:</b></h5>
               <p class="lead">${place.place_name}</p>
             </div>
             <div class="mt-3">
-              <h5>📝感想やメモ:</h5>
+              <h5><b>📝感想やメモ:</b></h5>
               <p class="lead">${comment}</p>
             </div>
             <div class="good mt-3">
-              <h5>おすすめ度:</h5>
+              <h5><b>👍おすすめ度:</b></h5>
               <div id="star_place_show_${place.id}" data-star-on="${items.ratyimgpath_on}" data-star-off="${items.ratyimgpath_off}">
               </div>
               <p class="text-muted mt-3">${place.address}</p>
