@@ -74,5 +74,10 @@ document.addEventListener('turbolinks:load', function() {
 
 });
 
+  toastr.options = {
+    "positionClass": "toast-top-full-width",
+  }
+
+
 window.$ = window.jQuery = require('jquery');
 window.toastr = toastr;
