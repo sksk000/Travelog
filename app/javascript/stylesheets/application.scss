@@ -1,6 +1,6 @@
 @use '~bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
-@import '~toastr/toastr';
+@import './node_modules/toastr/build/toastr.min';
 
 #user_map {
   /*width: 100%;*/
@@ -230,4 +230,12 @@ footer {
 
 .link-opacity-25-hover{
   cursor: pointer;
+}
+
+.toast{
+  max-width: 100%;
+}
+
+#toast-container > div{
+  opacity: 1;
 }

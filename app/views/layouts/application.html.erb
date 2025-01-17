@@ -91,15 +91,14 @@
         </div>
       </div>
     </footer>
+    <% if flash.any? %>
+      <% flash.each do |key, value| %>
+        <% key = "error" if key == "alert" %>
+        <% key = "success" if key == "notice" %>
+        <script>
+          toastr['<%= key %>']('<%= value %>');
+        </script>
+      <% end %>
+    <% end %>
   </body>
 </html>
-
-<% if flash.any? %>
-  <% flash.each do |key, value| %>
-    <% key = "error" if key == "alert" %>
-    <% key = "success" if key == "notice" %>
-    <script>
-      toastr['<%= key %>']('<%= value %>');
-    </script>
-  <% end %>
-<% end %>
