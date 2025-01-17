@@ -76,6 +76,8 @@ document.addEventListener('turbolinks:load', function() {
 
   toastr.options = {
     "positionClass": "toast-top-full-width",
+    "closeButton": true,
+    "progressBar": true,
   }
 
 
