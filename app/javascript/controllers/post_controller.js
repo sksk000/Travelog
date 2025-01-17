@@ -70,18 +70,22 @@ export default class extends Controller {
         const contentString = `
           <div class="information container p-0">
             <div class="text-center">
-              <img src="${place.image}" class="rounded mx-auto d-block" style="width: 200px; height: auto;">
+              <img src="${place.image}" class="rounded mx-auto d-block" style="width: 400px; height: auto;">
             </div>
-            <label><訪問地名></label>
-            <h1 class="h4 font-weight-bold">${place.place_name}</h1>
-            <label><感想やメモ> </label>
-            <p class="lead">${comment}</p>
-            <div class="good">
-              <label>おすすめ度</label>
-              <label class="text-right" id="star_place_show_${place.id}" data-star-on="${items.ratyimgpath_on}" data-star-off="${items.ratyimgpath_off}">
-              </label>
+            <div class="mt-3">
+              <h5><b>📍訪問地名:</b></h5>
+              <p class="lead">${place.place_name}</p>
             </div>
-            <p class="text-muted">${place.address}</p>
+            <div class="mt-3">
+              <h5><b>📝感想やメモ:</b></h5>
+              <p class="lead">${comment}</p>
+            </div>
+            <div class="good mt-3">
+              <h5><b>👍おすすめ度:</b></h5>
+              <div id="star_place_show_${place.id}" data-star-on="${items.ratyimgpath_on}" data-star-off="${items.ratyimgpath_off}">
+              </div>
+              <p class="text-muted mt-3">${place.address}</p>
+            </div>
           </div>
         `;
 
