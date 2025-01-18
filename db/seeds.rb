@@ -118,7 +118,7 @@ ActiveRecord::Base.transaction do
       places: [
         { name: "清水寺", latitude: 34.99488334011819, longitude: 135.78460611448176, comment: "ライトアップされた紅葉はとても素敵で、写真映えします。", image: "seedsimages/kiyomizu.jpg", good: 5 },
         { name: "嵐山", latitude: 35.010005664857914, longitude: 135.66698377974177, comment: "竹林の道を散歩しながら紅葉を満喫！心が洗われるような美しさでした。", image: "seedsimages/arashiyama.jpg", good: 4 },
-        { name: "嵐山温泉 花伝抄", latitude: 35.010821413612234, longitude: 135.68030087748085, comment: "枕を選べることに感動！ぐっすり休むことができた。夕食は旬の食材を利用した料理ばかりで、とても美味でした。", image: "seedsimages/kaden.jpg", good: 5 }
+        { name: "嵐山温泉 花伝抄", latitude: 35.010821413612234, longitude: 135.68030087748085, comment: "枕を選べることに感動！ぐっすり休むことができた。夕食は旬の食材を利用した料理ばかりで、とても美味でした。", image: "seedsimages/kaden.jpg", good: 5 },
         { name: "一澤信三郎帆布", latitude: 35.007730044880546, longitude: 135.7779273676187, comment: "手作りのバッグが素敵で、旅のお土産に購入しました！", image: "seedsimages/ichizawa.jpg", good: 5 },
         { name: "祇園辻利 祇園本店", latitude: 35.00392482034129, longitude: 135.77449414015916, comment: "濃厚な抹茶パフェが絶品で、あまり甘いものが得意でない僕でも食べれちゃう一品", image: "seedsimages/tsujiri.jpg", good: 5 },
       ],
@@ -149,6 +149,66 @@ ActiveRecord::Base.transaction do
         { user: "いっちゃん", text: "軽井沢行ってみたんだけど、なかなか機会がないのよね。。" },
         { user: "サンサン", text: "景色すばらしいですね～ハイキング運動不足な僕が行けるものかな・・？気になる。。" }
       ]
+    },
+    osaka_gourmet: {
+      user: icchan,
+      title: "大阪くいだおれ旅",
+      body: "夫と一緒に大阪旅！たこ焼きがトロトロで美味しかった～またいきたい！",
+      good: 4,
+      night: 2,
+      people: 1,
+      travelmonth: 6,
+      image: "seedsimages/osaka_gourmet.jpg",
+      places: [
+        { name: "なんばグランド花月", latitude: 34.66500527562112, longitude: 135.50365664496508, comment: "実際に見る新喜劇は迫力があって面白かった！", image: "seedsimages/namba.jpg", good: 5 },
+        { name: "たこ焼道楽わなか", latitude: 34.66522105846767, longitude: 135.5034102404898, comment: "今で食べたたこ焼きと違って", image: "seedsimages/dotonbori.jpg", good: 5 },
+        { name: "新世界串カツいっとく難波千日前店", latitude: 34.66658510138467, longitude: 135.5020055862774, comment: "熱々の串カツが最高！衣も薄くてサクサクで美味しい～～！", image: "seedsimages/kushikatsu.jpg", good: 5 },
+        { name: "大阪シティホテル", latitude: 34.695877563756284, longitude: 135.53035181206513, comment: "駅前で便利でした！", image: "seedsimages/osaka_hotel.jpg", good: 4 }
+      ],
+      tags: ["大阪", "グルメ", "串カツ", "たこ焼き"],
+      prefectures: [27],
+      comments: [
+        { user: "よん様", text: "串カツいいな～ビールで優勝したい・・！" },
+        { user: "食べ過ぎ二郎", text: "たこ焼きおいしそう！今度出張で大阪へ行くから参考にします！" }
+      ]
+    },
+    fukuoka_gourmet: {
+      user: jiro,
+      title: "博多でラーメンたべまくり！",
+      body: "博多の豚骨ラーメン制覇する勢いで、福岡の有名なラーメンを食べてきました！最高だった・・・",
+      good: 4,
+      night: 2,
+      people: 1,
+      travelmonth: 3,
+      image: "seedsimages/fukuoka_trip.jpg",
+      places: [
+        { name: "横浜家系総本山 吉村家直系店 ラーメン内田家", latitude: 33.5881093697534, longitude: 130.41627414876177, comment: "あの有名な吉村家の直系店！麺硬め・油普通・スープ普通で注文、本家と違い塩気がありこれもまたうま～！", image: "seedsimages/hakata_ikkousha.jpg", good: 5 },
+        { name: "博多 一成一代", latitude: 33.5901326730207, longitude: 130.43093682644627, comment: "泡が立つほど濃厚な豚骨スープで、とてもクリーミな味！美味しすぎて替え玉2回しちゃった・・。", image: "seedsimages/nagahama_ramen.jpg", good: 4 },
+        { name: "ホテルモントレ福岡", latitude: 33.58480827537479, longitude: 130.40461122148622, comment: "奮発していいホテル泊まった！とてもきれいで朝食も素晴らしかった！", image: "seedsimages/fukuoka_hotel.jpg", good: 5 },
+        { name: "博多らーめん ShinShin KITTE博多店", latitude: 33.58898097943065, longitude: 130.41943579834117, comment: "30分ぐらい並んだかな・・？結構あっさりめで食べやすかった！", image: "seedsimages/fukuoka_hotel.jpg", good: 3 }
+      ],
+      tags: ["博多", "ラーメン", "グルメ"],
+      prefectures: [40]
+    },
+      tohoku_spring: {
+      user: yonsama,
+      title: "青森で新鮮な海鮮食べ歩き旅",
+      body: "青森で普段食べれないような新鮮な海鮮を食べながらお酒イッパイ飲んできました！海鮮もそうだけど地元のお酒が美味しくてよかった～！",
+      good: 4,
+      night: 2,
+      people: 1,
+      travelmonth: 4,
+      image: "seedsimages/tohoku_trip.jpg",
+      places: [
+        { name: "八食センター", latitude: 40.52654410225081, longitude: 141.45288251722005, comment: "ここは市場なのですが、買った海鮮を七輪で焼けるとのこと！新鮮な魚や貝を焼きながらビール飲むのさいこ～！！", image: "seedsimages/hirosaki_castle.jpg", good: 5 },
+        { name: "蕪島神社", latitude: 40.53903091188966, longitude: 141.557497758868, comment: "ここはうみねこの繁殖地として国の天然記念物に指定されている場所だそうです！", image: "seedsimages/matsushima.jpg", good: 5 },
+        { name: "種差海岸", latitude: 40.50089461522884, longitude: 141.6232235921508, comment: "久々の海！眺めがきれいでずっと居たいぐらいだった！", image: "seedsimages/kakunodate.jpg", good: 4 },
+        { name: "みろく横丁", latitude: 40.51005328970253, longitude: 141.49086881792996, comment: "居酒屋さんが沢山あり、どこに行こうか迷っちゃった。。どの居酒屋入っても料理が美味しくてお酒が進んじゃった", image: "seedsimages/tohoku_hotel.jpg", good: 4 },
+        { name: "ドーミーイン本八戸", latitude: 40.510002857754586, longitude: 141.49299647154652, comment: "ドーミイン名物の夜鳴きそば！美味しかったな～！", image: "seedsimages/tohoku_hotel.jpg", good: 4 },
+        { name: "館鼻岸壁朝市", latitude: 40.528075675440654, longitude: 141.52937311000812, comment: "決まった日曜に開催されている朝市！！朝早起きして訪れました！寒い中食べるせんべい汁は格別だったな～", image: "seedsimages/tohoku_hotel.jpg", good: 4 }
+      ],
+      tags: ["東北", "桜", "花見"],
+      prefectures: [2, 4, 5]
     }
   }
 
