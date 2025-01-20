@@ -150,7 +150,7 @@ ActiveRecord::Base.transaction do
         { user: "サンサン", text: "景色すばらしいですね～ハイキング運動不足な僕が行けるものかな・・？気になる。。" }
       ]
     },
-    osaka_gourmet: {
+    icchan_oosaka: {
       user: icchan,
       title: "大阪くいだおれ旅",
       body: "夫と一緒に大阪旅！たこ焼きがトロトロで美味しかった～またいきたい！",
@@ -172,7 +172,7 @@ ActiveRecord::Base.transaction do
         { user: "食べ過ぎ二郎", text: "たこ焼きおいしそう！今度出張で大阪へ行くから参考にします！" }
       ]
     },
-    fukuoka_gourmet: {
+    fujiro_hakata: {
       user: jiro,
       title: "博多でラーメンたべまくり！",
       body: "博多の豚骨ラーメン制覇する勢いで、福岡の有名なラーメンを食べてきました！最高だった・・・",
@@ -190,7 +190,7 @@ ActiveRecord::Base.transaction do
       tags: ["博多", "ラーメン", "グルメ"],
       prefectures: [40]
     },
-      tohoku_spring: {
+    yonsama_aomori: {
       user: yonsama,
       title: "青森で新鮮な海鮮食べ歩き旅",
       body: "青森で普段食べれないような新鮮な海鮮を食べながらお酒イッパイ飲んできました！海鮮もそうだけど地元のお酒が美味しくてよかった～！",
@@ -209,6 +209,24 @@ ActiveRecord::Base.transaction do
       ],
       tags: ["東北", "桜", "花見"],
       prefectures: [2, 4, 5]
+    },
+    sunsun_kanazawa: {
+      user: sun,
+      title: "金沢でアートと歴史を巡る旅",
+      body: "金沢でアートと伝統文化を満喫しました。兼六園と21世紀美術館のコントラストが面白かったです。",
+      good: 5,
+      night: 2,
+      people: 1,
+      travelmonth: 4,
+      image: "seedsimages/kanazawa_art.jpg",
+      places: [
+        { name: "兼六園", latitude: 36.5623, longitude: 136.6625, comment: "日本らしさを感じられる場所だった。また季節に応じて景色が異なり、これもまた素晴らしいとのこと。今度は冬に訪れたい。", image: "seedsimages/kenrokuen.jpg", good: 5 },
+        { name: "金沢城公園", latitude: 36.56608364575496, longitude: 136.65892019863406, comment: "広々とした敷地内の中で散歩するのは気持ちが良かった！", image: "seedsimages/21museum.jpg", good: 5 },
+        { name: "ひがし茶屋街", latitude: 36.57305410777007, longitude: 136.66667840789316, comment: "古い町並みと石畳の道が素敵だった。お土産屋さんやカフェ等充実しており、見るだけでも楽しい。", image: "seedsimages/higashichaya.jpg", good: 5 },
+        { name: "ホテルマイステイズ金沢キャッスル", latitude: 36.578515909230354, longitude: 136.65244587093255, comment: "とてもリーズナブルで金沢駅前でアクセスしやすかった。", image: "seedsimages/hotel_kanazawa.jpg", good: 4 }
+      ],
+      tags: ["石川", "歴史"],
+      prefectures: [17]
     }
   }
 
