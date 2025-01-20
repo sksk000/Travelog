@@ -18,6 +18,7 @@ AllCops:
 
 require:
   - rubocop-rails
+  - rubocop-performance
 
 Metrics:
   Enabled: false
