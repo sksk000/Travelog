@@ -77,7 +77,7 @@ ActiveRecord::Base.transaction do
         { name: "ラーメン二郎 亀戸店", latitude: 35.70291804775031, longitude: 139.82615013237017, comment: "何回か訪問した亀戸二郎、チャーシュー最高すぎ・・。醤油のキレがよくて麺とよくあって美味しい。今度は選択肢として汁なしも検討しよう。", image: "seedsimages/kameido_jiro.jpg", good: 5 },
       ],
       tags: ["二郎"],
-      prefectures: [0],
+      prefectures: [12],
       comments: [
         { user: "いっちゃん", text: "そんなに食べたの！？すごーい！！！前、夫といっしょに二郎系行ったとき1杯で動けないぐらいお腹いっぱいだった。。" },
       ]
@@ -85,21 +85,21 @@ ActiveRecord::Base.transaction do
     icchan_okinawa: {
       user: icchan,
       title: "2泊3日沖縄の旅",
-      body: "夫といっしょに初めての沖縄へいきました。大好きなお肉や珍しい魚を食べることができ、更には素敵な景色を堪能できました！！沖縄さいこ～～",
+      body: "夫といっしょに初めての沖縄へいきました。大好きなお肉、更には素敵な景色を堪能できました！！沖縄さいこ～～",
       good: 5,
       night: 2,
       people: 4,
       travelmonth: 12,
       image: "seedsimages/sapporo_hirosaki.jpg",
       places: [
-        { name: "沖縄美ら海水族館", latitude: 26.694558438731132, longitude: 127.87807746950608, comment: "ジンベイザメってこんなに大きいとは思ってなかった・・。イルカショーも素晴らしく、ダンスや歌など披露していてとてもかわいかった❤", image: "seedsimages/mita_jiro.jpg", good: 5 },
-        { name: "ナゴパイナップルパーク", latitude: 26.616684117755728, longitude: 127.969445649902, comment: "入口からパイナップルずくしで、写真映えしますね！！！パイナップルのソフトクリームを食べたのですが、パイナップル好きには最高です！", image: "seedsimages/mita_jiro.jpg", good: 5 },
-        { name: "ルネッサンス沖縄リゾート", latitude: 35.648225621704078, longitude: 139.74164332559033, comment: "館内が充実していて、海やプールがあり更には卓球台がありました！館内をお散歩するだけでもとても楽しい♪", image: "seedsimages/mita_jiro.jpg", good: 5 },
-        { name: "JUMBO STEAK HAN’S", latitude: 26.220789375102953, longitude: 127.67798355456107, comment: "お肉！！！Tボーンステーキを頂きました！肉肉しく美味！！", image: "seedsimages/sushi.jpg", good: 3 },
-        { name: "アメリカンビレッジ", latitude: 35.70291804775031, longitude: 139.82615013237017, comment: "めちゃくちゃ写真映えするような建物がいっぱい！日本じゃないみたい！！", image: "seedsimages/kameido_jiro.jpg", good: 5 },
+        { name: "沖縄美ら海水族館", latitude: 26.694558438731132, longitude: 127.87807746950608, comment: "ジンベイザメってこんなに大きいとは思ってなかった・・。イルカショーも素晴らしく、ダンスや歌など披露していてとてもかわいかった❤", image: "seedsimages/suizokukanjpg", good: 5 },
+        { name: "ナゴパイナップルパーク", latitude: 26.616684117755728, longitude: 127.969445649902, comment: "入口からパイナップルずくしで、写真映えしますね！！！パイナップルのソフトクリームを食べたのですが、パイナップル好きには最高です！", image: "seedsimages/nago.jpg", good: 5 },
+        { name: "ルネッサンス沖縄リゾート", latitude: 35.648225621704078, longitude: 139.74164332559033, comment: "館内が充実していて、海やプールがあり更には卓球台がありました！館内をお散歩するだけでもとても楽しい♪", image: "seedsimages/okinawa_hotel.jpg", good: 5 },
+        { name: "JUMBO STEAK HAN’S", latitude: 26.220789375102953, longitude: 127.67798355456107, comment: "お肉！！！ステーキを頂きました！肉肉しく美味！！", image: "seedsimages/steak.jpg", good: 4 },
+        { name: "アメリカンビレッジ", latitude: 35.70291804775031, longitude: 139.82615013237017, comment: "めちゃくちゃ写真映えするような建物がいっぱい！日本じゃないみたい！！", image: "seedsimages/americanvillage.jpg", good: 5 },
       ],
       tags: ["沖縄","パイナップル","アメリカン","肉"],
-      prefectures: [0],
+      prefectures: [46],
       comments: [
         { user: "サンサン", text: "写真映えしますね～！僕も今度カメラ持って沖縄行こうかな" },
         { user: "よん様", text: "素敵～～！！夫婦仲良くて羨ましい～～！" },
@@ -118,12 +118,11 @@ ActiveRecord::Base.transaction do
       places: [
         { name: "清水寺", latitude: 34.99488334011819, longitude: 135.78460611448176, comment: "ライトアップされた紅葉はとても素敵で、写真映えします。", image: "seedsimages/kiyomizu.jpg", good: 5 },
         { name: "嵐山", latitude: 35.010005664857914, longitude: 135.66698377974177, comment: "竹林の道を散歩しながら紅葉を満喫！心が洗われるような美しさでした。", image: "seedsimages/arashiyama.jpg", good: 4 },
-        { name: "嵐山温泉 花伝抄", latitude: 35.010821413612234, longitude: 135.68030087748085, comment: "枕を選べることに感動！ぐっすり休むことができた。夕食は旬の食材を利用した料理ばかりで、とても美味でした。", image: "seedsimages/kaden.jpg", good: 5 },
-        { name: "一澤信三郎帆布", latitude: 35.007730044880546, longitude: 135.7779273676187, comment: "手作りのバッグが素敵で、旅のお土産に購入しました！", image: "seedsimages/ichizawa.jpg", good: 5 },
-        { name: "祇園辻利 祇園本店", latitude: 35.00392482034129, longitude: 135.77449414015916, comment: "濃厚な抹茶パフェが絶品で、あまり甘いものが得意でない僕でも食べれちゃう一品", image: "seedsimages/tsujiri.jpg", good: 5 },
+        { name: "嵐山温泉 花伝抄", latitude: 35.010821413612234, longitude: 135.68030087748085, comment: "枕を選べることに感動！ぐっすり休むことができた。夕食は旬の食材を利用した料理ばかりで、とても美味でした。", image: "seedsimages/onsen.jpg", good: 5 },
+        { name: "祇園辻利 祇園本店", latitude: 35.00392482034129, longitude: 135.77449414015916, comment: "濃厚な抹茶パフェが絶品で、あまり甘いものが得意でない僕でも食べれちゃう一品", image: "seedsimages/matcha.jpg", good: 5 },
       ],
       tags: ["紅葉", "寺社仏閣", "和菓子"],
-      prefectures: [26],
+      prefectures: [25],
       comments: [
         { user: "いっちゃん", text: "紅葉シーズンの京都、憧れます！私も夫といつか行きたいな～" },
         { user: "よん様", text: "抹茶パフェおいしそう～！京都の秋は本当に素敵ですよね。" }
@@ -161,8 +160,8 @@ ActiveRecord::Base.transaction do
       image: "seedsimages/osaka_gourmet.jpg",
       places: [
         { name: "なんばグランド花月", latitude: 34.66500527562112, longitude: 135.50365664496508, comment: "実際に見る新喜劇は迫力があって面白かった！", image: "seedsimages/namba.jpg", good: 5 },
-        { name: "たこ焼道楽わなか", latitude: 34.66522105846767, longitude: 135.5034102404898, comment: "今で食べたたこ焼きと違って", image: "seedsimages/dotonbori.jpg", good: 5 },
-        { name: "新世界串カツいっとく難波千日前店", latitude: 34.66658510138467, longitude: 135.5020055862774, comment: "熱々の串カツが最高！衣も薄くてサクサクで美味しい～～！", image: "seedsimages/kushikatsu.jpg", good: 5 },
+        { name: "たこ焼道楽わなか", latitude: 34.66522105846767, longitude: 135.5034102404898, comment: "今で食べたたこ焼きと違って", image: "seedsimages/takoyaki.jpg", good: 5 },
+        { name: "新世界串カツいっとく難波千日前店", latitude: 34.66658510138467, longitude: 135.5020055862774, comment: "熱々の串カツが最高！衣も薄くてサクサクで美味しい～～！", image: "seedsimages/ittoku.jpg", good: 5 },
         { name: "大阪シティホテル", latitude: 34.695877563756284, longitude: 135.53035181206513, comment: "駅前で便利でした！", image: "seedsimages/osaka_hotel.jpg", good: 4 }
       ],
       tags: ["大阪", "グルメ", "串カツ", "たこ焼き"],
