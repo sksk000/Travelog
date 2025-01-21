@@ -8,15 +8,6 @@ class Public::SessionsController < Devise::SessionsController
     sign_in user
   end
 
-  def after_sign_in_path_for(_resource)
-    if warden.user(Admin)
-      new_admin_session_path
-    elsif warden.user(User)
-      posts_path
-    else
-      root_path
-    end
-  end
   # GET /resource/sign_in
   # def new
   #   super

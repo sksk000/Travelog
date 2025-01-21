@@ -13,20 +13,27 @@ class Public::PlacesController < ApplicationController
     end
   end
 
+  # rubocop:disable Style/Next: Use next to skip iteration. unless place.saveに投稿失敗した場合はあとの処理は行わず、ループを抜けたいため。
   def create
+    is_success = true
     place_params.each do |place_param|
       place = Place.new(place_param.merge(post_id: params[:post_id]))
       unless place.save
         render json: { message: "投稿に失敗しました。: #{place.errors.full_messages.join(', ')}" }, status: :unprocessable_entity
-        return
+        is_success = false
+        break
       end
     end
-    render json: { message: '投稿に成功しました。', redirect_url: post_path(params[:post_id]) }, status: :created
+
+    render json: { message: '投稿に成功しました。', redirect_url: post_path(params[:post_id]) }, status: :created if is_success == true
   end
+  # rubocop:enable Style/Next: Use next to skip iteration.
 
   def update
+    is_success = true
+
     client_place_ids = update_params.map { |place| place[:id].to_s.strip }.reject { |id| id == "null" || id.blank? }
-    Place.where(post_id: params[:post_id]).each do |place|
+    Place.where(post_id: params[:post_id]).find_each do |place|
       place.destroy unless client_place_ids.include?(place.id.to_s)
     end
 
@@ -45,7 +52,8 @@ class Public::PlacesController < ApplicationController
         )
         unless new_place.save
           render json: { message: "投稿に失敗しました。: #{new_place.errors.full_messages.join(', ')}" }, status: :unprocessable_entity
-          return
+          is_success = false
+          break
         end
       else
         # 既存のレコードの更新処理
@@ -62,14 +70,15 @@ class Public::PlacesController < ApplicationController
             place_num: place_param[:place_num]
           )
             render json: { message: "投稿に失敗しました。 #{place.id}: #{place.errors.full_messages.join(', ')}" }, status: :unprocessable_entity
-            return
+            is_success = false
+            break
           end
         end
       end
     end
 
     # 必要なレスポンスを返す
-    render json: { message: '投稿を更新しました', redirect_url: post_path(params[:post_id]) }
+    render json: { message: '投稿を更新しました', redirect_url: post_path(params[:post_id]) } if is_success == true
   end
 
   private
