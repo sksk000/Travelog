@@ -15,8 +15,7 @@ class User < ApplicationRecord
 
   def self.looks(searchdata)
     # 部分一致
-    user = User.where("name LIKE ?", "%#{searchdata}%")
-    return user
+    User.where("name LIKE ?", "%#{searchdata}%")
   end
 
   GUEST_USER_EMAIL = "guest@example.com"

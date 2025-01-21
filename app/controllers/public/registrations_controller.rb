@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Public::RegistrationsController < Devise::RegistrationsController
-  #before_action :configure_sign_up_params, only: [:create]
+  # before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -39,7 +39,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
   end
 
   def sign_up_params
-    params.require(:user).permit(:name,:email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
   def update_resource(resource, params)
@@ -49,7 +49,6 @@ class Public::RegistrationsController < Devise::RegistrationsController
       resource.update_without_password(params.except(:current_password, :password, :password_confirmation))
     end
   end
-
 
   # DELETE /resource
   # def destroy
@@ -78,9 +77,9 @@ class Public::RegistrationsController < Devise::RegistrationsController
   end
 
   # The path used after sign up.
-  #def after_sign_up_path_for(resource)
+  # def after_sign_up_path_for(resource)
   #
-  #end
+  # end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)

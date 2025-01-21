@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
   def initialize_search_params
     @searchdata = nil
     @travel_months = []
@@ -17,6 +18,6 @@ class ApplicationController < ActionController::Base
     @post_month = []
     @travel_goods = []
 
-    Rails.logger.debug "Search parameters initialized: #{@travel_months.inspect}"
+    Rails.logger.debug { "Search parameters initialized: #{@travel_months.inspect}" }
   end
 end

@@ -6,12 +6,12 @@ crumb :about do
   link "about", about_path
 end
 
-crumb :post_show do | post |
+crumb :post_show do |post|
   link "#{post.title}", post_path(post.id)
   parent :root
 end
 
-crumb :user_show do | user |
+crumb :user_show do |user|
   link "#{user.name}", mypage_path(user.id)
 end
 
