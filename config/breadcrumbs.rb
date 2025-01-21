@@ -7,12 +7,12 @@ crumb :about do
 end
 
 crumb :post_show do |post|
-  link "#{post.title}", post_path(post.id)
+  link post.title, post_path(post.id)
   parent :root
 end
 
 crumb :user_show do |user|
-  link "#{user.name}", mypage_path(user.id)
+  link user.name, mypage_path(user.id)
 end
 
 # crumb :projects do

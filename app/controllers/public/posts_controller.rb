@@ -56,8 +56,8 @@ class Public::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     if @post.save
-      createtag(@post, params[:tag]) if params[:tag].present?
-      createprefecture(@post, params[:prefecture]) if params[:prefecture].present?
+      createtag(@post) if params[:tag].present?
+      createprefecture(@post) if params[:prefecture].present?
       render json: { post: @post, message: '投稿内容登録完了しました、次のページに移動します', redirect_url: new_post_places_path(@post.id) }, status: :created
     else
       render json: { message: "投稿に失敗しました。: #{@post.errors.full_messages.join(', ')}" }, status: :unprocessable_entity
@@ -70,8 +70,8 @@ class Public::PostsController < ApplicationController
     is_post_user(@post)
 
     if @post.update(post_params)
-      updatetag(@post, params[:tag]) if params[:tag].present?
-      updateprefecture(@post, params[:prefecture]) if params[:prefecture].present?
+      updatetag(@post) if params[:tag].present?
+      updateprefecture(@post) if params[:prefecture].present?
       render json: { redirect_url: edit_post_places_path(@post.id) }
     else
       render json: { errors: @post.errors.full_messages }, status: :unprocessable_entity
@@ -114,7 +114,7 @@ class Public::PostsController < ApplicationController
     redirect_to mypage_path(current_user.id) if current_user.id != post_data.user.id
   end
 
-  def createtag(post, tagnames)
+  def createtag(post)
     tagnames = tag_params[:name]
     tagnames.each do |tagname|
       tag = Tag.find_or_create_by(name: tagname)
@@ -122,7 +122,7 @@ class Public::PostsController < ApplicationController
     end
   end
 
-  def createprefecture(post, prefectures)
+  def createprefecture(post)
     prefectures = Array(postprefecture_params[:prefecture])
 
     prefectures.each do |prefecture|
@@ -131,7 +131,7 @@ class Public::PostsController < ApplicationController
     end
   end
 
-  def updatetag(post, _tagname)
+  def updatetag(post)
     tagnames = tag_params[:name]
     tagnames.each do |tagname|
       tag = Tag.find_or_create_by(name: tagname)
@@ -139,7 +139,7 @@ class Public::PostsController < ApplicationController
     end
   end
 
-  def updateprefecture(post, prefectures)
+  def updateprefecture(post)
     prefectures = Array(postprefecture_params[:prefecture])
 
     prefectures.each do |prefecture|
