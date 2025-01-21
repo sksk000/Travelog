@@ -8,7 +8,7 @@ class Public::SessionsController < Devise::SessionsController
     sign_in user
   end
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(_resource)
     if warden.user(Admin)
       new_admin_session_path
     elsif warden.user(User)
@@ -52,7 +52,7 @@ class Public::SessionsController < Devise::SessionsController
     if resource.is_a?(Admin)
       admin_management_index_path
     elsif resource.is_a?(User)
-       posts_path
+      posts_path
     else
       root_path
     end
