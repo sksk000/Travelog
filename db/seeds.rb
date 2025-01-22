@@ -90,7 +90,7 @@ ActiveRecord::Base.transaction do
       night: 2,
       people: 4,
       travelmonth: 12,
-      image: "seedsimages/sapporo_hirosaki.jpg",
+      image: "seedsimages/okinawa.jpg",
       places: [
         { name: "沖縄美ら海水族館", latitude: 26.694558438731132, longitude: 127.87807746950608, comment: "ジンベイザメってこんなに大きいとは思ってなかった・・。イルカショーも素晴らしく、ダンスや歌など披露していてとてもかわいかった❤", image: "seedsimages/suizokukanjpg", good: 5 },
         { name: "ナゴパイナップルパーク", latitude: 26.616684117755728, longitude: 127.969445649902, comment: "入口からパイナップルずくしで、写真映えしますね！！！パイナップルのソフトクリームを食べたのですが、パイナップル好きには最高です！", image: "seedsimages/nago.jpg", good: 5 },
@@ -113,8 +113,8 @@ ActiveRecord::Base.transaction do
       good: 5,
       night: 2,
       people: 2,
-      travelmonth: 11,
-      image: "seedsimages/kyoto_autumn.jpg",
+      travelmonth: 10,
+      image: "seedsimages/kyoto.jpg",
       places: [
         { name: "清水寺", latitude: 34.99488334011819, longitude: 135.78460611448176, comment: "ライトアップされた紅葉はとても素敵で、写真映えします。", image: "seedsimages/kiyomizu.jpg", good: 5 },
         { name: "嵐山", latitude: 35.010005664857914, longitude: 135.66698377974177, comment: "竹林の道を散歩しながら紅葉を満喫！心が洗われるような美しさでした。", image: "seedsimages/arashiyama.jpg", good: 4 },
@@ -136,7 +136,7 @@ ActiveRecord::Base.transaction do
       night: 2,
       people: 1,
       travelmonth: 8,
-      image: "seedsimages/nagano_summer.jpg",
+      image: "seedsimages/nagano.jpg",
       places: [
         { name: "白馬岳", latitude: 36.6982, longitude: 137.8644, comment: "山の景色が素晴らしく、ハイキングが楽しかった！", image: "seedsimages/hakuba.jpg", good: 5 },
         { name: "星のや軽井沢", latitude: 36.35850120036834, longitude: 138.59095579489252, comment: "敷地内は自然が多く、素晴らしい景観で散歩しているだけでも楽しめる素晴らしいホテルです。", image: "seedsimages/karuizawa_hotel.jpg", good: 4 },
@@ -171,7 +171,7 @@ ActiveRecord::Base.transaction do
         { user: "食べ過ぎ二郎", text: "たこ焼きおいしそう！今度出張で大阪へ行くから参考にします！" }
       ]
     },
-    fujiro_hakata: {
+    jiro_hakata: {
       user: jiro,
       title: "博多でラーメンたべまくり！",
       body: "博多の豚骨ラーメン制覇する勢いで、福岡の有名なラーメンを食べてきました！最高だった・・・",
@@ -187,7 +187,11 @@ ActiveRecord::Base.transaction do
         { name: "博多らーめん ShinShin KITTE博多店", latitude: 33.58898097943065, longitude: 130.41943579834117, comment: "30分ぐらい並んだかな・・？結構あっさりめで食べやすかった！", image: "seedsimages/shinshin.jpg", good: 3 }
       ],
       tags: ["博多", "ラーメン", "グルメ"],
-      prefectures: [40]
+      prefectures: [40],
+      comments: [
+        { user: "よん様", text: "ラーメン本当に好きなんですね！美味しそう～～！！お腹空いてきた。。" },
+        { user: "いっちゃん", text: "美味しそう！！豚骨ラーメンあまり食べないのですが、今度どこかの豚骨ラーメンチャレンジしてみようかな？？" }
+      ]
     },
     yonsama_aomori: {
       user: yonsama,
@@ -199,15 +203,19 @@ ActiveRecord::Base.transaction do
       travelmonth: 4,
       image: "seedsimages/tohoku_trip.jpg",
       places: [
-        { name: "八食センター", latitude: 40.52654410225081, longitude: 141.45288251722005, comment: "ここは市場なのですが、買った海鮮を七輪で焼けるとのこと！新鮮な魚や貝を焼きながらビール飲むのさいこ～！！", image: "seedsimages/hirosaki_castle.jpg", good: 5 },
+        { name: "八食センター", latitude: 40.52654410225081, longitude: 141.45288251722005, comment: "ここは市場なのですが、買った海鮮を七輪で焼けるとのこと！新鮮な魚や貝を焼きながらビール飲むのさいこ～！！", image: "seedsimages/hassyoku.jpg", good: 5 },
         { name: "蕪島神社", latitude: 40.53903091188966, longitude: 141.557497758868, comment: "ここはうみねこの繁殖地として国の天然記念物に指定されている場所だそうです！", image: "seedsimages/gabushima.jpg", good: 5 },
         { name: "種差海岸", latitude: 40.50089461522884, longitude: 141.6232235921508, comment: "久々の海！眺めがきれいでずっと居たいぐらいだった！", image: "seedsimages/tanesashi.jpg", good: 4 },
         { name: "みろく横丁", latitude: 40.51005328970253, longitude: 141.49086881792996, comment: "居酒屋さんが沢山あり、どこに行こうか迷っちゃった。。どの居酒屋入っても料理が美味しくてお酒が進んじゃった", image: "seedsimages/miroku.jpg", good: 4 },
-        { name: "ドーミーイン本八戸", latitude: 40.510002857754586, longitude: 141.49299647154652, comment: "ドーミイン名物の夜鳴きそば！美味しかったな～！", image: "seedsimages/tohoku_hotel.jpg", good: 4 },
+        { name: "ドーミーイン本八戸", latitude: 40.510002857754586, longitude: 141.49299647154652, comment: "ドーミイン名物の夜鳴きそば！美味しかったな～！", image: "seedsimages/yonakisoba.jpg", good: 4 },
         { name: "館鼻岸壁朝市", latitude: 40.528075675440654, longitude: 141.52937311000812, comment: "決まった日曜に開催されている朝市！！朝早起きして訪れました！寒い中食べるせんべい汁は格別だったな～", image: "seedsimages/hatinohe_asaiti.jpg", good: 4 }
       ],
       tags: ["東北", "桜", "花見"],
-      prefectures: [2, 4, 5]
+      prefectures: [2],
+      comments: [
+        { user: "サンサン", text: "八食センターいいですよね～中にある回転寿司も新鮮で美味しいですよ！今度行く際は立ち寄ってみてください" },
+        { user: "いっちゃん", text: "また食べ歩きしている！！いいな～～私も旦那と食べ歩き旅してこようかな～～" }
+      ]
     },
     sunsun_kanazawa: {
       user: sun,
@@ -220,12 +228,17 @@ ActiveRecord::Base.transaction do
       image: "seedsimages/kanazawa_art.jpg",
       places: [
         { name: "兼六園", latitude: 36.5623, longitude: 136.6625, comment: "日本らしさを感じられる場所だった。また季節に応じて景色が異なり、これもまた素晴らしいとのこと。今度は冬に訪れたい。", image: "seedsimages/kenrokuen.jpg", good: 5 },
-        { name: "金沢城公園", latitude: 36.56608364575496, longitude: 136.65892019863406, comment: "広々とした敷地内の中で散歩するのは気持ちが良かった！", image: "seedsimages/21museum.jpg", good: 5 },
-        { name: "ひがし茶屋街", latitude: 36.57305410777007, longitude: 136.66667840789316, comment: "古い町並みと石畳の道が素敵だった。お土産屋さんやカフェ等充実しており、見るだけでも楽しい。", image: "seedsimages/higashichaya.jpg", good: 5 },
-        { name: "ホテルマイステイズ金沢キャッスル", latitude: 36.578515909230354, longitude: 136.65244587093255, comment: "とてもリーズナブルで金沢駅前でアクセスしやすかった。", image: "seedsimages/hotel_kanazawa.jpg", good: 4 }
+        { name: "金沢城公園", latitude: 36.56608364575496, longitude: 136.65892019863406, comment: "広々とした敷地内の中で散歩するのは気持ちが良かった！", image: "seedsimages/kouen.jpg", good: 5 },
+        { name: "ひがし茶屋街", latitude: 36.57305410777007, longitude: 136.66667840789316, comment: "古い町並みと石畳の道が素敵だった。お土産屋さんやカフェ等充実しており、見るだけでも楽しい。", image: "seedsimages/higasityayamati.jpg", good: 5 },
+        { name: "ホテルマイステイズ金沢キャッスル", latitude: 36.578515909230354, longitude: 136.65244587093255, comment: "とてもリーズナブルで金沢駅前でアクセスしやすかった。", image: "seedsimages/kanazawa_hotel.jpg", good: 4 }
       ],
       tags: ["石川", "歴史"],
-      prefectures: [17]
+      prefectures: [17],
+      comments: [
+        { user: "食べ過ぎ二郎", text: "景色がすばらしい！あまりこういう場所にいかないから新鮮な気持ちになりました！" },
+        { user: "いっちゃん", text: "金沢は一度夫といったことがあるけど、やっぱ素敵よね～～！またいきたくなっちゃう" },
+        { user: "よん様", text: "あら素敵～！！景色がきれいで写真映えしますね！私もいってみたい～" }
+      ]
     }
   }
 
