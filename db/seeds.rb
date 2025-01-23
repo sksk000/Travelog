@@ -275,7 +275,7 @@ ActiveRecord::Base.transaction do
 
     post_data[:comments].each do |comment_data|
       comment_user = User.find_by(name: comment_data[:user])
-      post.comments.create!(user: comment_user, comment: comment_data[:text])
+      post.comments.find_or_create_by!(user: comment_user, comment: comment_data[:text])
     end
   end
 end
