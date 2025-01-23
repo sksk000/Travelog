@@ -435,7 +435,7 @@ export default class extends Controller {
         lists.innerHTML = ""
         places.forEach((place) => {
 
-          const dynamicContent = `<button type="button" class="list-group-item list-group-item-action border" id="placename" data-place-target="list" data-action="click->place#setPlaceData" `+ "data-lat=" + place.location.lat() + ` `+ "data-lng=" + place.location.lng() + ">"  +　place.displayName + "</button >";
+          const dynamicContent = `<button type="button" class="list-group-item list-group-item-action border" id="placename" data-place-target="list" data-action="click->place#setPlaceData" `+ "data-lat=" + place.location.lat() + ` `+ "data-lng=" + place.location.lng() + ">"  +　`<i class="fa-solid fa-location-dot pr-3"></i>` + place.displayName + "</button >";
           lists.innerHTML = lists.innerHTML + dynamicContent
 
         })
