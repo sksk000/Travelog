@@ -242,6 +242,7 @@ ActiveRecord::Base.transaction do
     }
   }
 
+ActiveRecord::Base.transaction do
   posts_data.each do |user_key, post_data|
     user = post_data[:user]
     post = Post.find_or_create_by!(user: user, title: post_data[:title]) do |p|
@@ -278,4 +279,5 @@ ActiveRecord::Base.transaction do
       post.comments.find_or_create_by!(user: comment_user, comment: comment_data[:text])
     end
   end
+ end
 end
