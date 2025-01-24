@@ -6,7 +6,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @posts = @user.posts
 
-    redirect_to mypage_path(current_user.id) unless @user.is_showprofile == true || @user.id == current_user.id
+    redirect_to mypage_path(current_user.id)
   end
 
   def edit
