@@ -5,8 +5,6 @@ class Public::UsersController < ApplicationController
   def mypage
     @user = User.find(params[:id])
     @posts = @user.posts
-
-    redirect_to mypage_path(current_user.id)
   end
 
   def edit
