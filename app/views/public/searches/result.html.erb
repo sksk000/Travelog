@@ -18,9 +18,9 @@
       </div>
     <% else %>
       <% if @category == "user_search" %>
-        <%= render 'public/users/index', targetuser: @user %>
+        <%= render 'public/users/index', targetuser: @results %>
       <% elsif @category == "post_search" %>
-        <%= render 'public/posts/index', targetpost: @post %>
+        <%= render 'public/posts/index', targetpost: @results %>
       <% end %>
     <% end %>
   </div>

@@ -1,21 +1,31 @@
 class Public::SearchesController < ApplicationController
   def search
     @category = params[:search_category_select]
-    @searchdata = params[:seachdata] || ''
-    @travel_months = params[:travel_months]
-    @prefectures = params[:prefectures] || 'all_prefectures'
-    @night = params[:night] || 'all_nights'
-    @people = params[:people] || 'all_people'
-    @post_month = params[:post_months] || []
-    @travel_goods = params[:travel_goods] || []
+    @searchdata = search_params[:seachdata]
 
-    if @category == "user_search"
-      @user = User.looks(@searchdata)
-      @is_empty = @user.empty?
-    elsif @category == "post_search"
-      @post = Post.looks(params[:seachdata], params[:travel_months], params[:prefectures], params[:night], params[:people], params[:post_months], params[:travel_goods])
-      @is_empty = @post.empty?
+    case @category
+    when "user_search"
+      @results = User.looks(search_params[:searchdata])
+    when "post_search"
+      @results = Post.looks(search_params)
     end
+
+    @is_empty = @results.empty?
     render 'result'
+
+  end
+
+  private
+
+  def search_params
+    {
+      searchdata: params[:seachdata] || '',
+      travel_months: params[:travel_months],
+      prefectures: params[:prefectures],
+      night: params[:night],
+      people: params[:people],
+      post_month: params[:post_months] || nil,
+      travel_goods: params[:travel_goods] || nil,
+    }
   end
 end
