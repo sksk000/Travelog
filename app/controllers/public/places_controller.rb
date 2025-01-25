@@ -4,7 +4,7 @@ class Public::PlacesController < ApplicationController
   end
 
   def edit
-    @place = Place.where(post_id: params[:post_id]).order(:place_num)
+    @place = Place.getPlaces(params[:post_id])
     @post_id = params[:post_id]
 
     respond_to do |format|
@@ -15,17 +15,12 @@ class Public::PlacesController < ApplicationController
 
   # rubocop:disable Style/Next: Use next to skip iteration. unless place.saveに投稿失敗した場合はあとの処理は行わず、ループを抜けたいため。
   def create
-    is_success = true
-    place_params.each do |place_param|
-      place = Place.new(place_param.merge(post_id: params[:post_id]))
-      unless place.save
-        render json: { message: "投稿に失敗しました。: #{place.errors.full_messages.join(', ')}" }, status: :unprocessable_entity
-        is_success = false
-        break
-      end
+    errors = Place.createPlace(place_params, params[:post_id])
+    if errors.empty?
+       render json: { message: '投稿に成功しました。', redirect_url: post_path(params[:post_id]) }, status: :created
+    else
+      render json: { message: "投稿に失敗しました。: #{errors.join(', ')}" }, status: :unprocessable_entity
     end
-
-    render json: { message: '投稿に成功しました。', redirect_url: post_path(params[:post_id]) }, status: :created if is_success == true
   end
   # rubocop:enable Style/Next: Use next to skip iteration.
 
