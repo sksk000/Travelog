@@ -1,5 +1,7 @@
 class Public::PostsController < ApplicationController
   before_action :is_current_user, only: [:edit, :update, :new]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :is_post_user, only: [:edit, :update]
   def index
     @postall = Post.all
   end
@@ -7,12 +9,9 @@ class Public::PostsController < ApplicationController
   def show
     @post_id = params[:id]
     target_place_id = params[:place_id]
-
-    @post = Post.find(params[:id])
     @target_place = @post.getTargetPlace(target_place_id)
     @prefectures = PostPrefecture.where(post_id: params[:id])
     @tags = @post.getTags
-
     @comments = @post.comments.order(created_at: "DESC")
 
     respond_to do |format|
@@ -32,9 +31,6 @@ class Public::PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
-    is_post_user(@post)
-
     respond_to do |format|
       format.html
       format.json do
@@ -58,10 +54,6 @@ class Public::PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
-
-    is_post_user(@post)
-
     if @post.update(post_params)
       TagService.updatetag(@post, tag_params[:name]) if params[:tag].present?
       prefectures = Array(postprefecture_params[:prefecture])
@@ -73,7 +65,6 @@ class Public::PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
     flash[:notice] = "投稿を削除しました。"
     redirect_to mypage_path(@post.user_id)
@@ -97,7 +88,11 @@ class Public::PostsController < ApplicationController
     redirect_to new_user_session_path if current_user.nil?
   end
 
-  def is_post_user(post_data)
-    redirect_to mypage_path(current_user.id) if current_user.id != post_data.user.id
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def is_post_user
+    redirect_to mypage_path(current_user.id) if current_user.id != @post.user.id
   end
 end
