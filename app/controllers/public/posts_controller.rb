@@ -9,25 +9,17 @@ class Public::PostsController < ApplicationController
     target_place_id = params[:place_id]
 
     @post = Post.find(params[:id])
-    @target_place = if target_place_id
-                      @post.places.find(target_place_id)
-                    else
-                      @post.places.first
-                    end
+    @target_place = @post.getTargetPlace(target_place_id)
     @prefectures = PostPrefecture.where(post_id: params[:id])
-    post_tags = PostTag.where(post_id: params[:id])
-    tag_ids = post_tags.pluck(:tag_id)
-    @tags = Tag.where(id: tag_ids)
+    @tags = @post.getTags
 
     @comments = @post.comments.order(created_at: "DESC")
 
     respond_to do |format|
       format.html do
-        @post = Post.find(params[:id])
         @place = @post.places.order(:place_num)
       end
       format.json do
-        @post = Post.find(params[:id])
         @place = @post.places.order(:place_num)
         @target_place_latitude = @target_place.latitude
         @target_place_longitude = @target_place.longitude

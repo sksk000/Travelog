@@ -50,4 +50,12 @@ class Post < ApplicationRecord
 
     post
   end
+
+  def getTargetPlace(place_id)
+    place_id ? self.places.find(target_place_id) : self.places.first
+  end
+
+  def getTags
+    Tag.joins(:post_tags).where(post_tags: { post_id: id })
+  end
 end
