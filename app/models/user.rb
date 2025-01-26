@@ -26,4 +26,15 @@ class User < ApplicationRecord
       user.name = "guestuser"
     end
   end
+
+  def getOrderUserPostData(select)
+    case select
+    when 'newpost'
+      self.posts.order(created_at: :desc)
+    when 'comment'
+      self.posts.left_joins(:comments).group(:id).order('COUNT(comments.id) DESC')
+    else
+      self.posts
+    end
+  end
 end
