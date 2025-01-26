@@ -24,7 +24,7 @@ class Public::SearchesController < ApplicationController
       prefectures: params[:prefectures],
       night: params[:night],
       people: params[:people],
-      post_month: params[:post_months] || nil,
+      post_months: params[:post_months] || nil,
       travel_goods: params[:travel_goods] || nil,
     }
   end
