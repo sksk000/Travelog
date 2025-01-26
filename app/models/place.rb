@@ -22,7 +22,7 @@ class Place < ApplicationRecord
     errors
   end
 
-  def self.update_Or_CreatePlace(post_id, place_params)
+  def self.update_Or_CreatePlace(post_id, place_params, image)
     errors = []
     if place_params[:id] == "null"
       new_place = Place.new(
@@ -42,7 +42,7 @@ class Place < ApplicationRecord
       # 既存のレコードの更新処理
       place = Place.find_by(id: place_params[:id])
       if place
-        place.image.attach(place_params[:image]) if place_params[:image].present?
+        place.image.attach(image) if image.present?
 
         unless place.update(
           place_name: place_params[:place_name],

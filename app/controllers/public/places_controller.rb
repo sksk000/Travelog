@@ -29,10 +29,9 @@ class Public::PlacesController < ApplicationController
     Place.where(post_id: params[:post_id]).find_each do |place|
       place.destroy unless client_place_ids.include?(place.id.to_s)
     end
-
     ActiveRecord::Base.transaction do
       update_params.each do |place_param|
-        error = Place.update_Or_CreatePlace(params[:post_id], place_param)
+        error = Place.update_Or_CreatePlace(params[:post_id], place_param, params[:place][:image])
         unless error.empty?
           render json: { message: "投稿に失敗しました。: #{error}" }, status: :unprocessable_entity
         end
