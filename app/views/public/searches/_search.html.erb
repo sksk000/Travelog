@@ -14,51 +14,32 @@
                 <h4>条件検索</h4>
               </div>
               <div class="modal-body">
-                  <div class="month mb-3">
-                    <%= f.label "旅行月"%></br>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <% (1..12).each do | month | %>
-                        <label class="btn btn-outline-primary btn-lg">
-                         <%= check_box_tag "travel_months[]", month, @travel_months&.include?(month.to_s),autocomplete: "off" %><%= month %>月
-                        </label>
-                      <% end %>
-                    </div>
-                  </div>
-                  <div class="prefectures mb-3">
-                    <%= f.label "都道府県名"%>
-                    <%= f.select :prefectures, [['指定なし', 'all_prefectures']] + PostPrefecture.prefectures.keys.map { |key| [key.humanize, key] },{ selected: @prefectures || 'all_prefectures'}, {class:"form-control"} %>
-                  </div>
-                  <div class="nights mb-3">
-                    <%= f.label "宿泊数"%>
-                    <%= f.select :night, [['指定なし', 'all_nights']] + Post.nights.keys.map { |key| [key.humanize, key] },{selected: @night || 'all_nights'}, {class:"form-control"} %>
-                  </div>
-                  <div class="people mb-3">
-                    <%= f.label "人数"%>
-                    <%= f.select :people, [['指定なし', 'all_people']] + Post.people.keys.map { |key| [key.humanize, key] },{ selected: @people || 'all_people' } , { class: "form-control"} %>
-                  </div>
-                  <div class="month mb-3">
-                    <%= f.label "投稿月"%></br>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <% (1..12).each do | month | %>
-                        <label class="btn btn-outline-primary btn-lg">
-                         <%= check_box_tag "post_months[]", month, @post_month&.include?(month.to_s),autocomplete: "off" %><%= month %>月
-                        </label>
-                      <% end %>
-                    </div>
-                  </div>
-                  <div class="good mb-3">
-                    <%= f.label "観光点数"%></br>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <% (1..5).each do | i | %>
-                        <label class="btn btn-outline-primary btn-lg">
-                          <%= check_box_tag "travel_goods[]", i, @travel_goods&.include?(i.to_s),autocomplete: "off" %>
-                          <% (1..i).each do %>
-                            <%= image_tag 'star-on.png' %>
-                          <% end %>
-                        </label>
-                      <% end %>
-                    </div>
-                  </div>
+                  <%= months_checkboxes(f, @travel_months, 'travel_months', '旅行月') %>
+                  <%= form_select(
+                    f,
+                    :prefectures,
+                    '都道府県名',
+                    'all_prefectures',
+                    PostPrefecture.prefectures.keys,
+                    @prefectures
+                  ) %>
+                  <%= form_select(f,
+                    :stay_nights,
+                    '宿泊数',
+                    'all_stay_nights',
+                    Post.stay_nights.keys,
+                    @stay_nights
+                  ) %>
+                  <%= form_select(
+                    f,
+                    :people,
+                    '人数',
+                    'all_people',
+                    Post.people.keys,
+                    @people
+                  ) %>
+                  <%= months_checkboxes(f, @post_month, 'post_months', '投稿月') %>
+                  <%= good_checkboxes(f, @travel_goods, 'travel_goods', '観光点数') %>
                 <div class="modal-footer">
                   <%= f.submit "検索", class:"btn btn-default" %>
                 </div>

@@ -12,7 +12,7 @@ class Post < ApplicationRecord
 
   enum season: { 春: 0, 夏: 1, 秋: 2, 冬: 3 }
   enum place: { 海外旅行: 0, 国内旅行: 1 }
-  enum night: { '1泊': 0, '2泊': 1, '3泊': 2, '4泊': 3, '5泊': 4, '6泊以上': 5 }
+  enum stay_nights: { '1泊': 0, '2泊': 1, '3泊': 2, '4泊': 3, '5泊': 4, '6泊以上': 5 }
   enum people: { '1人': 0, '2人': 1, '3人': 2, '4人': 3, '5人': 4, '6人以上': 5 }
 
   def self.looks(params)
@@ -25,7 +25,7 @@ class Post < ApplicationRecord
     post = post.joins(:post_prefectures).where(post_prefectures: { prefecture: params[:prefectures] }) unless params[:prefectures] == "all_prefectures"
 
     # 宿泊日数フィルター
-    post = post.where(night: params[:night]) unless params[:night] == "all_nights"
+    post = post.where(night: params[:stay_nights]) unless params[:stay_nights] == "all_stay_nights"
 
     # 人数フィルター
     post = post.where(people: params[:people]) unless params[:people] == "all_people"
