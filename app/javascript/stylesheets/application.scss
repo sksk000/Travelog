@@ -239,3 +239,14 @@ footer {
 #toast-container > div{
   opacity: 1;
 }
+
+#place-tabs{
+  position: absolute;
+  z-index: 1;
+}
+
+#place-form{
+  background-color: #f0f8ff;
+  height: 100vh;
+  overflow: hidden;
+}
