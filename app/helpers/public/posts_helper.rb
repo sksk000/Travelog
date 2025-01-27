@@ -18,7 +18,8 @@ module Public::PostsHelper
         form.text_area(field, options)
       else
         form.text_field(field, options)
-      end
+      end +
+      content_tag(:div, '', class: 'invalid-feedback')
     end
   end
 
@@ -29,5 +30,10 @@ module Public::PostsHelper
       form.label(field, label, class: 'form-label w-25') +
       form.select(field, collection, {}, options)
     end
+  end
+
+  def travel_months
+    [["1月", 1], ["2月", 2], ["3月", 3], ["4月", 4], ["5月", 5], ["6月", 6],
+     ["7月", 7], ["8月", 8], ["9月", 9], ["10月", 10], ["11月", 11], ["12月", 12]]
   end
 end

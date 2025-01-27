@@ -4,7 +4,7 @@
       <%= form_with model: @place, url: post_places_path(@post_id), method: :post, html: { multipart: true },data: { action: "submit->place#submitForm", place_target: "form" } do |f| %>
         <div class="form-group col mt-3 border rounded bg-white p-3">
           <%= f.label :place_name, "訪問地をキーワードで検索" %><br>
-          <%= render 'public/places/search.html.erb' %>
+          <%= render 'public/places/form_search.html.erb' %>
         </div>
 
         <div class="form-group col border rounded bg-white p-3" >
@@ -23,15 +23,15 @@
           <%= render 'public/posts/good.html.erb', is_good_edit: true, modelname: "place" %>
         </div>
 
-        <%= render 'public/places/image.html.erb'%>
+        <%= render 'public/places/form_image.html.erb'%>
         <%= action_button('btn-primary', '個別訪問地を登録', 'tabsave', 'click->place#saveData', 'mt-0', 'savetabbutton') %>
         <%= action_button('btn-danger', '個別訪問地を削除', 'deletedata', 'click->place#removePlaceData', 'mt-3', 'deletebtn') %>
         <%= action_button('btn-success', 'すべての内容を確定して投稿', 'submit', 'click->place#submitForm', 'mt-5') %>
       <% end %>
     </div>
-    <%= render 'public/places/tab.html.erb' %>
+    <%= render 'public/places/form_tab.html.erb' %>
   </div>
-  <%= render 'public/places/modal.html.erb' %>
+  <%= render 'public/places/form_modal.html.erb' %>
 </div>
 
 

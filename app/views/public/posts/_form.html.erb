@@ -6,15 +6,40 @@
         </div>
         <%= form_input(f, :title, "タイトル", "100", "投稿タイトルを入力")%>
         <%= form_input(f, :body, "旅行の概要", "100 x 5", "", {id: "body-textarea"})%>
-        <%= render 'public/posts/form_good.html.erb', form: f %>
-        <%= form_select(f, :travelmonth, "旅行月",[["1月",1], ["2月",2], ["3月",3], ["4月",4],
-                              ["5月",5], ["6月",6], ["7月",7], ["8月",8],
-                              ["9月",9], ["10月",10], ["11月",11], ["12月",12]]
-                              )%>
-        <%= render 'public/posts/form_prefecture.html.erb', form: f %>
+        <div class="form-group col p-3 post-form">
+          <%= f.label "旅行点数", class:"form-label w-25" %>
+          <%= render 'public/posts/good.html.erb', is_good_edit: true, modelname: "post" %>
+        </div>
+        <%= form_select( f, :travelmonth, "旅行月", travel_months )%>
+        <div data-controller = "selectmenu" class="form-group col align-items-center p-3 post-form">
+          <div class="prefecture d-flex">
+            <%= f.label "訪問した都道府県(複数選択可)", class:"form-label text-nowrap" %>
+            <select class="form-control w-25" data-selectmenu-target = "inputselect">
+              <% PostPrefecture.prefectures.keys.each do | prefecture | %>
+                <option><%= prefecture %></option>
+              <% end %>
+            </select>
+            <button type="button" class="btn btn-primary rounded-circle" data-action="click->selectmenu#addSelect">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <div class="invalid-feedback" id="select-invalid"></div>
+          <div data-selectmenu-target="selects" class="select-list h4 d-block"></div>
+        </div>
         <%= form_select(f, :night, "宿泊数", Post.nights.keys.map { |key| [key.humanize, key] })%>
         <%= form_select(f, :people, "人数", Post.people.keys.map { |key| [key.humanize, key] })%>
-        <%= render 'public/posts/form_tag.html.erb', form: f %>
+        <div data-controller="tag" class="form-group col p-3 post-form">
+          <div class="d-flex">
+            <%= f.label "タグ", class:"form-label w-25"%>
+            <input type="input" class="form-control inputtag w-50" required= "true", placeholder="例) 女子旅" data-tag-target="input" >
+            <button type="button" class="btn btn-primary rounded-circle" data-action="click->tag#addTag">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <div class="invalid-feedback" id="tag-invalid"></div>
+          <div data-tag-target="tags" class="tag-list h4">
+          </div>
+        </div>
         <%= render 'public/posts/form_image.html.erb'%>
         <div class="text-right">
           <button type="button" class="btn btn-success rounded-circle p-0 nextbutton" data-post-target="submit"  data-action="click->post#submitForm">
