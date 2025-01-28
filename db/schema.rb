@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_28_145009) do
+ActiveRecord::Schema.define(version: 2025_01_28_155618) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -63,16 +63,16 @@ ActiveRecord::Schema.define(version: 2025_01_28_145009) do
   end
 
   create_table "places", force: :cascade do |t|
-    t.integer "post_id"
-    t.string "place_name"
-    t.string "address"
-    t.float "latitude"
-    t.float "longitude"
-    t.integer "place_num"
+    t.integer "post_id", null: false
+    t.string "place_name", null: false
+    t.string "address", null: false
+    t.float "latitude", null: false
+    t.float "longitude", null: false
+    t.integer "place_num", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "comment"
-    t.integer "good"
+    t.integer "good", null: false
     t.index ["post_id"], name: "index_places_on_post_id"
   end
 
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 2025_01_28_145009) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "good"
+    t.integer "good", null: false
     t.integer "night", null: false
     t.integer "people", null: false
     t.integer "travelmonth", null: false
