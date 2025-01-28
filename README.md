@@ -24,11 +24,11 @@ URL: https://travelog.sagglenix.com/
 
 
 ### UIフロー図
-![ポートフォリオ制作_UIFlows_ drawio (1)](https://github.com/user-attachments/assets/ce43c67e-e259-46c9-bdba-d0ca931ef4d7)
+![ポートフォリオ制作_UIFlows_ drawio](https://github.com/user-attachments/assets/158cc7cc-a922-4aed-be50-7a17318def66)
 
 
 ### アプリケーション詳細設計書
-![image](https://github.com/user-attachments/assets/599514f8-5ade-4591-b95f-fc88dd4bbfad)
+![image]![image](https://github.com/user-attachments/assets/1a0fb7a4-14e1-41fd-9148-199489d1bd2b)
 
 
 ### テーブル定義書
@@ -67,4 +67,5 @@ https://docs.google.com/spreadsheets/d/1qXiKlpyrYHdSDIMqwMFumkS4Jl1uj7081Eztgk77
   - [Unsplash](https://unsplash.com/ja) 様
   - [ぱくたそ](https://www.pakutaso.com/) 様
   - [いらすとや](https://www.irasutoya.com/) 様
+  - [写真AC](https://www.photo-ac.com/)様
 - 尚、本番環境上にてユーザ様が投稿した画像については、この限りではありません。
