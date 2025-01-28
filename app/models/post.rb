@@ -41,7 +41,7 @@ class Post < ApplicationRecord
         post = post.where("strftime('%m', posts.created_at) IN (?)", formatted_months)
       elsif Rails.env.production?
         # 本番環境用
-        post = post.where("EXTRACT(MONTH FROM created_at) IN (?)", params[:post_months])
+        post = post.where("EXTRACT(MONTH FROM posts.created_at) IN (?)", params[:post_months])
       end
     end
 
