@@ -6,12 +6,12 @@
       </div>
       <div class="modal-body">
         <%= form_with method: :get , url: search_result_path do |f| %>
-          <%= button_group("travel_months", 1..12) %>
-          <%= search_select(f, :prefectures, "都道府県名", Post.prefectures.keys.map { |key| [key.humanize, key] }) %>
-          <%= search_select(f, :night, "宿泊数", Post.nights.keys.map { |key| [key.humanize, key] }) %>
-          <%= search_select(f, :people, "人数", Post.people.keys.map { |key| [key.humanize, key] }) %>
-          <%= button_group("post_months", 1..12) %>
-          <%= button_group("travel_goods", 1..5, stars: true) %>
+          <%= search_modal_button_group("travel_months", 1..12) %>
+          <%= search_modal_select(f, :prefectures, "都道府県名", Post.prefectures.keys.map { |key| [key.humanize, key] }) %>
+          <%= search_modal_select(f, :night, "宿泊数", Post.nights.keys.map { |key| [key.humanize, key] }) %>
+          <%= search_modal_select(f, :people, "人数", Post.people.keys.map { |key| [key.humanize, key] }) %>
+          <%= search_modal_button_group("post_months", 1..12) %>
+          <%= search_modal_button_group("travel_goods", 1..5, stars: true) %>
         <div class="modal-footer">
           <%= f.submit "検索", class:"btn btn-default" %>
         </div>

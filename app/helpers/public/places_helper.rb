@@ -1,5 +1,5 @@
 module Public::PlacesHelper
-  def action_button(type, text, target, action, css_classes = '', id = nil)
+  def place_form_button(type, text, target, action, css_classes = '', id = nil)
     options = {
       type: 'button',
       class: "btn #{type} tabbutton #{css_classes}",

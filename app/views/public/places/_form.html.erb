@@ -24,9 +24,9 @@
         </div>
 
         <%= render 'public/places/form_image.html.erb'%>
-        <%= action_button('btn-primary', '個別訪問地を登録', 'tabsave', 'click->place#saveData', 'mt-0', 'savetabbutton') %>
-        <%= action_button('btn-danger', '個別訪問地を削除', 'deletedata', 'click->place#removePlaceData', 'mt-3', 'deletebtn') %>
-        <%= action_button('btn-success', 'すべての内容を確定して投稿', 'submit', 'click->place#submitForm', 'mt-5') %>
+        <%= place_form_button('btn-primary', '個別訪問地を登録', 'tabsave', 'click->place#saveData', 'mt-0', 'savetabbutton') %>
+        <%= place_form_button('btn-danger', '個別訪問地を削除', 'deletedata', 'click->place#removePlaceData', 'mt-3', 'deletebtn') %>
+        <%= place_form_button('btn-success', 'すべての内容を確定して投稿', 'submit', 'click->place#submitForm', 'mt-5') %>
       <% end %>
     </div>
     <%= render 'public/places/form_tab.html.erb' %>

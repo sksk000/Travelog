@@ -12,14 +12,16 @@ class Place < ApplicationRecord
 
   def self.createPlace(place_params, post_id)
     errors = []
-    place_params.each do |place_param|
-      place = Place.new(place_param.merge(post_id: post_id))
-      unless place.save
-        errors << place.errors.full_messages
-        break
+    ActiveRecord::Base.transaction do
+      place_params.each do |place_param|
+        place = Place.new(place_param.merge(post_id: post_id))
+        unless place.save
+          errors << place.errors.full_messages
+          raise ActiveRecord::Rollback
+        end
       end
     end
-    errors
+    errors.flatten
   end
 
   def self.update_Or_CreatePlace(post_id, place_params, image)

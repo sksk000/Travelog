@@ -4,13 +4,13 @@
         <div class="col">
           <h2><%= templetetitle %></h2>
         </div>
-        <%= form_input(f, :title, "タイトル", "100", "投稿タイトルを入力")%>
-        <%= form_input(f, :body, "旅行の概要", "100 x 5", "", {id: "body-textarea"})%>
+        <%= post_form_input(f, :title, "タイトル", "100", "投稿タイトルを入力")%>
+        <%= post_form_input(f, :body, "旅行の概要", "100 x 5", "", {id: "body-textarea"})%>
         <div class="form-group col p-3 post-form">
           <%= f.label "旅行点数", class:"form-label w-25" %>
           <%= render 'public/posts/good.html.erb', is_good_edit: true, modelname: "post" %>
         </div>
-        <%= form_select( f, :travelmonth, "旅行月", travel_months )%>
+        <%= post_form_select( f, :travelmonth, "旅行月", post_travel_months )%>
         <div data-controller = "selectmenu" class="form-group col align-items-center p-3 post-form">
           <div class="prefecture d-flex">
             <%= f.label "訪問した都道府県(複数選択可)", class:"form-label text-nowrap" %>
@@ -26,8 +26,8 @@
           <div class="invalid-feedback" id="select-invalid"></div>
           <div data-selectmenu-target="selects" class="select-list h4 d-block"></div>
         </div>
-        <%= form_select(f, :night, "宿泊数", Post.nights.keys.map { |key| [key.humanize, key] })%>
-        <%= form_select(f, :people, "人数", Post.people.keys.map { |key| [key.humanize, key] })%>
+        <%= post_form_select(f, :night, "宿泊数", Post.stay_nights.keys.map { |key| [key.humanize, key] })%>
+        <%= post_form_select(f, :people, "人数", Post.people.keys.map { |key| [key.humanize, key] })%>
         <div data-controller="tag" class="form-group col p-3 post-form">
           <div class="d-flex">
             <%= f.label "タグ", class:"form-label w-25"%>
