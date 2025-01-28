@@ -28,7 +28,7 @@ URL: https://travelog.sagglenix.com/
 
 
 ### アプリケーション詳細設計書
-![image]![image](https://github.com/user-attachments/assets/1a0fb7a4-14e1-41fd-9148-199489d1bd2b)
+![image](https://github.com/user-attachments/assets/1a0fb7a4-14e1-41fd-9148-199489d1bd2b)
 
 
 ### テーブル定義書
