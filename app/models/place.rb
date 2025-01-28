@@ -6,11 +6,11 @@ class Place < ApplicationRecord
 
   validates :place_name, presence: true
 
-  def self. getPlaces(id)
+  def self.get_places(id)
     Place.where(post_id: id).order(:place_num)
   end
 
-  def self.createPlace(place_params, post_id)
+  def self.create_place(place_params, post_id)
     errors = []
     ActiveRecord::Base.transaction do
       place_params.each do |place_param|
@@ -24,7 +24,7 @@ class Place < ApplicationRecord
     errors.flatten
   end
 
-  def self.update_Or_CreatePlace(post_id, place_params, image)
+  def self.update_or_create_place(post_id, place_params, image)
     errors = []
     if place_params[:id] == "null"
       new_place = Place.new(
@@ -37,9 +37,7 @@ class Place < ApplicationRecord
         post_id: post_id,
         image: place_params[:image]
       )
-      unless new_place.save
-        errors = new_place.errors.full_messages.join(', ')
-      end
+      errors = new_place.errors.full_messages.join(', ') unless new_place.save
     else
       # 既存のレコードの更新処理
       place = Place.find_by(id: place_params[:id])

@@ -27,14 +27,14 @@ class User < ApplicationRecord
     end
   end
 
-  def getOrderUserPostData(select)
+  def get_order_user_postdata(select)
     case select
     when 'newpost'
-      self.posts.order(created_at: :desc)
+      posts.order(created_at: :desc)
     when 'comment'
-      self.posts.left_joins(:comments).group(:id).order('COUNT(comments.id) DESC')
+      posts.left_joins(:comments).group(:id).order('COUNT(comments.id) DESC')
     else
-      self.posts
+      posts
     end
   end
 end

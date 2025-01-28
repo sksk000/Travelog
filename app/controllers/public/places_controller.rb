@@ -4,7 +4,7 @@ class Public::PlacesController < ApplicationController
   end
 
   def edit
-    @place = Place.getPlaces(params[:post_id])
+    @place = Place.get_places(params[:post_id])
     @post_id = params[:post_id]
 
     respond_to do |format|
@@ -13,16 +13,14 @@ class Public::PlacesController < ApplicationController
     end
   end
 
-  # rubocop:disable Style/Next: Use next to skip iteration. unless place.saveに投稿失敗した場合はあとの処理は行わず、ループを抜けたいため。
   def create
-    errors = Place.createPlace(place_params, params[:post_id])
+    errors = Place.create_place(place_params, params[:post_id])
     if errors.empty?
-       render json: { message: '投稿に成功しました。', redirect_url: post_path(params[:post_id]) }, status: :created
+      render json: { message: '投稿に成功しました。', redirect_url: post_path(params[:post_id]) }, status: :created
     else
       render json: { message: "投稿に失敗しました。: #{errors.join(', ')}" }, status: :unprocessable_entity
     end
   end
-  # rubocop:enable Style/Next: Use next to skip iteration.
 
   def update
     client_place_ids = update_params.map { |place| place[:id].to_s.strip }.reject { |id| id == "null" || id.blank? }
@@ -31,10 +29,8 @@ class Public::PlacesController < ApplicationController
     end
     ActiveRecord::Base.transaction do
       update_params.each do |place_param|
-        error = Place.update_Or_CreatePlace(params[:post_id], place_param, params[:place][:image])
-        unless error.empty?
-          render json: { message: "投稿に失敗しました。: #{error}" }, status: :unprocessable_entity
-        end
+        error = Place.update_or_create_place(params[:post_id], place_param, params[:place][:image])
+        render json: { message: "投稿に失敗しました。: #{error}" }, status: :unprocessable_entity unless error.empty?
       end
     end
 

@@ -8,17 +8,19 @@ module SearchModalHelper
   def search_modal_button_group(name, range, stars: false)
     content_tag(:div, class: "#{name} mb-3") do
       label_tag(name.humanize) + content_tag(:div, class: "btn-group btn-group-toggle", data: { toggle: "buttons" }) do
+        safe_join(
           range.map do |value|
             content_tag(:label, class: "btn btn-outline-primary btn-lg") do
               check_box_tag("#{name}[]", value, false, autocomplete: "off") +
                 if stars
-                  (1..value).map { image_tag('star-on.png') }.join.html_safe
+                  safe_join((1..value).map { image_tag('star-on.png') })
                 else
                   "#{value}月"
                 end
             end
-          end.join.html_safe
-        end
+          end
+        )
+      end
     end
   end
 end
