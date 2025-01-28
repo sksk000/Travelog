@@ -14,7 +14,7 @@
                 <h4>条件検索</h4>
               </div>
               <div class="modal-body">
-                  <%= search_months_checkboxes(f, @travel_months, 'travel_months', '旅行月') %>
+                  <%= search_months_checkboxes(@travel_months, 'travel_months', '旅行月') %>
                   <%= search_form_select(
                     f,
                     :prefectures,
@@ -23,7 +23,8 @@
                     PostPrefecture.prefectures.keys,
                     @prefectures
                   ) %>
-                  <%= search_form_select(f,
+                  <%= search_form_select(
+                    f,
                     :stay_nights,
                     '宿泊数',
                     'all_stay_nights',
@@ -38,8 +39,8 @@
                     Post.people.keys,
                     @people
                   ) %>
-                  <%= search_months_checkboxes(f, @post_month, 'post_months', '投稿月') %>
-                  <%= search_good_checkboxes(f, @travel_goods, 'travel_goods', '観光点数') %>
+                  <%= search_months_checkboxes(@post_month, 'post_months', '投稿月') %>
+                  <%= search_good_checkboxes(@travel_goods, 'travel_goods', '観光点数') %>
                 <div class="modal-footer">
                   <%= f.submit "検索", class:"btn btn-default" %>
                 </div>

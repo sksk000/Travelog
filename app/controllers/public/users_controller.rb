@@ -44,7 +44,7 @@ class Public::UsersController < ApplicationController
 
   def post_index
     @user = User.find(params[:id])
-    @posts = @user.getOrderUserPostData(params[:select])
+    @posts = @user.get_order_user_postdata(params[:select])
 
     render partial: 'public/posts/index', layout: false, locals: { targetpost: @posts, userdata: @user }
   end

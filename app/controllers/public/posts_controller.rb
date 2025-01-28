@@ -9,9 +9,9 @@ class Public::PostsController < ApplicationController
   def show
     @post_id = params[:id]
     target_place_id = params[:place_id]
-    @target_place = @post.getTargetPlace(target_place_id)
+    @target_place = @post.get_target_place(target_place_id)
     @prefectures = PostPrefecture.where(post_id: params[:id])
-    @tags = @post.getTags
+    @tags = @post.tags
     @comments = @post.comments.order(created_at: "DESC")
 
     respond_to do |format|

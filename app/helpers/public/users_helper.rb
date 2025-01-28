@@ -18,5 +18,4 @@ module Public::UsersHelper
       image_tag(asset_path('no_image.jpg'), options)
     end
   end
-
 end

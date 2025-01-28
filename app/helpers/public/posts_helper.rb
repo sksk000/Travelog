@@ -14,21 +14,20 @@ module Public::PostsHelper
 
     content_tag(:div, class: "form-group col p-3 post-form") do
       form.label(field, label, class: "form-label") +
-      if options[:row] && options[:col]
-        form.text_area(field, options)
-      else
-        form.text_field(field, options)
-      end +
-      content_tag(:div, '', class: 'invalid-feedback')
+        if options[:row] && options[:col]
+          form.text_area(field, options)
+        else
+          form.text_field(field, options)
+        end +
+        content_tag(:div, '', class: 'invalid-feedback')
     end
   end
 
   def post_form_select(form, field, label, collection, options = {})
     options[:class] ||= 'form-control w-25'
-    Rails.logger.debug "Options for select: #{options.inspect}"  # デバッグ用ログ
     content_tag(:div, class: 'form-group col d-flex p-3 post-form') do
       form.label(field, label, class: 'form-label w-25') +
-      form.select(field, collection, {}, options)
+        form.select(field, collection, {}, options)
     end
   end
 
