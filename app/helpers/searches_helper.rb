@@ -1,5 +1,5 @@
 module SearchesHelper
-  def months_checkboxes(f, months, name, label)
+  def search_months_checkboxes(f, months, name, label)
     content_tag(:div, class: "month mb-3") do
       output = content_tag(:label, label) + tag(:br)
       output += content_tag(:div, class: "btn-group btn-group-toggle", data: { toggle: 'buttons' }) do
@@ -14,7 +14,7 @@ module SearchesHelper
     end
   end
 
-  def form_select(f, field_name, label_text, all_option_value, list_keys, selected_value, options = {})
+  def search_form_select(f, field_name, label_text, all_option_value, list_keys, selected_value, options = {})
     options[:class] ||= 'mb-3'
     content_tag(:div, options) do
       f.label(label_text).concat(
@@ -23,7 +23,7 @@ module SearchesHelper
     end
   end
 
-  def good_checkboxes(f, goods, name, label)
+  def search_good_checkboxes(f, goods, name, label)
     content_tag(:div, class: "good mb-3") do
       output = content_tag(:label, label) + tag(:br)
       output += content_tag(:div, class: "btn-group btn-group-toggle", data: { toggle: 'buttons' }) do

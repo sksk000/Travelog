@@ -1,11 +1,11 @@
 module SearchModalHelper
-  def search_select(form, field, label, options, css_class: "form-control")
+  def search_modal_select(form, field, label, options, css_class: "form-control")
     content_tag(:div, class: "#{field} mb-3") do
       form.label(label) + form.select(field, [['指定なし', "all_#{field}"]] + options, {}, class: css_class)
     end
   end
 
-  def button_group(name, range, stars: false)
+  def search_modal_button_group(name, range, stars: false)
     content_tag(:div, class: "#{name} mb-3") do
       label_tag(name.humanize) + content_tag(:div, class: "btn-group btn-group-toggle", data: { toggle: "buttons" }) do
           range.map do |value|
