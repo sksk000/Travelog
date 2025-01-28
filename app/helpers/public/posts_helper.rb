@@ -36,4 +36,15 @@ module Public::PostsHelper
     [["1月", 1], ["2月", 2], ["3月", 3], ["4月", 4], ["5月", 5], ["6月", 6],
      ["7月", 7], ["8月", 8], ["9月", 9], ["10月", 10], ["11月", 11], ["12月", 12]]
   end
+
+  def post_image(post, size, options = {})
+    options[:size] = size
+    options[:class] = "mt-3 rounded mx-auto d-block"
+    
+    if post.image.present?
+      image_tag(post.image, options)
+    else
+      image_tag(asset_path('no_image.jpg'), options)
+    end
+  end
 end
