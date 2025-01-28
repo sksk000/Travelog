@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_11_30_084330) do
+ActiveRecord::Schema.define(version: 2025_01_28_145009) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(version: 2024_11_30_084330) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
-    t.integer "good"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -95,19 +94,15 @@ ActiveRecord::Schema.define(version: 2024_11_30_084330) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
-    t.boolean "is_release", default: false
-    t.boolean "is_stoprelease"
-    t.integer "user_id"
+    t.string "title", null: false
+    t.text "body", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "good"
-    t.integer "season"
-    t.integer "place"
-    t.integer "night"
-    t.integer "people"
-    t.integer "travelmonth"
+    t.integer "night", null: false
+    t.integer "people", null: false
+    t.integer "travelmonth", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
