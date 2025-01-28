@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_28_155618) do
+ActiveRecord::Schema.define(version: 2025_01_28_161021) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 2025_01_28_155618) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text "comment"
-    t.integer "post_id"
+    t.text "comment", null: false
+    t.integer "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2025_01_28_155618) do
 
   create_table "post_prefectures", force: :cascade do |t|
     t.integer "post_id", null: false
-    t.integer "prefecture"
+    t.integer "prefecture", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_post_prefectures_on_post_id"
@@ -118,11 +118,9 @@ ActiveRecord::Schema.define(version: 2025_01_28_155618) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "is_showprofile", default: true
-    t.boolean "is_servicestop"
     t.string "introduction"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
