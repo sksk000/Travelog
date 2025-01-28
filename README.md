@@ -67,5 +67,5 @@ https://docs.google.com/spreadsheets/d/1qXiKlpyrYHdSDIMqwMFumkS4Jl1uj7081Eztgk77
   - [Unsplash](https://unsplash.com/ja) 様
   - [ぱくたそ](https://www.pakutaso.com/) 様
   - [いらすとや](https://www.irasutoya.com/) 様
-  - [写真AC](https://www.photo-ac.com/)様
+  - [写真AC](https://www.photo-ac.com/) 様
 - 尚、本番環境上にてユーザ様が投稿した画像については、この限りではありません。
