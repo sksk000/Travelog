@@ -18,8 +18,6 @@ json.data do
     end
     json.title @post.title
     json.body @post.body
-    json.is_release @post.is_release
-    json.is_stoprelease @post.is_stoprelease
     json.good @post.good
     json.latitude @target_place_latitude
     json.longitude @target_place_longitude

@@ -202,6 +202,9 @@ export default class extends Controller {
       }
     }
 
+    if (!formData.get("post[good]").trim()) {
+      formData.set("post[good]", "0");
+    }
 
     if(isfetch){
       const actionURL = this.formTarget.action.endsWith('.json') ? this.formTarget.action : this.formTarget.action + '.json';

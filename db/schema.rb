@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_11_30_084330) do
+ActiveRecord::Schema.define(version: 2025_01_28_161021) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,33 +53,32 @@ ActiveRecord::Schema.define(version: 2024_11_30_084330) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text "comment"
-    t.integer "post_id"
+    t.text "comment", null: false
+    t.integer "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
-    t.integer "good"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "places", force: :cascade do |t|
-    t.integer "post_id"
-    t.string "place_name"
-    t.string "address"
-    t.float "latitude"
-    t.float "longitude"
-    t.integer "place_num"
+    t.integer "post_id", null: false
+    t.string "place_name", null: false
+    t.string "address", null: false
+    t.float "latitude", null: false
+    t.float "longitude", null: false
+    t.integer "place_num", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "comment"
-    t.integer "good"
+    t.integer "good", null: false
     t.index ["post_id"], name: "index_places_on_post_id"
   end
 
   create_table "post_prefectures", force: :cascade do |t|
     t.integer "post_id", null: false
-    t.integer "prefecture"
+    t.integer "prefecture", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_post_prefectures_on_post_id"
@@ -95,19 +94,15 @@ ActiveRecord::Schema.define(version: 2024_11_30_084330) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
-    t.boolean "is_release", default: false
-    t.boolean "is_stoprelease"
-    t.integer "user_id"
+    t.string "title", null: false
+    t.text "body", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "good"
-    t.integer "season"
-    t.integer "place"
-    t.integer "night"
-    t.integer "people"
-    t.integer "travelmonth"
+    t.integer "good", null: false
+    t.integer "night", null: false
+    t.integer "people", null: false
+    t.integer "travelmonth", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -123,11 +118,9 @@ ActiveRecord::Schema.define(version: 2024_11_30_084330) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "is_showprofile", default: true
-    t.boolean "is_servicestop"
     t.string "introduction"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

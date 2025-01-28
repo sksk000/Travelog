@@ -159,13 +159,18 @@ export default class extends Controller {
       placenum = this.state.currentindex + 1
     }
 
+    let raty = inputraty.value
+    if(!raty.trim()){
+      raty = 0
+    }
+
     const tabdata = {
       place_name: placename,
       comment: comment,
       latitude: lat,
       longitude: lng,
       image: image,
-      good: inputraty.value,
+      good: raty,
       place_num: this.state.currentindex + 1
     }
 
