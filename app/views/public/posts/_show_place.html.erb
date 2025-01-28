@@ -1,0 +1,9 @@
+<div class="place mt-3 border rounded bg-white">
+  <h5>訪れた場所一覧️:</h5>
+  <% places.each_with_index do | place, i |%>
+    📍<a class="link-opacity-25-hover" data-action="click->post#moveMaker" data-post-target="placedata" data-latitude="<%= place.latitude%>" data-longitude="<%= place.longitude%>" data-index=" <%= i %>"> <%= place.place_name %></a>
+    <% if places.length - 1 > i %>
+      <div  class="border-right border-secondary" style="height: 20px; width: 20px;"></div>
+    <% end %>
+  <% end %>
+</div>

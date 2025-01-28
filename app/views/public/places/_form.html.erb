@@ -1,16 +1,10 @@
 <div class="container-fluid" data-controller="place">
   <div class="row">
-    <div class="col-md-3" style = "background-color: #f0f8ff; height: 100vh; overflow: hidden;">
+    <div class="col-md-3" id="place-form">
       <%= form_with model: @place, url: post_places_path(@post_id), method: :post, html: { multipart: true },data: { action: "submit->place#submitForm", place_target: "form" } do |f| %>
         <div class="form-group col mt-3 border rounded bg-white p-3">
           <%= f.label :place_name, "訪問地をキーワードで検索" %><br>
-          <div class="search">
-            <div class="form-group">
-              <input class="form-control" type="text" placeholder="キーワードを入力" data-action="keydown.enter->place#showSuggest" data-place-target="input">
-              <i class="fa-solid fa-magnifying-glass" id="searchicon"></i>
-              <div class="list-group list-group-flush" id="searchlists"></div>
-            </div>
-          </div>
+          <%= render 'public/places/form_search.html.erb' %>
         </div>
 
         <div class="form-group col border rounded bg-white p-3" >
@@ -29,56 +23,15 @@
           <%= render 'public/posts/good.html.erb', is_good_edit: true, modelname: "place" %>
         </div>
 
-        <div data-controller="images">
-          <div class="form-group col">
-           <div class="imagedrag bg-white"
-               data-images-target="drop"
-               data-action="dragover->images#dragOver dragleave->images#dragLeave drop->images#dropImages">
-              <div id="imageinfo">
-                <i class="fa-solid fa-circle-plus"></i></br>
-                <a>写真追加</a>
-              </div>
-            </div>
-            <div class="invalid-feedback" id="image-invalid"></div>
-          </div>
-        </div>
-        <button type="button" class="btn btn-primary tabbutton"  data-place-target="tabsave" data-action="click->place#saveData" id="savetabbutton"> 個別訪問地を登録 </button>
-        <button type="button" class="btn btn-danger tabbutton mt-3" data-place-target="deletedata" data-action="click->place#removePlaceData" id="deletebtn" > 個別訪問地を削除 </button>
-        <button type="button" class="btn btn-success tabbutton mt-5" data-place-target="submit"  data-action="click->place#submitForm">
-          すべての内容を確定して投稿
-        </button>
+        <%= render 'public/places/form_image.html.erb'%>
+        <%= action_button('btn-primary', '個別訪問地を登録', 'tabsave', 'click->place#saveData', 'mt-0', 'savetabbutton') %>
+        <%= action_button('btn-danger', '個別訪問地を削除', 'deletedata', 'click->place#removePlaceData', 'mt-3', 'deletebtn') %>
+        <%= action_button('btn-success', 'すべての内容を確定して投稿', 'submit', 'click->place#submitForm', 'mt-5') %>
       <% end %>
     </div>
-    <div class="col p-0">
-      <ul class="nav flex-column" style="position:absolute; z-index:1;">
-        <li class="nav-item m-0">
-          <button class="nav-link border border-secondary placedata bg-danger text-white" data-place-target="tab" data-action="click->place#loadPlacedata">1</button>
-        </li>
-        <li class="nav-item m-0">
-          <button class="nav-link border border-secondary bg-primary text-white" data-action="click->place#addTabs">訪問地を追加</button>
-        </li>
-      </ul>
-      <div id="place_map" data-id="<%= @post_id %>" style="height: 100vh;"></div>
-    </div>
+    <%= render 'public/places/form_tab.html.erb' %>
   </div>
-  <div id="mapModal" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" >訪問地選択</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="list-group list-group-flush" id="lists">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render 'public/places/form_modal.html.erb' %>
 </div>
 
 

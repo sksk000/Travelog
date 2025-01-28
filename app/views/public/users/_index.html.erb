@@ -1,19 +1,13 @@
 <% targetuser.each do | user | %>
-  <% unless user.name == "guestuser" && user.email == "guest@example.com"%>
-    <div class="col col-3 mt-4" style="justify-items: center;">
-      <div class="card border-dark" style="width: 260px; height: 380px;">
-        <% if user.profile_image.present? %>
-          <%= image_tag user.profile_image, size: "200x180", class:"card-img-top" %>
-        <% else %>
-          <%= image_tag asset_path('no_image.jpg'), size: "200x180", class:"card-img-top" %>
+  <div class="col col-3 mt-4" id="search-user-index">
+    <div class="card border-dark" id="search-user-index-card">
+      <%= user_index_image(user, "200x180") %>
+      <div class="card-body text-dark">
+        <h5 class="card-title"><%= link_to user.name, mypage_path(user.id) %></h5>
+        <% if user.introduction.present? %>
+          <%= user.introduction.truncate(40) %>
         <% end %>
-        <div class="card-body text-dark">
-          <h5 class="card-title"><%= link_to user.name, mypage_path(user.id) %></h5>
-          <% if user.introduction %>
-            <%= user.introduction.truncate(40) %>
-          <% end %>
-        </div>
       </div>
     </div>
-  <% end %>
+  </div>
 <% end %>

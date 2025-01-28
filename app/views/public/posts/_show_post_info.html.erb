@@ -1,0 +1,31 @@
+<div class="info mt-3 border rounded bg-white">
+  <h5>詳細情報:</h5>
+  <div class="month mt-3 ">
+    <p>旅行月:<%= post.travelmonth %>月</p>
+  </div>
+  <div class="place mt-3">
+    <label>都道府県名:</label>
+    <div class="placetag">
+      <% prefectures.each do | prefecture |%>
+        <p class="badge badge-pill badge-primary"> <%= prefecture.prefecture %></p>
+      <% end %>
+    </div>
+  </div>
+  <div class="people mt-3">
+    <p>人数:<%= post.people %></p>
+  </div>
+  <div class="people mt-3">
+    <p>宿泊数:<%= post.night %></p>
+  </div>
+  <div class="good mt-3">
+    旅行点数:<%= render 'public/posts/good.html.erb', is_good_edit: false, modelname: "post", model: post %></p>
+  </div>
+  <div class="tag mt-3">
+    <% tags.each do | tag |%>
+      <div class="badge badge-pill badge-primary"> #<%= tag.name %></div>
+    <% end %>
+  </div>
+  <div class="date mt-3">
+    <p>投稿日:<%= l post.created_at %></p>
+  </div>
+</div>

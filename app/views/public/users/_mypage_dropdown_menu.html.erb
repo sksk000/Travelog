@@ -1,0 +1,12 @@
+<div class="col">
+  <% if current_user.id == user.id %>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa-solid fa-gear"></i>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <%= link_to "ユーザ情報編集", edit_path(user.id), class:"dropdown-item" %>
+      </div>
+    </div>
+  <% end %>
+</div>
