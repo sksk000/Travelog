@@ -1,17 +1,27 @@
  <div class="row">
   <div class="col user_image">
-    <label><プロフィール画像></label>
+    <label>プロフィール画像:</label>
     <%= user_profile_image(user, "200x200") %>
   </div>
   <div class="col-8">
-    <div class="username">
-      <label>ユーザ名：</label>
-      <%= user.name %>
+    <!-- ユーザ名 -->
+    <div class="row mb-2">
+      <div class="col-2">
+        <label>ユーザ名:</label>
+      </div>
+      <div class="col-9">
+        <%= user.name %>
+      </div>
     </div>
 
-    <div class="introduction">
-      <label>自己紹介：</label>
-      <%= user.introduction %>
+    <!-- 自己紹介 -->
+    <div class="row">
+      <div class="col-2">
+        <label>自己紹介:</label>
+      </div>
+      <div class="col-9">
+        <%= user.introduction %>
+      </div>
     </div>
   </div>
 
