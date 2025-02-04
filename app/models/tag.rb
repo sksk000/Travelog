@@ -4,6 +4,6 @@ class Tag < ApplicationRecord
 
   def self.looks(searchdata)
     tag = find_by(name: searchdata)
-    tag.posts if tag
+    tag&.posts
   end
 end

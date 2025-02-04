@@ -26,6 +26,6 @@ class Public::SearchesController < ApplicationController
   private
 
   def search_params
-     params.permit(:searchdata, :travel_months, :prefectures, :stay_nights, :people, :post_months, :travel_goods)
+    params.permit(:searchdata, :travel_months, :prefectures, :stay_nights, :people, :post_months, :travel_goods)
   end
 end
