@@ -4,7 +4,7 @@
       <div class="col">
         <% if @category == "user_search" %>
           <p>検索条件に当てはまるユーザが見つかりませんでした。</p>
-        <% elsif @category == "post_search" %>
+        <% else %>
           <p>検索条件に当てはまる投稿が見つかりませんでした。</p>
         <% end %>
         <p>検索のヒント:</p>
@@ -19,7 +19,7 @@
     <% else %>
       <% if @category == "user_search" %>
         <%= render 'public/users/index', targetuser: @results %>
-      <% elsif @category == "post_search" %>
+      <% else %>
         <%= render 'public/posts/index', targetpost: @results %>
       <% end %>
     <% end %>
