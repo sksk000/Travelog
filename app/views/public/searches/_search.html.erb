@@ -4,7 +4,7 @@
       <%= form_with method: :get , url: search_result_path do |f| %>
         <%= f.select :search_category_select, [['投稿検索', 'post_search']] + [['ユーザ検索', 'user_search']], {class:"form-control" },
         :onchange =>"changeRefineButtonVisiblity(this)" %>
-        <%= f.text_field :seachdata, size: 40, value: @searchdata %>
+        <%= f.text_field :searchdata, size: 40, value: @searchdata %>
         <%= f.submit "検索" ,class: "btn btn-primary"%>
         <button type="button" class="btn btn-primary mb-8" data-toggle="modal" data-target="#testModal" name="refine">絞り込み</button>
         <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">

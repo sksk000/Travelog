@@ -9,7 +9,9 @@
       <div class="card-body text-dark">
         <h5 class="card-title"><%= link_to post.title, post_path(post.id) %></h5>
         <% post.tags.each do | tag |%>
-          <button type="button" class="btn btn-outline-dark btn-sm">#<%= tag.name %></button>
+          <%= link_to search_result_path(searchdata: tag.name, search_category_select: "tag_search"), class: "btn btn-outline-dark btn-sm" do %>
+            #<%= tag.name %>
+          <% end %>
         <% end %>
       </div>
       <div class="card-footer d-flex justify-content-between">
