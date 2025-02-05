@@ -12,7 +12,7 @@ class Public::SearchesController < ApplicationController
       @results = Tag.looks(search_params[:searchdata])
     end
 
-    @is_empty = @results.empty?
+    @is_empty = @results.nil? || @results.empty?
 
     @stay_nights = search_params[:stay_nights]
     @people = search_params[:people]

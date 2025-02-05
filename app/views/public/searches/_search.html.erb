@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col">
       <%= form_with method: :get , url: search_result_path do |f| %>
-        <%= f.select :search_category_select, [['投稿検索', 'post_search']] + [['ユーザ検索', 'user_search']], {class:"form-control" },
+        <%= f.select :search_category_select, [['投稿検索', 'post_search']] + [['ユーザ検索', 'user_search']] + [['タグ検索', 'tag_search']], {class:"form-control" },
         :onchange =>"changeRefineButtonVisiblity(this)" %>
         <%= f.text_field :searchdata, size: 40, value: @searchdata %>
         <%= f.submit "検索" ,class: "btn btn-primary"%>
