@@ -6,13 +6,24 @@ crumb :about do
   link "about", about_path
 end
 
+crumb :post_tag do
+  link '投稿一覧', root_path
+  parent :root
+end
+
+crumb :user_tag do
+  link 'ユーザ一覧', search_result_path(searchdata: '', search_category_select: "user_search")
+  parent :root
+end
+
 crumb :post_show do |post|
   link post.title, post_path(post.id)
-  parent :root
+  parent :post_tag
 end
 
 crumb :user_show do |user|
   link user.name, mypage_path(user.id)
+  parent :user_tag
 end
 
 # crumb :projects do
